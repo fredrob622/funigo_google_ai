@@ -1,0 +1,41 @@
+<%- include('../partials/header') %>
+
+<div class="content">
+    <h2>Rechercher un Kanji</h2>
+    <form action="/kanji/search" method="POST" class="search-form">
+        <input type="text" name="searchTerm" placeholder="Entrez un kanji, romaji, sens..." value="<%= typeof searchTerm !== 'undefined' ? searchTerm : '' %>" required>
+        <button type="submit">Rechercher</button>
+    </form>
+
+    <% if (results.length > 0) { %>
+        <h3>Résultats pour "<%= searchTerm %>"</h3>
+        <div class="results-table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Niveau</th>
+                        <th>Kanji</th>
+                        <th>Onyomi</th>
+                        <th>Kunyomi</th>
+                        <th>Français</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% results.forEach(kanji => { %>
+                        <tr>
+                            <td><%= kanji.niveau %></td>
+                            <td class="jp-char"><%= kanji.kanji %></td>
+                            <td><%= kanji.onyomi %></td>
+                            <td><%= kanji.kunyomi %></td>
+                            <td><%= kanji.francais %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    <% } else if (typeof searchTerm !== 'undefined') { %>
+        <p>Aucun résultat trouvé pour "<%= searchTerm %>".</p>
+    <% } %>
+</div>
+
+<%- include('../partials/footer') %>
