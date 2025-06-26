@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const mysql = require('mysql2/promise');
+const { log } = require('console');
 
 // Initialiser l'application Express
 const app = express();
@@ -46,6 +47,8 @@ app.post('/kanji/search', async (req, res) => {
     const searchTerm = req.body.searchTerm;
     try {
         const query = `SELECT kanji, onyomi, kunyomi, francais, niveau FROM kanji_char WHERE kanji LIKE ? OR onyomi LIKE ? OR kunyomi LIKE ? OR francais LIKE ?`;
+        console.log(query);
+        
         const searchPattern = `%${searchTerm}%`;
         const [results] = await dbPool.query(query, [searchPattern, searchPattern, searchPattern, searchPattern]);
         res.render('pages/kanji_form', { title: 'Résultats Kanji', results: results, searchTerm: searchTerm });
