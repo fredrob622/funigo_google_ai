@@ -1,7 +1,7 @@
 /* --- Général --- */
 body { font-family: Arial, sans-serif; margin: 0; display: flex; flex-direction: column; min-height: 100vh; background-color: #f4f4f4; }
-main { flex-grow: 1; padding: 20px; background-image: url('../images/pp3.webp'); background-size: cover; background-position: center; background-attachment: fixed; }
-.content { max-width: 1200px; margin: 0 auto; background-color: rgba(255, 255, 255, 0.92); padding: 20px 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+main { flex-grow: 1; background-image: url('../images/pp3.webp'); background-size: cover; background-position: center; background-attachment: fixed; }
+.content { max-width: 1200px; margin: 20px auto; margin: 0 auto; background-color: rgba(255, 255, 255, 0.92); padding: 20px 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 .jp-char { font-size: 1.5em; }
 
 /* --- Header --- */
@@ -65,6 +65,45 @@ footer {
     z-index: 10;
     border: 3px solid white; /* NOUVEAU : Bordure blanche */
 }
+
+/* --- NOUVEAU : Styles pour le Carrousel Swiper.js --- */
+/* Styles pour le Carrousel Swiper.js */
+.my-swiper {
+    width: 100%;
+    max-width: 1200px; /* Le carrousel prendra au maximum 1200px */
+    height: 65vh;      /* Hauteur relative à la fenêtre (ex: 65% de la hauteur visible) */
+    margin: 30px auto; /* Marge en haut/bas et centré horizontalement */
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.swiper-slide {
+    background: #1c1c1c; /* Fond sombre pendant le chargement */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Important pour que l'image ne dépasse pas */
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* L'image remplit la slide sans se déformer */
+}
+
+/* Style des flèches et de la pagination (important pour la visibilité) */
+.swiper-button-next, .swiper-button-prev {
+    color: white !important; /* Force la couleur des flèches en blanc */
+}
+
+.swiper-pagination-bullet-active {
+    background: white !important; /* Point actif en blanc pour contraster */
+}
+
+/* Fichier : public/css/style.css (Ajoutez ce code à la fin) */
+
+
 
 /* --- Responsive Design --- */
 @media (max-width: 768px) {

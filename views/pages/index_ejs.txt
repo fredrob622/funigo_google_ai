@@ -1,0 +1,57 @@
+<%- include('../partials/header') %>
+
+<!-- On garde la classe .content pour la marge et le fond, mais on enlève le padding pour que le carrousel prenne toute la place -->
+<div class="content" style="padding: 0; background-color: transparent; box-shadow: none;">
+    
+    <!-- Début de la structure du carrousel Swiper -->
+    <div class="swiper my-swiper">
+<div class="swiper-wrapper">
+            <!-- Les chemins sont maintenant en .jpg (minuscules) -->
+            <div class="swiper-slide">
+                <img data-src="/images/accueil/P01.jpg" class="swiper-lazy" alt="Image d'accueil 1">
+                <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+            </div>
+            <div class="swiper-slide">
+                <img data-src="/images/accueil/P02.jpg" class="swiper-lazy" alt="Image d'accueil 2">
+                <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+            </div>
+            <div class="swiper-slide">
+                <img data-src="/images/accueil/P03.jpg" class="swiper-lazy" alt="Image d'accueil 3">
+                <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+            </div>
+            <div class="swiper-slide">
+                <img data-src="/images/accueil/P04.jpg" class="swiper-lazy" alt="Image d'accueil 4">
+                <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+            </div>
+            <div class="swiper-slide">
+                <img data-src="/images/accueil/P05.jpg" class="swiper-lazy" alt="Image d'accueil 5">
+                <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+            </div>
+            <div class="swiper-slide">
+                <img data-src="/images/accueil/P06.jpg" class="swiper-lazy" alt="Image d'accueil 6">
+                <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+            </div>
+            <div class="swiper-slide">
+                <img data-src="/images/accueil/P07.jpg" class="swiper-lazy" alt="Image d'accueil 7">
+                <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+            </div>
+            <div class="swiper-slide">
+                <img data-src="/images/accueil/P08.jpg" class="swiper-lazy" alt="Image d'accueil 8">
+                <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+            </div>
+            <div class="swiper-slide">
+                <img data-src="/images/accueil/P09.jpg" class="swiper-lazy" alt="Image d'accueil 9">
+                <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+            </div>
+        </div>
+        <!-- Ajout des flèches de navigation -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <!-- Ajout des points de pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+    <!-- Fin de la structure du carrousel -->
+
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,9 +1,26 @@
 <%- include('../partials/header') %>
 
-<div class="content">
-    <h2>Bienvenue sur Funigo !</h2>
-    <p>Votre portail pour explorer la langue japonaise et la culture française.</p>
-    <p>Utilisez le menu ci-dessus pour naviguer.</p>
+    
+<!-- Fichier : views/index.ejs (VERSION DE TEST SANS LAZY LOADING) -->
+
+<div class="swiper my-swiper">
+    <div class="swiper-wrapper">
+        <!-- ON UTILISE "src" AU LIEU DE "data-src" -->
+        <div class="swiper-slide"><img src="/images/accueil/P01.jpg" alt="Sashimi assorti"></div>
+        <div class="swiper-slide"><img src="/images/accueil/P02.jpg" alt="Château de Himeji"></div>
+        <div class="swiper-slide"><img src="/images/accueil/P03.jpg" alt="Image Funigo 3"></div>
+        <div class="swiper-slide"><img src="/images/accueil/P04.jpg" alt="Image Funigo 4"></div>
+        <div class="swiper-slide"><img src="/images/accueil/P05.jpg" alt="Image Funigo 5"></div>
+        <div class="swiper-slide"><img src="/images/accueil/P06.jpg" alt="Image Funigo 6"></div>
+        <div class="swiper-slide"><img src="/images/accueil/P07.jpg" alt="Image Funigo 7"></div>
+        <div class="swiper-slide"><img src="/images/accueil/P08.jpg" alt="Image Funigo 8"></div>
+        <div class="swiper-slide"><img src="/images/accueil/P09.jpg" alt="Image Funigo 9"></div>
+    </div>
+    <!-- Les contrôles ne changent pas -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-pagination"></div>
 </div>
+
 
 <%- include('../partials/footer') %>

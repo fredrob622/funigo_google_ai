@@ -72,4 +72,28 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchWeather('paris', weatherApiUrlParis);
     fetchWeather('tokyo', weatherApiUrlTokyo);
     fetchCurrencyRate();
+
+    
+
+    // Fichier : public/js/main.js (Version finale optimisée)
+
+    const swiper = new Swiper('.my-swiper', {
+        loop: true,
+        // PAS de "lazy: true" ici
+        
+        autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+
+
 });
