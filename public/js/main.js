@@ -75,14 +75,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     
 
-    // Fichier : public/js/main.js (Version finale optimisée)
+   // Fichier : public/js/main.js (Nouvelles options pour le carrousel)
 
     const swiper = new Swiper('.my-swiper', {
+        // --- NOUVELLES OPTIONS POUR L'AFFICHAGE EN GRILLE ---
+        slidesPerView: 3,      // Affiche 3 slides en même temps sur grand écran
+        spaceBetween: 20,      // Espace de 20px entre les slides
+        
         loop: true,
-        // PAS de "lazy: true" ici
         
         autoplay: {
-            delay: 4000,
+            delay: 3000,
             disableOnInteraction: false,
         },
         pagination: {
@@ -93,6 +96,26 @@ document.addEventListener('DOMContentLoaded', () => {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
         },
+        
+        // --- NOUVEAU : Rendre le carrousel "responsive" ---
+        // Pour que sur les petits écrans (mobiles), on ne voie qu'une seule image
+        breakpoints: {
+            // quand la largeur de la fenêtre est >= 320px
+            320: {
+            slidesPerView: 3,
+            spaceBetween: 10
+            },
+            // quand la largeur de la fenêtre est >= 768px
+            768: {
+            slidesPerView: 4,
+            spaceBetween: 20
+            },
+            // quand la largeur de la fenêtre est >= 1024px
+            1024: {
+            slidesPerView: 6,
+            spaceBetween: 30
+            }
+        }
     });
 
 

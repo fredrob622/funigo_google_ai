@@ -1,7 +1,7 @@
 /* --- Général --- */
 body { font-family: Arial, sans-serif; margin: 0; display: flex; flex-direction: column; min-height: 100vh; background-color: #f4f4f4; }
 main { flex-grow: 1; background-image: url('../images/pp3.webp'); background-size: cover; background-position: center; background-attachment: fixed; }
-.content { max-width: 1200px; margin: 20px auto; margin: 0 auto; background-color: rgba(255, 255, 255, 0.92); padding: 20px 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+.content { max-width: 1200px; margin: 40px auto;  background-color: rgba(255, 255, 255, 0.92); padding: 20px 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 .jp-char { font-size: 1.5em; }
 
 /* --- Header --- */
@@ -30,7 +30,7 @@ header {
 nav { background-color: black; }
 #nav-links { list-style: none; padding: 0; margin: 0; display: flex; justify-content: center; }
 #nav-links > li > a { display: block; color: white; text-align: center; padding: 14px 20px; text-decoration: none; transition: background-color 0.3s; }
-#nav-links li a:hover, .dropdown:hover { background-color: black; } /* Votre changement de couleur */
+#nav-links li a:hover, .dropdown:hover { background-color: #074107; } /* Votre changement de couleur */
 .dropdown-content { display: none; position: absolute; background-color: black; min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; }
 .dropdown-content a { color: white; padding: 12px 20px; text-decoration: none; display: block; text-align: left; transition: background-color 0.2s; }
 .dropdown:hover .dropdown-content { display: block; }
@@ -71,18 +71,21 @@ footer {
 .my-swiper {
     width: 100%;
     max-width: 1200px; /* Le carrousel prendra au maximum 1200px */
-    height: 65vh;      /* Hauteur relative à la fenêtre (ex: 65% de la hauteur visible) */
+    height: auto;
+    /* height: 20vh;      /* Hauteur relative à la fenêtre (ex: 20% de la hauteur visible) */
     margin: 30px auto; /* Marge en haut/bas et centré horizontalement */
     border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    /* box-shadow: 0 5px 15px rgba(0,0,0,0.3); */
+    overflow: hidden; /* <-- AJOUTEZ CETTE LIGNE */
 }
 
 .swiper-slide {
-    background: #1c1c1c; /* Fond sombre pendant le chargement */
+     background: transparent; /* Fond sombre pendant le chargement */
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden; /* Important pour que l'image ne dépasse pas */
+    height: auto; 
 }
 
 .swiper-slide img {
@@ -90,6 +93,7 @@ footer {
     width: 100%;
     height: 100%;
     object-fit: cover; /* L'image remplit la slide sans se déformer */
+    max-height: 250px; 
 }
 
 /* Style des flèches et de la pagination (important pour la visibilité) */
@@ -99,6 +103,16 @@ footer {
 
 .swiper-pagination-bullet-active {
     background: white !important; /* Point actif en blanc pour contraster */
+}
+
+/* Cache les flèches de navigation du carrousel */
+.swiper-button-next,
+.swiper-button-prev {
+    display: none !important; /* On force la disparition des flèches */
+}
+
+.swiper-pagination {
+    display: none !important;
 }
 
 /* Fichier : public/css/style.css (Ajoutez ce code à la fin) */
@@ -134,4 +148,13 @@ footer {
     .dropdown-content { display: none; position: static; background-color: #3f3f3f; box-shadow: none; }
     .dropdown-content.open { display: block; }
     .dropdown-content a { padding-left: 40px; }
+
+        /* Sur les écrans de moins de 768px de large (mobiles) */
+    .swiper-slide img {
+        /* On annule la hauteur maximale */
+        max-height: 25vh; /* 45% de la hauteur de l'écran visible *
+
+        /* On change le mode d'ajustement de l'image */
+        object-fit: contain; /* <-- CHANGEMENT CLÉ 3 */
+    }
 }
