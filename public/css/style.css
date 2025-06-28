@@ -117,7 +117,97 @@ footer {
 
 /* Fichier : public/css/style.css (Ajoutez ce code à la fin) */
 
+/* Conteneur du tableau pour le fond noir et les coins arrondis */
+.results-table-container {
+    background-color: black;
+    color: white; /* Couleur du texte par défaut pour tout ce qui est à l'intérieur */
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 30px;
+    overflow-x: auto; /* Ajoute un scroll horizontal si le tableau est trop large sur mobile */
+}
 
+/* Style général du tableau */
+.results-table {
+    width: 100%;
+    border-collapse: collapse; /* Enlève les doubles bordures */
+    border-spacing: 0;
+}
+
+/* Style des cellules d'en-tête (th) et de données (td) */
+.results-table th,
+.results-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #444; /* Ligne de séparation grise foncée */
+}
+
+/* Style SPÉCIFIQUE pour les en-têtes (th) */
+.results-table thead th {
+    background-color: #074107; /* Le vert foncé demandé */
+    color: white;
+    font-weight: bold; /* Met le texte en gras */
+    text-transform: uppercase; /* Met le texte en majuscules pour un look pro */
+}
+
+/* Style pour les lignes de résultat (tr) dans le corps du tableau (tbody) */
+.results-table tbody tr {
+    /* Par défaut, toutes les lignes ont un fond noir (hérité du conteneur) */
+    background-color: black;
+}
+
+/* --- L'ASTUCE POUR L'ALTERNANCE DES COULEURS --- */
+/* Cible une ligne sur deux (les lignes impaires : 1, 3, 5...) */
+.results-table tbody tr:nth-child(odd) {
+    background-color: #1e1e1e; /* Un gris très foncé, proche du noir, pour un contraste subtil */
+}
+
+/* Effet de survol sur les lignes pour une meilleure interactivité */
+.results-table tbody tr:hover {
+    background-color: #3a3a3a; /* Un gris un peu plus clair au survol */
+}
+
+.content-black {
+    background-color: black;
+    box-shadow: none;
+    color: white; /* Rend le texte par défaut blanc pour un meilleur contraste */
+}
+
+/* 1. Styles COMMUNS au champ de recherche ET au bouton */
+.content-black .search-form input,
+.content-black .search-form button {
+    border: 2px solid transparent; /* Bordure transparente pour éviter un saut au focus */
+    border-radius: 25px;           /* Bords bien arrondis */
+    font-size: 18px;               /* Taille de la police */
+    padding: 10px 20px;            /* Espacement intérieur (haut/bas et gauche/droite) */
+    margin: 0 5px;                 /* Petite marge entre les éléments */
+    vertical-align: middle;        /* Aligne bien les éléments sur la même ligne */
+    transition: all 0.2s ease-in-out; /* Animation douce pour les transitions */
+}
+
+/* 2. Style SPÉCIFIQUE au champ de recherche (input) */
+.content-black .search-form input {
+    background-color: white;
+    color: black;
+}
+
+/* Effet au focus : quand on clique dans le champ, la bordure apparaît */
+.content-black .search-form input:focus {
+    outline: none; /* On enlève le contour bleu par défaut */
+    border-color: #0c800c; /* On met une bordure verte à la place */
+}
+
+/* 3. Style SPÉCIFIQUE au bouton */
+.content-black .search-form button {
+    background-color: #074107; /* Votre vert foncé */
+    color: white;
+    cursor: pointer; /* Le curseur se transforme en main, indiquant que c'est cliquable */
+}
+
+/* Effet au survol : le bouton s'éclaircit un peu */
+.content-black .search-form button:hover {
+    background-color: #0c800c; /* Un vert un peu plus clair */
+}
 
 /* --- Responsive Design --- */
 @media (max-width: 768px) {
@@ -157,4 +247,6 @@ footer {
         /* On change le mode d'ajustement de l'image */
         object-fit: contain; /* <-- CHANGEMENT CLÉ 3 */
     }
+
+    
 }

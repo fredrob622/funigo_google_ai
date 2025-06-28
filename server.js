@@ -37,25 +37,58 @@ app.get('/', (req, res) => {
     res.render('pages/index', { title: 'Accueil' });
 });
 
-// --- LANGUE ---
+// ------------------------------------------------------------- LANGUE ----------------------------------------------------------//
+
+// *******************************************************************************************************************************//
 // Dico Kanji
+// *******************************************************************************************************************************//
+
 app.get('/kanji', (req, res) => {
     res.render('pages/kanji_form', { title: 'Dictionnaire Kanji', results: [], searchTerm: '' });
 });
 
+// ... à l'intérieur de app.post('/kanji/search', ...)
+
 app.post('/kanji/search', async (req, res) => {
     const searchTerm = req.body.searchTerm;
     try {
-        const query = `SELECT kanji, onyomi, kunyomi, francais, niveau FROM kanji_char WHERE kanji LIKE ? OR onyomi LIKE ? OR kunyomi LIKE ? OR francais LIKE ?`;
-        console.log(query);
-        
+        // --- MODIFICATION DE LA REQUÊTE ---
+        const query = `
+            SELECT kanji, onyomi, kunyomi, francais, niveau 
+            FROM kanji_char 
+            WHERE kanji LIKE ? 
+               OR onyomi LIKE ? 
+               OR kunyomi LIKE ? 
+               OR francais LIKE ? 
+               OR niveau LIKE ?`; // <-- ON AJOUTE CETTE LIGNE
+
         const searchPattern = `%${searchTerm}%`;
-        const [results] = await dbPool.query(query, [searchPattern, searchPattern, searchPattern, searchPattern]);
+
+        // Log pour voir la requête SQL et les paramètres
+        console.log("--- NOUVELLE RECHERCHE KANJI ---");
+        console.log("Requête SQL exécutée :", query);
+        console.log("Avec le paramètre de recherche :", searchPattern);
+
+        // --- ON AJOUTE LE PARAMÈTRE UNE FOIS DE PLUS ---
+        const [results] = await dbPool.query(query, [searchPattern, searchPattern, searchPattern, searchPattern, searchPattern]); // <-- 5 paramètres maintenant
+
+        // Log pour voir le résultat brut de la base de données
+        console.log("Résultat brut obtenu de la DB :", results);
+        console.log("Nombre de résultats trouvés :", results.length);
+        console.log("--------------------------------------");
+        
         res.render('pages/kanji_form', { title: 'Résultats Kanji', results: results, searchTerm: searchTerm });
-    } catch (err) { console.error(err); res.status(500).send("Erreur serveur."); }
+    } catch (err) { 
+        console.error("ERREUR lors de la recherche Kanji :", err);
+        res.status(500).send("Erreur serveur."); 
+    }
 });
 
+
+// *******************************************************************************************************************************//
 // Dico Vocabulaire
+// *******************************************************************************************************************************//
+
 app.get('/vocabulaire', (req, res) => {
     res.render('pages/vocabulaire_form', { title: 'Dictionnaire Vocabulaire', results: [], searchTerm: '' });
 });
