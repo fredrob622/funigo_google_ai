@@ -86,29 +86,50 @@ app.post('/kanji/search', async (req, res) => {
 
 
 // *******************************************************************************************************************************//
-// Dico Vocabulaire
+// Dico Vocab
 // *******************************************************************************************************************************//
 
-app.get('/vocabulaire', (req, res) => {
-    res.render('pages/vocabulaire_form', { title: 'Dictionnaire Vocabulaire', results: [], searchTerm: '' });
+app.get('/vocab', (req, res) => {
+    res.render('pages/vocab_form', { title: 'Dictionnaire Vocabulaire', results: [], searchTerm: '' });
 });
 
-app.post('/vocabulaire/search', async (req, res) => {
+// ... à l'intérieur de app.post('/vocab/search', ...)
+
+app.post('/vocab/search', async (req, res) => {
     const searchTerm = req.body.searchTerm;
     try {
-        const query = `SELECT kana, kanji, francais, niveau FROM voca_char WHERE kana LIKE ? OR kanji LIKE ? OR francais LIKE ?`;
+        // --- MODIFICATION DE LA REQUÊTE ---
+        const query = `
+            SELECT kanji, kana, francais, niveau 
+            FROM vocab_char 
+            WHERE kanji LIKE ? 
+               OR kana LIKE ? 
+               OR francais LIKE ? 
+               OR niveau LIKE ?`; // <-- ON AJOUTE CETTE LIGNE
+
         const searchPattern = `%${searchTerm}%`;
-        const [results] = await dbPool.query(query, [searchPattern, searchPattern, searchPattern]);
-        res.render('pages/vocabulaire_form', { title: 'Résultats Vocabulaire', results: results, searchTerm: searchTerm });
-    } catch (err) { console.error(err); res.status(500).send("Erreur serveur."); }
+
+        // Log pour voir la requête SQL et les paramètres
+        console.log("--- NOUVELLE RECHERCHE Vocabulaire ---");
+        console.log("Requête SQL exécutée :", query);
+        console.log("Avec le paramètre de recherche :", searchPattern);
+
+        // --- ON AJOUTE LE PARAMÈTRE UNE FOIS DE PLUS ---
+        const [results] = await dbPool.query(query, [searchPattern, searchPattern, searchPattern, searchPattern]); // <-- 4 paramètres maintenant
+
+        // Log pour voir le résultat brut de la base de données
+        console.log("Résultat brut obtenu de la DB :", results);
+        console.log("Nombre de résultats trouvés :", results.length);
+        console.log("--------------------------------------");
+        
+        res.render('pages/vocab_form', { title: 'Résultats Vocab', results: results, searchTerm: searchTerm });
+    } catch (err) { 
+        console.error("ERREUR lors de la recherche du mot :", err);
+        res.status(500).send("Erreur serveur."); 
+    }
 });
 
-
-// --- FRANCE ---
-// Départements
-app.get('/departements', (req, res) => {
-    res.render('pages/departements_form', { title: 'Départements Français', results: [], searchTerm: '' });
-});
+/*******************************************************************************************************************************/
 
 app.post('/departements/search', async (req, res) => {
     const searchTerm = req.body.searchTerm;
