@@ -1,5 +1,5 @@
 
-<!-- Fichier : views/pages/kanji_form.ejs -->
+<!-- Fichier : views/pages/departements_form.ejs -->
 
 <%- include('../partials/header', { title: title }) %>
 
@@ -7,7 +7,7 @@
     
     <h2>Rechercher un Département</h2>
     <form action="/departements/search" method="POST" class="search-form">
-        <input type="text" name="searchTerm" value="<%= searchTerm %>" placeholder="Entrez un kanji, lecture, sens...">
+        <input type="text" name="searchTerm" value="<%= searchTerm %>" placeholder="Entrez une région, un chef lieu, un département">
         <button type="submit">Rechercher</button>
     </form>
 

@@ -11,7 +11,7 @@
         <div class="departement-table-container">
             <h3>Résultats pour "<%= searchTerm %>"</h3>
             
-            <table class="results-table">
+            <table>
                 <thead>
                     <tr>
                         <!-- Adaptez ces colonnes à votre future table 'region_fr' -->

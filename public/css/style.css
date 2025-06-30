@@ -326,11 +326,28 @@ footer { background-color: black; color: white; text-align: center; padding: 20p
 
     /* Chaque cellule <td> prend toute la largeur de la carte */
     .departement-table-container .results-table td {
-        font-size: 1.1em;
+        font-size: 1.0em;
     }
 
     .departement-table-container .results-table td:before {
-        font-size: 1.1em;
+        font-size: 1.0em;
+        padding: 10px;
+        font-weight: 200;
+    }
+}
+
+/* =================================================================== */
+/* ==  AJUSTEMENTS RESPONSIVES    max-width: 320px                  == */
+/* =================================================================== */
+@media (max-width: 320px) {
+
+    /* Chaque cellule <td> prend toute la largeur de la carte */
+    .departement-table-container .results-table td {
+        font-size: 0.9em;
+    }
+
+    .departement-table-container .results-table td:before {
+        font-size: 0.9em;
         padding: 10px;
         font-weight: 200;
     }

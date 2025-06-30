@@ -182,19 +182,52 @@ app.get('/regions', (req, res) => {
 });
 
 app.post('/regions/search', async (req, res) => {
-    // Note : La table 'region_fr' devra être créée dans votre base de données.
+    // Note : La table 'reg_fr' devra être créée dans votre base de données.
     const searchTerm = req.body.searchTerm;
+
     try {
         // Supposons que la table region_fr ait au moins une colonne 'nom_reg'
-        const query = `SELECT * FROM region_fr WHERE nom_reg LIKE ?`; 
-        const searchPattern = `%${searchTerm}%`;
-        const [results] = await dbPool.query(query, [searchPattern]);
-        res.render('pages/region_form', { title: 'Résultats Régions', results: results, searchTerm: searchTerm });
+        const query = `
+            SELECT reg_nom, reg_cheflieu, reg_dep, reg_superficie, reg_population
+                FROM reg_fr 
+                WHERE 
+                    LOWER(reg_nom) LIKE ?       -- CORRECTION : On compare en minuscules
+                    OR LOWER(reg_cheflieu) LIKE ?  -- CORRECTION : On compare en minuscules
+                    OR LOWER(reg_dep) LIKE ?       -- CORRECTION : On compare en minuscules
+                    OR reg_superficie LIKE ?
+                    OR reg_population LIKE ?`; 
+
+        
+        
+
+        
+           const searchPattern = `%${searchTerm.toLowerCase()}%`;
+
+        console.log("--- NOUVELLE RECHERCHE DÉPARTEMENT ---");
+        console.log("Requête SQL exécutée :", query.trim().replace(/\s+/g, ' '));
+        console.log("Avec le paramètre de recherche :", searchPattern);
+
+        const [results] = await dbPool.query(query, [
+            searchPattern, 
+            searchPattern, 
+            searchPattern, 
+            searchPattern, 
+            searchPattern
+        ]);
+
+        console.log("Nombre de résultats trouvés :", results.length);
+        console.log("--------------------------------------");
+        
+        res.render('pages/region_form', { 
+            title: 'Résultats Régions', 
+            results: results, 
+            searchTerm: searchTerm });
+
     } catch (err) {
         console.error("Erreur de recherche Région:", err);
         // Renvoyer un message d'erreur clair si la table n'existe pas
         if (err.code === 'ER_NO_SUCH_TABLE') {
-            res.status(500).send("Erreur : La table 'region_fr' n'a pas été trouvée. Veuillez la créer.");
+            res.status(500).send("Erreur : La table 'reg_fr' n'a pas été trouvée. Veuillez la créer.");
         } else {
             res.status(500).send("Erreur serveur lors de la recherche.");
         }

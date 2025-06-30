@@ -1,5 +1,5 @@
 
-<!-- Fichier : views/pages/kanji_form.ejs -->
+<!-- Fichier : views/pages/departements_form.ejs -->
 
 <%- include('../partials/header', { title: title }) %>
 
@@ -7,13 +7,13 @@
     
     <h2>Rechercher un Département</h2>
     <form action="/departements/search" method="POST" class="search-form">
-        <input type="text" name="searchTerm" value="<%= searchTerm %>" placeholder="Entrez un kanji, lecture, sens...">
+        <input type="text" name="searchTerm" value="<%= searchTerm %>" placeholder="Entrez une région, un chef lieu, un département">
         <button type="submit">Rechercher</button>
     </form>
 
 <% if (results.length > 0) { %>
     <!-- NOUVEAU : On ajoute le conteneur autour du tableau -->
-    <div class="results-table-container">
+    <div class="departement-table-container">
         <h3>Résultats pour "<%= searchTerm %>"</h3>
         
         <!-- NOUVEAU : On ajoute la classe "results-table" au tableau -->
@@ -32,18 +32,19 @@
                 </tr>
             </thead>
             <tbody>
-                <% results.forEach(result => { %>
-					<tr>
-						 <td width=1% align=left id="dep_numero"><%= result[i].num_dep%></td>
-						 <td width=2% align=left id="dep_nom"><%= result[i].nom_dep%></td>
-						 <td width=2% align=left id="dep_region"><%= result[i].nom_reg%></td>
-						 <td width=1% align=left id="dep_superficie"><%= result[i].superficie%></td>
-						 <td width=1% align=left id="dep_pop"><%= result[i].pop_dep%></td> 
-                         <td width=1% align=left id="dep_densite"><%= result[i].densite%></td> 
-						 <td width=1% align=left id="dep_prefecture"><%= result[i].nom_pref%></td> 
-						 <td width=1% align=center id="dep_prefecturepop"><%= result[i].pop_pref%></td>
-						 <td width=3% align=left id="dep_sousprefecture"><%= result[i].sousprefecture %></td> 						 			 
-				  </tr>  
+                <% results.forEach(departement => { %>
+                    <tr>
+                        <!-- CORRIGÉ : on utilise la variable 'departement' directement -->
+                        <td data-label="N°"><%= departement.num_dep %></td>
+                        <td data-label="Département"><%= departement.nom_dep %></td>
+                        <td data-label="Région"><%= departement.nom_reg %></td>
+                        <td data-label="Superficie"><%= departement.superficie %></td>
+                        <td data-label="Population"><%= departement.pop_dep %></td> 
+                        <td data-label="Densité"><%= departement.densite %></td> 
+                        <td data-label="Préfecture"><%= departement.nom_pref %></td> 
+                        <td data-label="Pop. Préf."><%= departement.pop_pref %></td>
+                        <td data-label="Sous-Préf."><%= departement.sous_pref %></td> 						 			 
+                    </tr>  
                 <% }); %>
             </tbody>
         </table>
