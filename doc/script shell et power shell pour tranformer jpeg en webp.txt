@@ -1,0 +1,196 @@
+Demande gemini
+
+je voudrais un script power ou bash qui prend en argument un répertoire contenant des photo jepg et les transforme 
+en fichier webp en les compressant à 70% avec une taille de 500px en gardant le même ratio
+
+Pour transformer vos images JPEG en WebP avec les spécifications que vous avez données, vous aurez besoin de l'outil en ligne 
+de commande cwebp, qui fait partie de la suite libwebp de Google. Assurez-vous de l'avoir installé sur votre système avant d'utiliser 
+les scripts.
+
+Installation de cwebp
+Sur Windows (PowerShell):
+Si vous avez Chocolatey (gestionnaire de paquets), ouvrez PowerShell en tant qu'administrateur et exécutez :
+
+PowerShell
+
+choco install webp
+Sinon, vous pouvez télécharger les binaires de libwebp depuis le site officiel de Google et ajouter le dossier des exécutables 
+(contenant cwebp.exe) à votre variable d'environnement Path.
+
+Sur Linux (Bash):
+Ouvrez votre terminal et utilisez le gestionnaire de paquets de votre distribution :
+
+Bash
+
+# Pour Debian/Ubuntu
+sudo apt-get update
+sudo apt-get install webp
+
+# Pour Fedora
+sudo dnf install libwebp-tools
+
+# Pour Arch Linux
+sudo pacman -S libwebp
+Script PowerShell
+Ce script prend un répertoire source et un nom de répertoire de sortie comme arguments. Il créera un nouveau dossier 
+avec le nom spécifié et le suffixe _webp dans le même dossier parent que votre répertoire source.
+
+PowerShell
+
+param (
+    [Parameter(Mandatory=$true)]
+    [string]$SourceDirectory,
+
+    [Parameter(Mandatory=$true)]
+    [string]$OutputDirectoryName
+)
+
+# Résoudre le chemin absolu du répertoire source
+$SourceDirectory = (Get-Item $SourceDirectory).FullName
+
+# Définir le chemin complet du répertoire de sortie
+$OutputDirectory = Join-Path (Get-Item $SourceDirectory).Parent.FullName "${OutputDirectoryName}_webp"
+
+# Vérifier si le répertoire source existe
+if (-not (Test-Path $SourceDirectory -PathType Container)) {
+    Write-Error "Erreur : Le répertoire source spécifié n'existe pas ou n'est pas un répertoire valide : $SourceDirectory"
+    exit 1
+}
+
+# Créer le répertoire de sortie s'il n'existe pas
+if (-not (Test-Path $OutputDirectory -PathType Container)) {
+    New-Item -Path $OutputDirectory -ItemType Directory -Force | Out-Null
+    Write-Host "Répertoire de sortie créé : $OutputDirectory" -ForegroundColor Cyan
+} else {
+    Write-Host "Répertoire de sortie déjà existant : $OutputDirectory" -ForegroundColor Yellow
+}
+
+Write-Host "Début de la conversion des images de $SourceDirectory..."
+
+# Parcourir les fichiers JPEG
+Get-ChildItem -Path $SourceDirectory -Filter "*.jpg", "*.jpeg" -File | ForEach-Object {
+    $inputFile = $_.FullName
+    $outputFileName = ($_.BaseName) + ".webp"
+    $outputFile = Join-Path $OutputDirectory $outputFileName
+
+    Write-Host "  Traitement de $($_.Name)..."
+
+    # Commande cwebp :
+    # -q 70 : Qualité de compression de 70%
+    # -resize 500 0 : Redimensionne l'image à 500px de large, la hauteur est calculée automatiquement pour garder le ratio.
+    $cwebpCommand = "cwebp `"$inputFile`" -o `"$outputFile`" -q 70 -resize 500 0"
+
+    try {
+        # Exécuter la commande cwebp. Out-Null pour supprimer la sortie de cwebp si succès.
+        Invoke-Expression $cwebpCommand | Out-Null
+        Write-Host "    Converti avec succès : $($_.Name) -> $($outputFileName)" -ForegroundColor Green
+    } catch {
+        Write-Error "    Erreur lors de la conversion de $($_.Name) : $($_.Exception.Message)"
+    }
+}
+
+Write-Host "`nConversion terminée." -ForegroundColor Green
+Comment utiliser le script PowerShell :
+Enregistrez le code ci-dessus dans un fichier nommé, par exemple, convert_to_webp.ps1.
+
+Ouvrez PowerShell.
+
+Naviguez jusqu'à l'emplacement où vous avez enregistré le script.
+
+Exécutez le script en lui passant le chemin du répertoire source (celui qui contient vos photos JPEG) et le nom désiré pour 
+le répertoire de sortie :
+
+PowerShell
+
+.\convert_to_webp.ps1 -SourceDirectory "C:\Users\VotreNom\Images\MesPhotosJPEG" -OutputDirectoryName "PhotosOptimisees"
+Ceci créera un répertoire PhotosOptimisees_webp dans le dossier Images et y placera toutes les images converties.
+
+Script Bash
+Ce script fonctionne de manière similaire au script PowerShell, en prenant deux arguments et en créant le répertoire de sortie 
+avec le suffixe _webp.
+
+Bash
+
+#!/bin/bash
+
+# Vérifier si cwebp est installé
+if ! command -v cwebp &> /dev/null
+then
+    echo "Erreur : 'cwebp' n'est pas installé. Veuillez l'installer pour utiliser ce script."
+    echo "  Sur Debian/Ubuntu: sudo apt-get install webp"
+    echo "  Sur Fedora: sudo dnf install libwebp-tools"
+    exit 1
+fi
+
+# Vérifier le nombre d'arguments
+if [ -z "$1" ] || [ -z "$2" ]; then
+    echo "Usage: $0 <repertoire_source> <nom_repertoire_sortie>"
+    echo "Exemple: $0 ./mes_photos photos_optimisees"
+    exit 1
+fi
+
+SOURCE_DIRECTORY="$1"
+OUTPUT_DIR_NAME="$2"
+
+# Résoudre le chemin absolu du répertoire source pour obtenir son parent
+SOURCE_ABS_PATH=$(readlink -f "$SOURCE_DIRECTORY")
+if [ ! -d "$SOURCE_ABS_PATH" ]; then
+    echo "Erreur : Le répertoire source '$SOURCE_DIRECTORY' n'existe pas ou n'est pas un répertoire valide."
+    exit 1
+fi
+PARENT_DIR=$(dirname "$SOURCE_ABS_PATH")
+
+# Définir le chemin complet du répertoire de sortie
+OUTPUT_DIRECTORY="${PARENT_DIR}/${OUTPUT_DIR_NAME}_webp"
+
+# Créer le répertoire de sortie s'il n'existe pas
+if [ ! -d "$OUTPUT_DIRECTORY" ]; then
+    mkdir -p "$OUTPUT_DIRECTORY"
+    echo "Répertoire de sortie créé: $OUTPUT_DIRECTORY"
+else
+    echo "Répertoire de sortie déjà existant: $OUTPUT_DIRECTORY"
+fi
+
+echo "Début de la conversion des images de $SOURCE_DIRECTORY..."
+
+# Parcourir les fichiers JPEG (insensible à la casse)
+find "$SOURCE_DIRECTORY" -type f \( -iname "*.jpg" -o -iname "*.jpeg" \) | while read -r input_file; do
+    # Extraire le nom de base du fichier (sans l'extension)
+    filename=$(basename "$input_file")
+    basename_no_ext="${filename%.*}"
+
+    output_file="${OUTPUT_DIRECTORY}/${basename_no_ext}.webp"
+
+    echo "  Traitement de ${filename}..."
+
+    # Commande cwebp :
+    # -q 70 : Qualité de compression de 70%
+    # -resize 500 0 : Redimensionne l'image à 500px de large, la hauteur est calculée automatiquement pour garder le ratio.
+    cwebp "$input_file" -o "$output_file" -q 70 -resize 500 0 &> /dev/null
+
+    if [ $? -eq 0 ]; then
+        echo "    Converti avec succès: ${filename} -> ${basename_no_ext}.webp"
+    else
+        echo "    Erreur lors de la conversion de ${filename}" >&2
+    fi
+done
+
+echo ""
+echo "Conversion terminée."
+Comment utiliser le script Bash :
+Enregistrez le code ci-dessus dans un fichier nommé, par exemple, convert_to_webp.sh.
+
+Rendez le script exécutable :
+
+Bash
+
+chmod +x convert_to_webp.sh
+Exécutez le script en lui passant le chemin du répertoire source et le nom désiré pour le répertoire de sortie :
+
+Bash
+
+./convert_to_webp.sh /home/votreutilisateur/photos/source_jpeg photos_optimisees
+Ceci créera un répertoire photos_optimisees_webp dans le dossier /home/votreutilisateur/photos/ et y placera les images converties.
+
+Ces scripts sont conçus pour être robustes et incluent des vérifications d'erreurs pour s'assurer que les répertoires 
+existent et que cwebp est disponible.

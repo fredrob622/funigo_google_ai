@@ -1,0 +1,56 @@
+
+<!-- Fichier : views/pages/kanji_form.ejs -->
+
+<%- include('../partials/header', { title: title }) %>
+
+<div class="content content-black"> 
+    
+    <h2>Rechercher un Département</h2>
+    <form action="/departements/search" method="POST" class="search-form">
+        <input type="text" name="searchTerm" value="<%= searchTerm %>" placeholder="Entrez un kanji, lecture, sens...">
+        <button type="submit">Rechercher</button>
+    </form>
+
+<% if (results.length > 0) { %>
+    <!-- NOUVEAU : On ajoute le conteneur autour du tableau -->
+    <div class="results-table-container">
+        <h3>Résultats pour "<%= searchTerm %>"</h3>
+        
+        <!-- NOUVEAU : On ajoute la classe "results-table" au tableau -->
+        <table class="results-table">
+            <thead>
+                <tr>
+					<th>nb</th>
+					<th>Département</th>
+					<th>Région</th>
+					<th>Superficie en km/</th>
+					<th>Population</th>
+					<th>Densité</th>
+					<th>Préfecture</th>
+					<th>Population</th>
+					<th>Sous-Préfecture</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% results.forEach(result => { %>
+					<tr>
+						 <td width=1% align=left id="dep_numero"><%= result[i].num_dep%></td>
+						 <td width=2% align=left id="dep_nom"><%= result[i].nom_dep%></td>
+						 <td width=2% align=left id="dep_region"><%= result[i].nom_reg%></td>
+						 <td width=1% align=left id="dep_superficie"><%= result[i].superficie%></td>
+						 <td width=1% align=left id="dep_pop"><%= result[i].pop_dep%></td> 
+                         <td width=1% align=left id="dep_densite"><%= result[i].densite%></td> 
+						 <td width=1% align=left id="dep_prefecture"><%= result[i].nom_pref%></td> 
+						 <td width=1% align=center id="dep_prefecturepop"><%= result[i].pop_pref%></td>
+						 <td width=3% align=left id="dep_sousprefecture"><%= result[i].sousprefecture %></td> 						 			 
+				  </tr>  
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+<% } else if (searchTerm) { %>
+    <p>Aucun résultat trouvé pour "<%= searchTerm %>".</p>
+<% } %>
+</div>
+
+<%- include('../partials/footer') %>

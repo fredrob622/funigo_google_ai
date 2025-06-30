@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Affichage Département</title>
+	<link rel="stylesheet" href="/general.css">
+	<link rel="stylesheet" href="/recherche.css">
+	<link rel="stylesheet" href="/departement.css">
+	<script type="text/javascript" src="/fonction.js"></script>
+</head>
+
+<body onload="fonctStorageInputDep(), fonctStorageSetDep('<%= result %>');">
+	
+	<section>   
+		
+	    <%- include('../IHM/departementRech') %>
+		
+        <div class="affichage_resultat"  >  
+			
+			<h2>Liste du ou des départements </h2>
+			<table >
+				<caption>Résultat de la recherche 	</caption>
+				<tr>
+					<th>nb</th>
+					<th>Département</th>
+					<th>Région</th>
+					<th>Superficie en km/</th>
+					<th>Population</th>
+					<th>Densité</th>
+					<th>Préfecture</th>
+					<th>Population</th>
+					<th>Sous-Préfecture</th>
+				</tr>
+
+				<!-- Boucle pour lire le tableau -->
+				<% for(i=0; i<result.length; i++) { %>
+					<tr>
+						 <td width=1% align=left id="dep_numero"><%= result[i].num_dep%></td>
+						 <td width=2% align=left id="dep_nom"><%= result[i].nom_dep%></td>
+						 <td width=2% align=left id="dep_region"><%= result[i].nom_reg%></td>
+						 <td width=1% align=left id="dep_superficie"><%= result[i].superficie%></td>
+						 <td width=1% align=left id="dep_pop"><%= result[i].pop_dep%></td> 
+                         <td width=1% align=left id="dep_densite"><%= result[i].densite%></td> 
+						 <td width=1% align=left id="dep_prefecture"><%= result[i].nom_pref%></td> 
+						 <td width=1% align=center id="dep_prefecturepop"><%= result[i].pop_pref%></td>
+						 <td width=3% align=left id="dep_sousprefecture"><%= result[i].sousprefecture %></td> 						 			 
+				  </tr>  
+				<% } %>
+			</table> 
+		</div>
+
+	</section>
+
+	<script>
+
+		localStorage.clear();
+
+		function fonctStorageSetDep(result){
+
+		var Dep_numero = document.getElementById("dep_numero");
+		var Dep_nom = document.getElementById("dep_nom");
+		var Dep_region = document.getElementById("dep_region");
+		var Dep_superficie = document.getElementById("dep_superficie");
+		var Dep_pop = document.getElementById("dep_pop");
+		var Dep_densite = document.getElementById("dep_densite");
+		var Dep_prefecture = document.getElementById("dep_prefecture");
+		var Dep_prefecturepop = document.getElementById("dep_prefecturepop");
+		var Dep_sousprefecture = document.getElementById("dep_sousprefecture");
+
+		localStorage.setItem('Dep_numero','<%= result[0].num_dep %>');
+		localStorage.setItem('Dep_nom','<%= result[0].nom_dep%>');
+		localStorage.setItem("Dep_region",'<%= result[0].nom_reg%>');
+		localStorage.setItem("Dep_superficie",'<%= result[0].superficie%>');
+		localStorage.setItem("Dep_pop",'<%= result[0].pop_dep%>%>');
+		localStorage.setItem("Dep_densite",'<%= result[0].densite%>');
+		localStorage.setItem("Dep_prefecture",'<%= result[0].nom_pref%>');
+		localStorage.setItem("Dep_prefecturepop",'<%= result[0].pop_pref%>');
+		localStorage.setItem("Dep_sousprefecture",'<%= result[0].sousprefecture%>');
+
+		};
+        fonctStorageSetDep('<%= result %>');
+
+		function pause(milliseconds) {
+			var dt = new Date();
+		while ((new Date()) - dt <= milliseconds) { /* Do nothing */ }
+		};
+		pause(500);
+	</script>
+	<%- include('../IHM/departementAffCarte') %>
+</body>
+</html>

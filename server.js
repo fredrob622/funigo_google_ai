@@ -123,25 +123,60 @@ app.post('/vocab/search', async (req, res) => {
         console.log("--------------------------------------");
         
         res.render('pages/vocab_form', { title: 'Résultats Vocab', results: results, searchTerm: searchTerm });
-    } catch (err) { 
-        console.error("ERREUR lors de la recherche du mot :", err);
-        res.status(500).send("Erreur serveur."); 
-    }
+        } catch (err) { 
+            console.error("ERREUR lors de la recherche du mot :", err);
+            res.status(500).send("Erreur serveur."); 
+        }
 });
 
-/*******************************************************************************************************************************/
+
+// *******************************************************************************************************************************//
+// Dico departements
+// *******************************************************************************************************************************//
+
+app.get('/departements', (req, res) => {
+    res.render('pages/departements_form', { title: 'Caractèristique d un departements', results: [], searchTerm: '' });
+});
 
 app.post('/departements/search', async (req, res) => {
     const searchTerm = req.body.searchTerm;
     try {
-        const query = `SELECT num_dep, nom_dep, nom_reg, superficie, pop_dep, densite, nom_pref FROM departement_fr WHERE nom_dep LIKE ? OR num_dep LIKE ? OR nom_reg LIKE ?`;
+        // REQUÊTE SQL CORRIGÉE : on sélectionne toutes les colonnes nécessaires
+        // On cherche dans le numéro, le nom du département et le nom de la préfecture.
+        const query = `
+            SELECT num_dep, nom_dep, nom_reg, superficie, pop_dep, densite, nom_pref, pop_pref, sous_pref
+            FROM dep_fr 
+            WHERE num_dep LIKE ?
+               OR nom_dep LIKE ? 
+               OR nom_pref LIKE ?`;
+
         const searchPattern = `%${searchTerm}%`;
+
+        console.log("--- NOUVELLE RECHERCHE DÉPARTEMENT ---");
+        console.log("Requête SQL exécutée :", query.trim().replace(/\s+/g, ' '));
+        console.log("Avec le paramètre de recherche :", searchPattern);
+        
+        // CORRIGÉ : On fournit bien 3 valeurs pour les 3 '?'
         const [results] = await dbPool.query(query, [searchPattern, searchPattern, searchPattern]);
-        res.render('pages/departements_form', { title: 'Résultats Départements', results: results, searchTerm: searchTerm });
-    } catch (err) { console.error(err); res.status(500).send("Erreur serveur."); }
+
+        console.log("Nombre de résultats trouvés :", results.length);
+        console.log("--------------------------------------");
+
+        res.render('pages/departements_form', { 
+            title: 'Résultats Départements', 
+            results: results, 
+            searchTerm: searchTerm 
+        });
+
+    } catch (err) { 
+        console.error("ERREUR lors de la recherche du Département :", err);
+        res.status(500).send("Erreur serveur lors de la recherche du département."); 
+    }
 });
 
+//*******************************************************************************************************************************//
 // NOUVEAU : Régions
+//*******************************************************************************************************************************//
 app.get('/regions', (req, res) => {
     res.render('pages/region_form', { title: 'Régions Françaises', results: [], searchTerm: '' });
 });
