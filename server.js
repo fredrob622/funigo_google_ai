@@ -183,7 +183,8 @@ app.get('/regions', (req, res) => {
 
 app.post('/regions/search', async (req, res) => {
     // Note : La table 'reg_fr' devra être créée dans votre base de données.
-    const searchTerm = req.body.searchTerm;
+    // On récupère le terme et on le nettoie avec .trim()
+    const searchTerm = req.body.searchTerm.trim();
 
     try {
         // Supposons que la table region_fr ait au moins une colonne 'nom_reg'
@@ -197,11 +198,7 @@ app.post('/regions/search', async (req, res) => {
                     OR reg_superficie LIKE ?
                     OR reg_population LIKE ?`; 
 
-        
-        
-
-        
-           const searchPattern = `%${searchTerm.toLowerCase()}%`;
+        const searchPattern = `%${searchTerm.toLowerCase()}%`;
 
         console.log("--- NOUVELLE RECHERCHE DÉPARTEMENT ---");
         console.log("Requête SQL exécutée :", query.trim().replace(/\s+/g, ' '));
@@ -234,7 +231,38 @@ app.post('/regions/search', async (req, res) => {
     }
 });
 
+//*******************************************************************************************************************************//
+// NOUVEAU : Carte interactive des Régions
+//*******************************************************************************************************************************//
+app.get('/region_carte', async (req, res) => {
+    try {
+        // 1. La requête SQL pour récupérer tous les noms de régions
+        // J'ajoute ORDER BY pour que la liste déroulante soit triée par ordre alphabétique
+        const query = 'SELECT reg_nom FROM reg_fr ORDER BY reg_nom ASC;';
+        
+        console.log("--- NOUVELLE PAGE CARTE DES RÉGIONS ---");
+        console.log("Exécution de la requête :", query);
 
+        // 2. On exécute la requête
+        const [regions] = await dbPool.query(query);
+
+        console.log(`${regions.length} régions trouvées.`);
+        console.log("---------------------------------------");
+
+        // 3. On rend la nouvelle page EJS en lui passant la liste des régions
+        res.render('pages/region_carte_form', { 
+            title: 'Carte des Régions',
+            // La variable `listeRegion` contient maintenant un tableau d'objets [{ reg_nom: '...' }, ...]
+            listeRegion: regions 
+        });
+
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la page carte des régions :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+//*******************************************************************************************************************************//
 // Démarrer le serveur
 app.listen(PORT, () => {
     console.log(`Serveur Funigo démarré sur http://localhost:${PORT}`);

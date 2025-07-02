@@ -7,6 +7,121 @@ Pour transformer vos images JPEG en WebP avec les spécifications que vous avez 
 de commande cwebp, qui fait partie de la suite libwebp de Google. Assurez-vous de l'avoir installé sur votre système avant d'utiliser 
 les scripts.
 
+########################### Permettre l'exécution du script #############################################################################
+Dans la fenêtre PowerShell, tapez la commande suivante et appuyez sur Entrée :
+
+PowerShell
+
+Get-ExecutionPolicy
+Si la sortie est Restricted, vous devrez la modifier pour permettre l'exécution de scripts. Tapez la commande suivante et appuyez sur Entrée :
+
+PowerShell
+
+Set-ExecutionPolicy AllSigned
+ou, pour une utilisation plus simple (mais moins sécurisée pour des scripts non signés) :
+
+PowerShell
+
+Set-ExecutionPolicy Bypass -Scope Process
+Si vous êtes invité à confirmer, tapez O (pour Oui) et appuyez sur Entrée.
+
+PS C:\WINDOWS\system32> Get-ExecutionPolicy                                                                             Restricted                                                                                                              PS C:\WINDOWS\system32> Set-ExecutionPolicy AllSigned                                                                   
+Modification de la stratégie d'exécution
+La stratégie d’exécution permet de vous prémunir contre les scripts que vous jugez non fiables. En modifiant la
+stratégie d’exécution, vous vous exposez aux risques de sécurité décrits dans la rubrique d’aide
+about_Execution_Policies à l’adresse https://go.microsoft.com/fwlink/?LinkID=135170. Voulez-vous modifier la stratégie
+d’exécution ?
+[O] Oui  [T] Oui pour tout  [N] Non  [U] Non pour tout  [S] Suspendre  [?] Aide (la valeur par défaut est « N ») : T
+
+PS C:\WINDOWS\system32> Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+Forcing web requests to allow TLS v1.2 (Required for requests to Chocolatey.org)
+Getting latest version of the Chocolatey package for download.
+Not using proxy.
+Getting Chocolatey from https://community.chocolatey.org/api/v2/package/chocolatey/2.4.3.
+Downloading https://community.chocolatey.org/api/v2/package/chocolatey/2.4.3 to C:\Users\fredr\AppData\Local\Temp\chocolatey\chocoInstall\chocolatey.zip
+Not using proxy.
+Extracting C:\Users\fredr\AppData\Local\Temp\chocolatey\chocoInstall\chocolatey.zip to C:\Users\fredr\AppData\Local\Temp\chocolatey\chocoInstall
+Installing Chocolatey on the local machine
+Creating ChocolateyInstall as an environment variable (targeting 'Machine')
+  Setting ChocolateyInstall to 'C:\ProgramData\chocolatey'
+WARNING: It's very likely you will need to close and reopen your shell
+  before you can use choco.
+Restricting write permissions to Administrators
+We are setting up the Chocolatey package repository.
+The packages themselves go to 'C:\ProgramData\chocolatey\lib'
+  (i.e. C:\ProgramData\chocolatey\lib\yourPackageName).
+A shim file for the command line goes to 'C:\ProgramData\chocolatey\bin'
+  and points to an executable in 'C:\ProgramData\chocolatey\lib\yourPackageName'.
+
+Creating Chocolatey CLI folders if they do not already exist.
+
+chocolatey.nupkg file not installed in lib.
+ Attempting to locate it from bootstrapper.
+PATH environment variable does not have C:\ProgramData\chocolatey\bin in it. Adding...
+AVERTISSEMENT : Not setting tab completion: Profile file does not exist at
+'C:\Users\fredr\OneDrive\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1'.
+Chocolatey CLI (choco.exe) is now ready.
+You can call choco from anywhere, command line or powershell by typing choco.
+Run choco /? for a list of functions.
+You may need to shut down and restart powershell and/or consoles
+ first prior to using choco.
+Ensuring Chocolatey commands are on the path
+Ensuring chocolatey.nupkg is in the lib folder
+
+################################# Installer webp #####################################################################################
+
+PS C:\WINDOWS\system32> choco install webp
+Chocolatey v2.4.3
+Installing the following packages:
+webp
+By installing, you accept licenses for the packages.
+Downloading package from source 'https://community.chocolatey.org/api/v2/'
+Progress: Downloading chocolatey-compatibility.extension 1.0.0... 100%
+
+chocolatey-compatibility.extension v1.0.0 [Approved]
+chocolatey-compatibility.extension package files install completed. Performing other installation steps.
+ Installed/updated chocolatey-compatibility extensions.
+ The install of chocolatey-compatibility.extension was successful.
+  Deployed to 'C:\ProgramData\chocolatey\extensions\chocolatey-compatibility'
+Downloading package from source 'https://community.chocolatey.org/api/v2/'
+Progress: Downloading chocolatey-core.extension 1.4.0... 100%
+
+chocolatey-core.extension v1.4.0 [Approved]
+chocolatey-core.extension package files install completed. Performing other installation steps.
+ Installed/updated chocolatey-core extensions.
+ The install of chocolatey-core.extension was successful.
+  Deployed to 'C:\ProgramData\chocolatey\extensions\chocolatey-core'
+Downloading package from source 'https://community.chocolatey.org/api/v2/'
+Progress: Downloading webp 1.0.0... 100%
+
+webp v1.0.0 [Approved]
+webp package files install completed. Performing other installation steps.
+The package webp wants to run 'chocolateyInstall.ps1'.
+Note: If you don't run this script, the installation will fail.
+Note: To confirm automatically next time, use '-y' or consider:
+choco feature enable -n allowGlobalConfirmation
+Do you want to run the script?([Y]es/[A]ll - yes to all/[N]o/[P]rint): A
+
+Installing 64 bit version
+Extracting C:\ProgramData\chocolatey\lib\webp\tools\webp_x64.zip to C:\ProgramData\chocolatey\lib\webp\tools...
+C:\ProgramData\chocolatey\lib\webp\tools
+ ShimGen has successfully created a shim for anim_diff.exe
+ ShimGen has successfully created a shim for cwebp.exe
+ ShimGen has successfully created a shim for dwebp.exe
+ ShimGen has successfully created a shim for get_disto.exe
+ ShimGen has successfully created a shim for gif2webp.exe
+ ShimGen has successfully created a shim for img2webp.exe
+ ShimGen has successfully created a shim for vwebp.exe
+ ShimGen has successfully created a shim for vwebp_sdl.exe
+ ShimGen has successfully created a shim for webpinfo.exe
+ ShimGen has successfully created a shim for webpmux.exe
+ ShimGen has successfully created a shim for webp_quality.exe
+ The install of webp was successful.
+  Deployed to 'C:\ProgramData\chocolatey\lib\webp\tools'
+
+Chocolatey installed 3/3 packages.
+ See the log for details (C:\ProgramData\chocolatey\logs\chocolatey.log).
+#####################################################################################################################################
 Installation de cwebp
 Sur Windows (PowerShell):
 Si vous avez Chocolatey (gestionnaire de paquets), ouvrez PowerShell en tant qu'administrateur et exécutez :
@@ -34,7 +149,7 @@ sudo pacman -S libwebp
 Script PowerShell
 Ce script prend un répertoire source et un nom de répertoire de sortie comme arguments. Il créera un nouveau dossier 
 avec le nom spécifié et le suffixe _webp dans le même dossier parent que votre répertoire source.
-
+#####################################################################################################################################
 PowerShell
 
 param (
@@ -105,6 +220,7 @@ PowerShell
 .\convert_to_webp.ps1 -SourceDirectory "C:\Users\VotreNom\Images\MesPhotosJPEG" -OutputDirectoryName "PhotosOptimisees"
 Ceci créera un répertoire PhotosOptimisees_webp dans le dossier Images et y placera toutes les images converties.
 
+#####################################################################################################################################################
 Script Bash
 Ce script fonctionne de manière similaire au script PowerShell, en prenant deux arguments et en créant le répertoire de sortie 
 avec le suffixe _webp.

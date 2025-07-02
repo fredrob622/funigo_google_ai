@@ -118,5 +118,37 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Fonction:  charger l'image position pour la région dans region_carte_form.ejs
+    // --- NOUVEAU : Logique pour la page carte des régions ---
+    const regionSelect = document.getElementById('region-select');
+
+    if (regionSelect) {
+        const cartesContainer = document.getElementById('cartes-container');
+        const positionImage = document.getElementById('region-position-image');
+        const departementImage = document.getElementById('region-departement-image');
+
+        regionSelect.addEventListener('change', () => {
+            const selectedRegion = regionSelect.value;
+
+            if (selectedRegion) {
+                // Construire les deux chemins d'image
+                const positionImagePath = `/images/cartes/france/reg_position/${selectedRegion}.webp`;
+                const departementImagePath = `/images/cartes/france/reg_departement/${selectedRegion}.webp`;
+                
+                // Mettre à jour la source des deux images
+                positionImage.src = positionImagePath;
+                departementImage.src = departementImagePath;
+
+                // Afficher le conteneur principal
+                cartesContainer.style.display = 'flex'; // On utilise 'flex' pour activer le CSS Flexbox
+
+            } else {
+                // Cacher le conteneur si aucune région n'est sélectionnée
+                cartesContainer.style.display = 'none';
+            }
+        });
+    }
 
 });
+
+

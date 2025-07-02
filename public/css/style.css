@@ -17,7 +17,7 @@ header { background-color: black; color: white; padding: 10px 0; text-align: cen
 
 /* --- API Container --- */
 .api-container { display: flex; justify-content: center; gap: 20px; margin: 15px 0; flex-wrap: wrap; padding: 0 10px; }
-.weather-box, .currency-box { background-color: #345a93; color: white; padding: 10px 15px; border-radius: 8px; text-align: left; min-width: 200px; }
+.weather-box, .currency-box { background-color: #345a93; color: white; padding: 10px 15px; border-radius: 8px; text-align: left; min-width: 200px; font-size: 0.7em; }
 .weather-box h3, .currency-box h3 { margin: 0 0 10px 0; font-size: 1em; border-bottom: 1px solid #5d7fb9; padding-bottom: 5px; }
 .weather-box p, .currency-box p { margin: 5px 0; }
 
@@ -62,7 +62,53 @@ h2 { padding-top: 10px; padding-left: 10px; }
 /* --- Footer --- */
 footer { background-color: black; color: white; text-align: center; padding: 20px; position: relative; z-index: 10; border: 3px solid white; }
 
+/* =================================================================== */
+/* == STYLES POUR LA PAGE CARTE DES RÉGIONS                         == */
+/* =================================================================== */
 
+h2 {
+    font-size: 1.2em ;
+}
+
+.cartes-flex-container {
+    display: flex;           /* Les cartes sont côte à côte par défaut */
+    justify-content: center;   /* Elles sont centrées */
+    align-items: flex-start; /* Alignées en haut */
+    gap: 30px;               /* Espace entre elles */
+    margin-top: 30px;
+    flex-wrap: wrap;         /* TRÈS IMPORTANT : Permet de passer à la ligne */
+}
+
+.carte-item {
+    text-align: center;
+    background-color: #1e1e1e;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #444;
+    
+}
+
+/* On définit la largeur relative des cartes */
+.carte-position {
+    flex: 1 1 100px; /* flex-grow: 1, flex-shrink: 1, flex-basis: 200px */
+}
+
+.carte-departements {
+    flex: 6 1 400px; /* flex-grow: 4, flex-shrink: 1, flex-basis: 400px */
+}
+
+.carte-item h4 {
+    margin-top: 0;
+    color: #012031;
+    background-color: white;
+}
+
+.carte-item img {
+    max-width: 100%;
+    height: auto;
+    border: 2px solid #555;
+    border-radius: 4px;
+}
 
 /* =================================================================== */
 /* == 2. AJUSTEMENTS RESPONSIVES (MOBILES ET TABLETTES)             == */
@@ -78,7 +124,7 @@ footer { background-color: black; color: white; text-align: center; padding: 20p
     .title-container h1 { font-size: 1.8em; }
     .flag { height: 30px; }
     .api-container { gap: 5px; }
-    .weather-box, .currency-box { padding: 8px; min-width: auto; flex-grow: 0; font-size: 0.9em; }
+    .weather-box, .currency-box { padding: 8px; min-width: auto; flex-grow: 0; font-size: 0.7em; }
     .weather-box h3, .currency-box h3 { margin-bottom: 5px; }
 
     /* --- Logique du menu Hamburger --- */
@@ -123,7 +169,7 @@ footer { background-color: black; color: white; text-align: center; padding: 20p
     .title-container h1 { font-size: 1.8em; }
     .flag { height: 30px; }
     .api-container { gap: 5px; }
-    .weather-box, .currency-box { padding: 8px; min-width: auto; flex-grow: 0; font-size: 0.9em; }
+    .weather-box, .currency-box { padding: 8px; min-width: auto; flex-grow: 0; font-size: 0.6em; }
     .weather-box h3, .currency-box h3 { margin-bottom: 5px; }
 
     /* --- Logique du menu Hamburger --- */
@@ -223,9 +269,9 @@ footer { background-color: black; color: white; text-align: center; padding: 20p
 
 }
 /******************************************************************************************************************/
-/* ===================================================================== */
-/* == 4. TRANSFORMATION RESPONSIVE ISOLÉE POUR LES DÉPARTEMENTS       == */
-/* ===================================================================== */
+/* =============================================================================== */
+/* == 4. TRANSFORMATION RESPONSIVE ISOLÉE POUR LES DÉPARTEMENTS et region       == */
+/* =============================================================================== */
 
 /* =================================================================== */
 /* ==  AJUSTEMENTS RESPONSIVES    max-width: 1200px                 == */
