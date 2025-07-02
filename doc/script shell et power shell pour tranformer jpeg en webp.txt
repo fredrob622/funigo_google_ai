@@ -150,7 +150,7 @@ Script PowerShell
 Ce script prend un répertoire source et un nom de répertoire de sortie comme arguments. Il créera un nouveau dossier 
 avec le nom spécifié et le suffixe _webp dans le même dossier parent que votre répertoire source.
 #####################################################################################################################################
-PowerShell
+#PowerShell
 
 param (
     [Parameter(Mandatory=$true)]
@@ -310,3 +310,17 @@ Ceci créera un répertoire photos_optimisees_webp dans le dossier /home/votreut
 
 Ces scripts sont conçus pour être robustes et incluent des vérifications d'erreurs pour s'assurer que les répertoires 
 existent et que cwebp est disponible.
+
+############### power shell example #############################################################
+
+
+.\convert_to_webp.ps1 -SourceDirectory "C:\Fichiers_Users\funigo\public\images\cartes\france\reg_departement" -OutputDirectoryName "PhotosOptimisees"
+
+script-png-to-webp.ps1 -SourceDirectory "C:\Fichiers_Users\funigo\public\images\cartes\france\reg_position" -OutputDirectoryName "PhotosOptimisees"
+
+
+.\script-png-to-webp.ps1 -SourceDirectory "C:\Fichiers_Users\funigo\public\images\cartes\france\dep_aglomeration" -OutputDirectoryName "PhotosOptimisees"
+
+.\script-png-to-webp.ps1 -SourceDirectory "C:\Fichiers_Users\funigo\public\images\cartes\france\dep_carte" -OutputDirectoryName "PhotosOptimisees"
+
+.\script-png-to-webp.ps1 -SourceDirectory "C:\Fichiers_Users\funigo\public\images\cartes\france\dep_pos" -OutputDirectoryName "PhotosOptimisees"

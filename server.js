@@ -262,6 +262,39 @@ app.get('/region_carte', async (req, res) => {
     }
 });
 
+// Fichier: server.js
+
+//*******************************************************************************************************************************//
+// NOUVEAU : Carte interactive des Départements
+//*******************************************************************************************************************************//
+app.get('/departement_carte', async (req, res) => {
+    try {
+        // 1. On fait une seule requête pour récupérer les numéros ET les noms
+        // On trie par numéro de département pour un ordre logique.
+        const query = 'SELECT num_dep, nom_dep FROM dep_fr ORDER BY num_dep ASC;';
+        
+        console.log("--- NOUVELLE PAGE CARTE DES DÉPARTEMENTS ---");
+        console.log("Exécution de la requête :", query);
+
+        const [departements] = await dbPool.query(query);
+
+        console.log(`${departements.length} départements trouvés.`);
+        console.log("------------------------------------------");
+
+        // 2. On rend la nouvelle page EJS en lui passant la liste complète
+        res.render('pages/departement_carte_form', { 
+            title: 'Carte des Départements',
+            // La variable `listeDepartement` contient maintenant un tableau d'objets [{ num_dep: '01', nom_dep: 'Ain' }, ...]
+            listeDepartement: departements
+        });
+
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la page carte des départements :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+
 //*******************************************************************************************************************************//
 // Démarrer le serveur
 app.listen(PORT, () => {

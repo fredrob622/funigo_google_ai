@@ -149,6 +149,69 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+     // --- NOUVEAU : Logique pour la page carte des DÉPARTEMENTS ---
+    const nomSelect = document.getElementById('dep-nom-select');
+    const numSelect = document.getElementById('dep-num-select');
+
+    // On exécute le code uniquement si les listes déroulantes existent
+    if (nomSelect && numSelect) {
+        const cartesContainer = document.getElementById('cartes-container');
+        // Les images
+        const positionImage = document.getElementById('dep-position-image');
+        const carteImage = document.getElementById('dep-carte-image');
+        const aggloImage = document.getElementById('dep-agglo-image');
+        // Les titres des cartes
+        const titre1 = document.getElementById('carte-titre-1');
+        const titre2 = document.getElementById('carte-titre-2');
+        const titre3 = document.getElementById('carte-titre-3');
+
+        // Fonction centrale pour mettre à jour les images et titres
+        function updateDisplay(numero, nom) {
+            // Si on n'a pas les infos, on ne fait rien
+            if (!numero || !nom) return;
+
+            // Construire le nom de fichier commun
+            const filename = `${numero}-${nom}.webp`;
+
+            // Mettre à jour les titres des cartes
+            titre1.textContent = `Position de "${nom}"`;
+            titre2.textContent = `Carte de "${nom}"`;
+            titre3.textContent = `Agglomérations de "${nom}"`;
+            
+            // Mettre à jour les sources des 3 images
+            positionImage.src = `/images/cartes/france/dep_position/${filename}`;
+            carteImage.src = `/images/cartes/france/dep_carte/${filename}`;
+            aggloImage.src = `/images/cartes/france/dep_aglomeration/${filename}`;
+
+            // Afficher le conteneur des cartes
+            cartesContainer.style.display = 'flex';
+        }
+
+        // Événement pour la liste des NOMS
+        nomSelect.addEventListener('change', (event) => {
+            const selectedOption = event.target.selectedOptions[0];
+            const nom = selectedOption.value;
+            const numero = selectedOption.dataset.numero;
+
+            // Synchroniser l'autre liste
+            numSelect.value = numero;
+            // Mettre à jour l'affichage
+            updateDisplay(numero, nom);
+        });
+
+        // Événement pour la liste des NUMÉROS
+        numSelect.addEventListener('change', (event) => {
+            const selectedOption = event.target.selectedOptions[0];
+            const numero = selectedOption.value;
+            const nom = selectedOption.dataset.nom;
+
+            // Synchroniser l'autre liste
+            nomSelect.value = nom;
+            // Mettre à jour l'affichage
+            updateDisplay(numero, nom);
+        });
+    }
+
 });
 
 

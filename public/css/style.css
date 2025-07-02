@@ -1,5 +1,5 @@
 /* =================================================================== */
-/* == 1. STYLES DE BASE (DESKTOP ET COMMUNS À TOUS)                  == */
+/* == 1. STYLES DE BASE (DESKTOP ET COMMUNS À TOUS)                 == */
 /* =================================================================== */
 
 /* --- Général --- */
@@ -101,6 +101,7 @@ h2 {
     margin-top: 0;
     color: #012031;
     background-color: white;
+    padding:2px;
 }
 
 .carte-item img {
