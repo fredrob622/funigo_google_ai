@@ -1,0 +1,1255 @@
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+Base verbale + がち
+Nom
+Base verbale + がち : avoir tendance à souvent ~
+
+Description
+Peut se traduire par : avoir tendance à souvent ~
+Suggère qu'une action a tendance à se répéter souvent ou facilement
+S'utilise pour souligner quelque chose de négatif comme : être absent, être malade...
+
+Construction
+Verbe dans sa forme en ます et on remplace le ます par がち
+
+Exemples
+彼女は学校に遅れがちだ。
+Elle a tendance à souvent arriver en retard à l'école.
+多くの青年が同じ過ちを犯しがちである。
+Beaucoup de jeunes ont facilement tendance à commettre les mêmes erreurs.
+私たちは時間を浪費しがちである。
+On a tendance à souvent gaspiller notre temps.
+
+Page 3 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+Base verbale + きれる ou きれない
+Nom
+Base verbale + きれる ou きれない : être capable ou ne pas être capable de faire entièrement quelque chose
+
+Description
+Avec きれる, on indique que l'on est capable de faire complètement quelque chose
+Avec きれない, on indique que l'on n'est pas capable de faire entièrement quelque chose
+
+Construction
+Verbe dans sa forme en ます et on remplace le ます par きれる ou きれない
+
+Exemples
+一年でローンが払いきれるか。
+Est-ce que tu peux rembourser complètement ton emprunt en une année ?
+彼は使いきれないほどの金を稼ぐ。
+Il gagne plus d'argent qu'il ne peut en dépenser.
+彼女は読みきれないほどたくさんの本を持っている。
+Elle a tellement de livres qu'elle n'est pas capable de tous les lire.
+
+Page 4 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+Base verbale + っこない
+Nom
+Base verbale + っこない : n'est pas possible de ~, ne peut absolument pas ~
+
+Description
+Peut se traduire par : il n'y a pas moyen de ~, il ne peut absolument pas ~, il ne peut vraisemblablement pas
+~
+S'utilise lorsque le locuteur n'envisage absolument pas une action
+On trouve souvent :
+
+
+
+できっこない : ne pas pouvoir faire
+わかりっこない : ne pas pouvoir comprendre
+
+S'utilise à l'oral
+
+Construction
+Verbe dans sa forme en ます et on remplace le ます par っこ + ない ou ありません (plus poli)
+Verbe à la forme potentielle formelle et on remplace le ます final par っこ + ない ou ありません
+
+Exemples
+それは君だってまちがいっこない。
+Tu ne peux pas te tromper.
+今日は用事いっぱいあるので休みっこない。
+J'ai tellement de choses à faire aujourd'hui que je ne peux vraisemblablement pas prendre de pause.
+彼は今夜たくさん飲んだので、安全に運転出来っこない。
+Il ne pourra pas conduire en toute tranquillité car il a beaucoup bu ce soir.
+
+Page 5 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+Base verbale + しだい
+Nom
+Base verbale + 次第 (しだい) : aussitôt après ~, dès que ~
+
+Description
+Peut se traduire par : aussitôt après A, B
+Implique une série planifiée d'action : dès que A est terminée, alors B va être fait immédiatement après
+Ne peut pas être utilisé avec un verbe passé
+
+Construction
+Verbe dans sa forme en ます et on remplace le ます par 次第
+Le verbe qui suit ne doit pas être au passé
+
+Exemples
+北海道に着き次第、一筆差し上げます。
+Dès que j'arrive à Hokkaïdo, je t'écris quelques lignes.
+終わり次第すぐにこの質問用紙を送ります。
+J'envoie ce questionnaire dès que j'ai fini.
+私たちは雨が止み次第出発します。
+Nous partirons aussitôt que la pluie se sera arrêtée.
+
+Page 6 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+Base verbale + ようがない
+Nom
+Base verbale + ようがない : il n'y a pas moyen de ~
+
+Description
+Peut se traduire par : il n'y a pas moyen de ~
+
+Construction
+Verbe dans sa forme en ます et on remplace le ます par ようがない ou ようもない
+
+Exemples
+質問の意味はわからなくて、答えようがなかった。
+Il n'y avait aucun moyen de répondre si l'on ne comprenait pas le sens de la question.
+木村さんは今どこにいるのか分からないので、連絡しようがない。
+Il n'y a aucun moyen de contacter Mr. Kimura car on ne sait pas où il se trouve à l'heure actuelle.
+彼らの行動は言い訳しようがない。
+Il n'y a aucun moyen d'excuser leur comportement.
+
+Page 7 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+だらけ
+Nom
+だらけ : plein de ~
+
+Description
+Peut se traduire par : plein de ~, pleine de ~
+S'utilise pour exprimer quelque chose de négatif, de désagréable
+
+Construction
+Nom + だらけ(だ)
+Nom + だらけ + の + nom
+
+Exemples
+床は血だらけだった。
+Le sol était couvert de sang.
+せっけんだらけの手で私にさわらないで。
+Ne me touche pas avec tes mains pleines de savon.
+彼は泥だらけだった。
+Il était couvert de boue.
+
+Page 8 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+どころか
+Nom
+どころか : loin de ~, ~ en fait
+
+Description
+Peut se traduire par : loin de ~, ~ en fait ; non seulement ~, mais ~ même
+Permet de montrer que quelqu'un ou quelque chose est loin de l'idée que l'on en attendait
+A+どころか+B : B se trouve être une situation éloignée de ce qui est énoncé dans A
+Permet souvent de montrer un certain degré élevé dans une situation
+
+Construction
+Verbe à la forme neutre ou nom ou adjectif en い + どころか
+Adjectif en な sans le な final + どころか
+
+Exemples
+彼は貯金するどころか借金だらけだ。
+Il est loin d'économiser de l'argent, il est couvert de dettes !
+あの人は英語どころかアラビア語もスワヒリ語も話せる。
+Non seulement il parle anglais, mais il peut en plus parler l'arabe et le swahili.
+それは、失敗どころか、大成功だった。
+Loin d'être un échec, ce fut une très grande réussite.
+
+Page 9 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+はもとより, はもちろん
+Nom
+はもとより, はもちろん : bien évidemment ~ mais aussi ~
+
+Description
+Permet de citer quelque chose qui semble évident puis de lister d'autres points par la suite
+Peut se traduire par : bien évidemment ~ mais aussi ~, bien sûr ~ mais également ~
+はもちろん s'utilise plus à l'oral et はもとより à l'écrit
+
+Construction
+Nom + はもとより ou はもちろん
+
+Exemples
+彼は私たちに着物はもちろんお金もくれた。
+Il nous a donné bien évidemment des vêtements mais aussi de l'argent.
+学生はもちろん先生も来た。
+Les élèves sont bien sûr arrivés mais également les professeurs.
+彼女は英語はもちろん、フランス語も話せる。
+Elle sait bien sûr parler anglais mais aussi français.
+
+Page 10 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+いっぽうだ
+Nom
+一方だ (いっぽうだ) : indiquer qu'une action suit de plus en plus une certaine tendance
+
+Description
+Pour indiquer qu'une action suit de plus en plus une certaine tendance
+S'emploie avec un verbe qui exprime un changement
+
+Construction
+Verbe à la forme neutre + 一方だ
+
+Exemples
+物価は上がる一方だ。
+Les prix ne font qu'augmenter.
+最近英語を使わないので、忘れる一方で困っている。
+Je m'inquiète d'oublier de plus en plus l'anglais du fait que je ne l'emploie pas ces temps-ci.
+
+Page 11 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+から ~ にかけて
+Nom
+から… に掛けて (にかけて) : de… à…
+
+Description
+から : marque un point d'origine ou un point de départ dans le temps ou un lieu (= de ~)
+にかけて : désigne un point de destination temporel ou géographique (= jusqu'à ~/à ~)
+Contrairement au couple から… まで, les limites temporelles ou géographiques ne sont pas connues avec
+précision
+
+Construction
+Nom + から + Nom + にかけて
+
+Exemples
+このため、今夜から明日にかけて曇りや雨の天気でしょう。
+A cause de ceci, le temps sera probablement couvert et pluvieux de cette nuit à demain.
+今週末から来週にかけて大蔵大臣は中国を訪問するつもりです。
+Le ministre des finances a prévu de faire une visite en Chine de ce week-end jusqu'à la semaine prochaine.
+北海道から東北に掛けて地震が発生しました。
+Le tremblement de terre est survenu de Hokkaidô à Tôhoku.
+
+Page 12 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+かわりに
+Nom
+代わりに (かわりに) : à la place de ~, au lieu de ~, en compensation
+
+Description
+1er sens
+Peut se traduire par : au lieu de ~, à la place ~
+Exprime l'idée de remplacement, aussi bien pour les actions que les personnes ou les objets
+Par exemple :
+
+
+
+
+On ne va pas faire une action habituelle mais une autre à la place
+On ne va pas utiliser tel objet mais plutôt un autre
+On va remplacer telle personne par une autre
+
+2ème sens
+Peut se traduire par : en contrepartie de ~, en compensation de ~
+Exprime l'idée que quelque chose est fait en compensation d'une autre
+On a une notion de contrepartie, d'équilibrage, où quelque chose a lieu pour en compenser une autre
+
+Construction
+1er sens
+Verbe à la forme neutre + かわりに
+Nom + の + かわりに
+2ème sens
+Verbe à la forme neutre + かわりに
+Adjectif en い ou en な + かわりに
+Nom + の ou である + かわりに
+
+Exemples
+彼のかわりにぼくに行かせて下さい。
+Laissez-moi y aller à sa place.
+タクシーで行くかわりにバスで行くのは節約になる。
+C'est plus économique d'y aller en bus qu'en taxi.
+働きに出る代わりに一日中家にいた。
+Je suis resté à la maison toute la journée au lieu d'aller travailler.
+勉強を見てあげる代わりに、ちょっとお願いがあるのだけど。
+En contrepartie de t'avoir aidé pour tes études, j'aurais un petit service à te demander.
+Page 13 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+こそ
+Nom
+こそ : particule de thème accentué
+
+Description
+Particule pour indiquer le thème de la phrase comme は
+Accentue fortement sur une partie de la phrase, encore plus qu’avec
+
+Construction
+Nom + こそ
+
+Exemples
+今度こそは私が正しい。
+Pour UNE fois, j'ai raison.
+その戦争こそが日本を変えた。
+C'est LA guerre qui a changé le Japon.
+
+Page 14 sur 48
+
+は
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+くせに
+Nom
+くせに : bien que ~, en dépit du fait que ~, malgré ~
+
+Description
+Peut se traduire par : bien que ~, en dépit du fait que ~
+Contrairement à のに ou にもかかわらず, s'utilise pour montrer du mépris, du dédain, une critique ou un
+reproche
+くせに ne peut pas s'utiliser pour parler de soi
+Les deux phrases reliées par くせに doivent évoquer le même sujet
+Ne s'utilise pas dans les situations formelles
+
+Construction
+Verbe à la forme neutre + くせに
+Nom + の + くせに
+Adjectif en い et en な + くせに
+
+Exemples
+彼は金持ちのくせに乞食のような生活をしている。
+Bien qu'il soit riche, il vit comme un mendiant.
+知っているくせに、教えてくれない。
+Bien qu'il le sache, il ne me le dira pas.
+父は下手なくせに、カラオケが大好きなんです。
+Malgré le fait que mon père ne soit pas doué, il aime bien le karaoké.
+
+Page 15 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+もの
+Nom
+もの : parce que ~
+
+Description
+Peut se traduire par : parce que ~
+Permet de donner une raison lors d'une explication
+Souvent utilisé à l'oral par les femmes ou les enfants
+Forme plus informelle : もん
+
+Construction
+Verbe à la forme neutre ou adjectif en い + もの
+Nom ou adjectif en な + もの
+On peut aussi avoir parfois です ou un verbe en -ます avant もの
+
+Exemples
+「一人で行ける。」「うん、大丈夫、地図を持っているもの。」
+「Tu pourras y aller seule ?」「Pas de soucis, j'ai pris une carte donc ça ira.」
+電話はあしたにしたほうがいいんじゃない、もう遅いもの。
+Je préférerai ne pas avoir à appeler demain parce qu'il est déjà tard.
+
+Page 16 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+ながらも
+Nom
+ながらも : bien que ~
+
+Description
+Peut se traduire par : bien que ~
+S'utilise principalement pour parler de quelqu'un d'autre
+Permet d'exprimer quelque chose de différent par rapport à ce que l'on s'imaginait
+つつ a un sens proche
+
+Construction
+Verbe au neutre négatif (ない) ou verbe à la forme en ます sans le ます final + ながら(も)
+Adjectif en い + ながら(も)
+Adjectif en な sans le な final + ながら(も)
+Nom + ながら(も)
+
+Exemples
+一緒に暮らしていながら、母の病気に気づかなかった。
+Bien que nous vivions ensemble, je ne me suis pas rendu compte de la maladie de ma mère.
+残念ながら、その質問には答えられません。
+Bien que ce soit dommage, je ne peux pas répondre à cette question.
+この掃除機は、小型ながら性能がいい。
+Bien que cet aspirateur soit de petite taille, il est de bonne qualité.
+
+Page 17 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+にかぎって
+Nom
+に限って (にかぎって) : particulièrement lors de ~, seulement lorsque ~
+
+Description
+S'utilise lorsqu'on a quelque chose de particulier ou qui sort du cadre habituel qui arrive
+Peut se traduire par : particulièrement lors de ~, seulement lorsque ~, spécialement quand ~
+
+Construction
+Nom + に限って
+
+Exemples
+急いでいる時に限ってバスが遅れる。
+C'est seulement lorsque l'on se dépêche que le bus arrive en retard.
+その日に限って彼は欠席だった。
+Il était absent particulièrement lors de ce jour.
+
+Page 18 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+にかんして
+Nom
+に関して (にかんして) : concernant ~, à propos de ~
+
+Description
+Peut se traduire par : concernant ~, à propos de ~
+Permet d'évoquer un sujet dont on parle, que l'on pense...
+について a un sens proche
+
+Construction
+Nom + に関して ou に関しても ou に関する
+
+Exemples
+インターネットに関しては、もっと管制するの必要がありますか。
+A propos d'Internet, a-t'on besoin de plus de régulation ?
+旅行に関しては、切符を持っています。
+Si tu parles du voyage, j'ai les tickets.
+あの問題に関する説明を読む。
+Concernant ce problème, je lis les explications.
+
+Page 19 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+にかわって, にかわり
+Nom
+に代わって, に代わり (にかわって, にかわり) : à la place de ~, au lieu de ~, au nom de ~
+
+Description
+1er sens
+Peut se traduire par : au lieu de ~, à la place ~
+Exprime l'idée de remplacement, aussi bien pour les actions que les personnes ou les objets
+Par exemple :
+
+
+
+
+On ne va pas faire une action habituelle mais une autre à la place
+On ne va pas utiliser tel objet mais plutôt un autre
+On va remplacer telle personne par une autre
+
+2ème sens
+Peut se traduire par : au nom de ~, de la part de ~
+Permet d'indiquer qu'une personne fait quelque chose au nom de quelqu'un d'autre, à sa place
+
+Construction
+Nom + に代わって ou に代わり
+
+Exemples
+今はタイプライターに代わり、ワープロが使われている。
+Les logiciels de traitement de texte sont maintenant utilisés à la place des machines à écrire.
+彼が父親に代わって事業を営んでいる。
+Il gère les affaires à la place de son père.
+私は母に代わってあなたに手紙を書いています。
+Je t'écris une lettre de la part de ma mère.
+副大統領は大統領に代わって式典に出席した。
+Le vice-président a assisté à la cérémonie au nom du président.
+
+Page 20 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+にきまっている
+Nom
+に決まっている (にきまっている) : sans aucun doute, c'est certain que ~
+
+Description
+Peut se traduire par : sans aucun doute, c'est certain que ~, c'est comme si ça avait déjà été décidé que~
+Permet d'exprimer de manière forte une conviction sur quelque chose de prévu
+S'emploie la plupart du temps à l'oral
+
+Construction
+Adjectif en い ou verbe à la forme neutre + にきまっている
+Adjectif en な ou nom + にきまっている
+
+Exemples
+全然勉強しなかったので試験に落ちるに決まっている。
+Comme je n'ai pas du tout révisé, je vais sans aucun doute rater mon examen.
+彼は怠け者にきまっている。彼が働いているところを見たことがない。
+C'est sans aucun doute un paresseux. Je ne l'ai jamais vu travailler.
+家の母はノーと言うに決まっている。
+Ma mère va sûrement dire non.
+注文服だから、高いにきまっている。
+Vu que ce sont des vêtements faits sur mesure, ils sont sans aucun doute chers.
+
+Page 21 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+にくらべて
+Nom
+に比べて (にくらべて) : comparé à ~
+
+Description
+Peut se traduire par : comparé à ~
+
+Construction
+Nom + に比べて
+
+Exemples
+彼女はご主人に比べてとても若く見えます。
+Elle paraît vraiment jeune comparée à son mari.
+地球は太陽に比べて小さい。
+La Terre est petite comparée au Soleil.
+昨年に比べて今年は春の訪れが遅かった。
+Le printemps est arrivé plus tard cette année comparée à l'année dernière.
+
+Page 22 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+にくわえて
+Nom
+に加えて (にくわえて) : en plus de ~
+
+Description
+Pour ajouter une information par rapport à ce que l'on dit
+Peut se traduire par : en plus de ~
+
+Construction
+Nom + に加えて
+
+Exemples
+彼は健康に加えて頭が良い。
+En plus d'être en bonne santé, il est intelligent.
+英語に加えてドイツ語も勉強したい。
+Je veux aussi apprendre l'allemand en plus de l'anglais.
+
+Page 23 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+にたいして
+Nom
+に対して (にたいして) : envers ~, à l'encontre de ~
+
+Description
+Pour indiquer ce qui va recevoir une action
+On désigne plus fortement la personne ou le sujet qui reçoit l'action
+Peut se traduire par : à l'encontre de ~, envers ~
+
+Construction
+Nom + に対して
+
+Exemples
+彼女は動物に対して優しい。
+Elle est gentille envers les animaux.
+彼女は彼に対して不利な証言をした。
+Elle a témoigné défavorablement à son encontre.
+
+Page 24 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+にとって
+Nom
+にとって : du point de vue de ~
+
+Description
+Peut se traduire par : du point de vue de ~, pour ~
+Permet d'exprimer le point de vue de quelqu'un
+にとって est suivi d'un jugement ou d'une appréciation
+Ne s'utilise pas lorsque le sujet de la phrase (qui précède にとって) correspond au sujet d'un verbe d'action
+qui suivrait
+On utilisera には dans ce cas là
+には et にとって renvoient tous les deux à un sujet, mais には indique que le sujet de l'action peut réaliser
+ou non celle-ci par lui-même
+には met réellement l'emphase sur le nom : pour ~, en particulier pour ~
+Par exemple :
+
+
+
+
+この仕事は私にとってできない。 Pour ma part, je n'arrive pas à faire ce travail. : incorrect
+grammaticalement car on se réfère à quelque chose que l'on ne peut pas accomplir, à un problème qui
+nous est spécifique.
+この仕事は私にはできない。 : correct car には se réfère spécifiquement à nous sur quelque chose
+que l'on n'a pas les moyens de réaliser.
+
+Un autre exemple :
+
+
+
+外人にとって、納豆は食べにくい。 Pour les étrangers (de leur point de vue), le natô n'est pas
+évident à manger.
+外人には、納豆は食べにくい。 Pour les étrangers (particulièrement pour eux, notamment pour
+eux), le natô n'est pas évident à manger.
+
+Construction
+Nom + にとって
+
+Exemples
+この写真は私にとって、何よりも大切なものです。
+Pour moi, cette photo est plus importante que tout.
+大統領にとって国民の健康はとても大切です。
+Pour le Président, la santé des citoyens est très importante.
+
+Page 25 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+空気は、生命にとって不可欠である。
+L'air est indispensable pour la vie.
+
+Page 26 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+につけ, につけて ou についても
+Nom
+につけ, につけて ou についても : chaque fois que ~, toutes les fois où ~, que ce soit ~ ou ~
+
+Description
+Quand につけ est employé seul
+Peut se traduire par : toute les fois que ~, à chaque fois que ~
+S'emploie pour indiquer une action qui provoque un sentiment
+On ajoute donc souvent à la fin un verbe indiquant un sentiment ou une pensée
+Pour un sens plus général, on utilise 度に (たびに)
+Quand につけ est doublé
+Peut se traduire par : que ce soit ~ ou ~
+S'utilise généralement avec deux mots qui se contrastent (chaud/froid, salé/sucré...)
+
+Construction
+Verbe à la forme neutre + につけ, につけて ou についても
+Verbe ou adjectif + につけ + verbe ou adjectif+ につけ + proposition principale
+
+Exemples
+家族の写真を見るにつけ会いたくてたまらなくなる。
+A chaque fois que je regarde les photos de ma famille, je ne peux m'empêcher de penser à vouloir les
+rencontrer.
+先輩の活躍を見るにつけ聞くにつけ心強くなる。
+Que ce soit lorsque je vois les efforts de mon aîné ou lorsque je l'écoute, cela m'encourage.
+
+Page 27 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+おかげで
+Nom
+おかげで : grâce à ~
+
+Description
+Peut se traduire par : grâce à ~
+おがけだ a le même sens mais est placé en fin de phrase
+En kanji : お陰で
+
+Construction
+Nom + の + おかげで
+Verbe forme passé neutre (た) + おかげで
+おがけだ : mêmes constructions que おかげで mais おがけだ est en fin de phrase
+
+Exemples
+彼のおかげで就職できた。
+Grâce à lui, j'ai pu trouver un emploi.
+彼は強い意志のお陰でその試合に勝った。
+Grâce à sa forte volonté, il gagna ce match.
+私の今日在るのは母のお陰だ。
+Je dois à ma mère d'être qui je suis aujourd'hui.
+努力したおかげで彼は目的を達した。
+Grâce à ses efforts, il a atteint ses objectifs.
+
+Page 28 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+さえ + verbe -えば
+Nom
+さえ + verbe -えば : si seulement ~ alors ~
+
+Description
+Peut se traduire par : si seulement A alors B, il suffirait que A pour que B, pour peu que A alors B
+L'action représentée par A est la seule nécessaire pour que B se réalise
+
+Construction
+Nom + さえ + verbe/adjectif en い au conditionnel en -えば, nom/adjectif en な suivi de なら + résultat
+Verbe dans sa forme en ます sans le ます final + さえ + すれば・しなければ + résultat
+Nom ou adjectif en な + で + さえ + あれば・なければ + résultat
+Adjectif en -い avec く à la place du い final + さえ + あれば・なければ + résultat
+
+Exemples
+騒音公害は、人々が環境にもっと敏感でありさえすれば避けることができるのに。
+Si seulement les personnes étaient plus sensibles à leur environnement, on pourrait alors éviter la pollution
+sonore.
+静かに聞いてくれる気がありさえすればお話ししよう。
+Je te le dirais si seulement j'ai l'impression que tu m'écoutes calmement.
+汚しさえしなければ本を家に持ってかえっていい。
+Tu peux amener le livre chez toi pour peu que tu ne le salisses pas .
+赤くさえあれば、どんな花でも結構です。
+N'importe quelle fleur irait du moment qu'elles sont rouges.
+体さえ丈夫なら、どんな苦労にも耐えられると思う。
+Je pense que je peux endurer n'importe quelle difficultés du moment que mon corps va bien.
+
+Page 29 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+せいで
+Nom
+せいで : à cause de ~
+
+Description
+Peut se traduire par : à cause de ~, du fait de ~
+せいだ a le même sens mais est placé en fin de phrase
+せいか ajoute une valeur d'interrogation personnelle, de réflexion intérieure
+
+Construction
+Nom + の + せいで
+Verbe forme passé neutre (-た) + せいで
+せいだ : mêmes constructions que せいで mais せいだ est en fin de phrase
+せいか : mêmes constructions que せいで et せいか en milieu de phrase
+
+Exemples
+彼は過労のせいで死んだ。
+Il est mort à cause du surmenage.
+飛行機でお酒飲むと、気圧のせいか酔いやすい。
+Si on boit de l'alcool en avion, c'est-être à cause de la pression atmosphérique que l'on est plus facilement
+saoul.
+列車が止まったのは嵐のせいだった。
+Du fait de la tempête, le train s'était arrêté.
+
+Page 30 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+たびに
+Nom
+度に (たびに) : chaque fois que ~
+
+Description
+Peut se traduire par : chaque fois que ~
+Traduit une occurrence de quelque chose
+
+Construction
+Verbe à la forme neutre + 度に
+
+Exemples
+彼女に会うたびに胸がどきどきする。
+Mon cœur s'affole chaque fois que je la vois.
+この写真を見るたびに、父を思い出す。
+A chaque fois que je vois cette photo, je pense à mon père.
+
+Page 31 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+たとえ + verbe -て + も
+Nom
+たとえ ~ても : même si ~
+
+Description
+Peut se traduire par : même si ~
+L'ajout de たとえ permet d'insister sur le conditionnel
+
+Construction
+(たとえ) + verbe en -て + も
+(たとえ) + adjectif en い avec く à la place du い final + ても
+(たとえ) + adjectif en な sans le な final + でも
+(たとえ) + nom + でも
+
+Exemples
+たとえ食べたくなくても、あなたはこのサラダを食べなくてはいけない。
+Tu dois manger cette salade même si tu n’en veux pas.
+たとえ彼は忙しくても来るよ。
+Même s'il est occupé, il viendra.
+たとえ医者でもガンには勝てません。
+Même si vous êtes un docteur, vous ne pouvez vaincre le cancer.
+
+Page 32 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+といえば
+Nom
+と言えば
+
+(といえば) : en parlant de ~, à propos de ~
+
+Description
+Peut se traduire par : en parlant de ~, à propos de ~
+S'utilise lorsque l'on se rappelle de quelque chose à propos du sujet de discussion ou que celui-ci nous
+évoque quelque chose
+
+Construction
+Nom + と言えば
+
+Exemples
+スポーツと言えば君はテニスが出来ますか。
+En parlant de sport, est-ce que tu sais jouer au tennis ?
+名古屋と言えばあなたは瀬戸へ行ったことはありますか。
+En parlant de Nagoya, es-tu déjà allé à Seto ?
+
+Page 33 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+といったら
+Nom
+と言ったら (といったら) : en parlant de ~, à propos de ~
+
+Description
+Peut se traduire par : en parlant de ~, à propos de ~
+S'utilise pour montrer l'admiration, l'étonnement ou la déception
+
+Construction
+Nom + と言ったら
+
+Exemples
+息子の部屋の汚いことといったら、ひどいものです。
+En parlant du bazar dans la chambre de mon fils, c'est vraiment lamentable.
+日本の中で、一番有名な観光地と言ったら、京都ですね。
+Quand je pense aux plus célèbres lieux touristiques du Japon, Kyôtô me vient à l'esprit.
+
+Page 34 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+というと
+Nom
+と言うと (というと) : en parlant de ~, à propos de ~
+
+Description
+Peut se traduire par : en parlant de ~, à propos de ~
+
+Construction
+Nom + と言うと
+
+Exemples
+有名な映画監督というと、黒澤明を述べなきゃいけない。
+Quand l'on parle des réalisateurs célèbres, on doit mentionner Akira Kurosawa.
+スポ-ツの祭典というと、まずオリンピックですね。
+En parlant des festivals sportifs, on peut d'abord parler des jeux olympiques.
+
+Page 35 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+ところへ, ところに, ところを
+Nom
+ところへ, ところに, ところを
+
+: mettre l'accent sur le moment où s'effectue une action
+
+Description
+Peut se traduire par : au moment où, juste quand, juste avant, juste après
+Sert à mettre l'accent sur un moment où une action s'effectue
+Avec du passé (forme en -た) : moment où l'action vient de s'effectuer
+Avec la forme neutre : moment où l'action va s'effectuer
+Avec la forme en -て + いる : moment où l'action est en train de s'effectuer
+Les particules へ, に et を sont interchangeables mais apportent une petite nuance :
+
+
+
+
+ところへ : permet de montrer que quelque chose vient de la situation donnée
+ところに : permet de montrer que quelque chose survient lors de la situation donnée
+ところを : permet de prendre la situation décrite et de la traiter comme un nom pour la lier à
+quelque chose d'autre
+
+Construction
+Verbe à la forme passé neutre (-た) + ところ + へ・に・を・だ
+Verbe à la forme neutre + ところ + へ・に・を・だ
+Verbe à la forme en -て + いる + ところ + へ・に・を・だ
+
+Exemples
+彼女は昼ご飯を食べているところだ。
+Elle est en train de prendre son repas.
+私達は今出かけるところだ。
+Nous sommes maintenant sur le point de partir.
+郵便局へ行ってきたところだ。
+Je viens d'aller au bureau de poste.
+これから寝ようとしたところへ友達が訪ねてきた。
+J'étais sur le point de m'endormir quand un ami est passé.
+こっそりたばこを吸っているところを妹に見られた。
+Ma petite sœur m'a vu au moment où je fumais en cachette.
+
+Page 36 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+とおりに, どおりに
+Nom
+通りに (とおりに, どおりに) : comme ~
+
+Description
+Peut se traduire par : comme ~, de la même manière que ~, de la même façon que ~, suivant ~
+
+Construction
+Verbe à la forme neutre (présent, passé ou forme en ている) + とおり(に)
+Nom + の + とおり(に)
+nom + どおり(に)
+
+Exemples
+天気予報のとおり、午後から雨になった。
+Comme prévu par les prévisions météorologiques, il a commencé à pleuvoir dans l'après-midi.
+医者の指示どおり、毎日運動をすることにした。
+Suivant les indications de mon docteur, j'ai décidé de faire de l'exercice chaque jour.
+恐れたとおりに今日も吹雪があった。
+Comme je le craignais, il y a également eu une tempête de neige aujourd'hui.
+説明書に書いてあるとおりにやってみてください。
+Essayons de faire de la même manière que ce qui est écrit dans le mode d'emploi.
+
+Page 37 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+として
+Nom
+として : en tant que ~
+
+Description
+Peut se traduire par : en tant que ~
+Indique la catégorie, le rôle, la capacité ou la fonction de quelqu'un ou quelque chose
+
+Construction
+Nom + として
+Nom + としての + nom
+
+Exemples
+彼は先生としても人間としても尊敬された。
+Il était respecté à la fois en tant que professeur et en tant qu'homme.
+彼女は販売員としての仕事に応募した。
+Elle a postulé à un emploi en tant que vendeuse.
+私たちの学校は３人のアメリカ人を交換留学生として受け入れた。
+Notre école a admis 3 américains en tant qu'étudiants participant à un échange.
+
+Page 38 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+ついでに
+Nom
+ついでに : profiter de faire quelque chose pour en faire une autre
+
+Description
+S'utilise lorsque, au moment où l'on va faire quelque chose, on a l'opportunité d'en faire une autre
+Peut se traduire par : profitant du fait que ~, pendant que tu fais également ceci ~
+
+Construction
+Verbe à la forme neutre + ついでに
+Verbe à la forme passé neutre (-た) + ついでに
+Nom + の + ついでに
+
+Exemples
+あなたが入れるついでに私にもコーヒーを入れてください。
+Pendant que tu prépares un café, peux-tu aussi m’en faire un s'il te plaît ?
+先生はいろいろな種類の花を見せてくれたついでにこれらの花は自分の家の庭から持ってきた物
+だと言った。
+Profitant du fait que notre professeur nous montrait différentes variétés de fleur, il nous a dit qu' elles
+venaient de son jardin.
+
+Page 39 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+うちに
+Nom
+うちに : tant que ~, avant que ~
+
+Description
+1er sens
+Peut se traduire par : tant que ~
+Si l'action n'est pas faite maintenant, il sera trop tard par la suite car elle sera révolue
+2ème sens
+Peut se traduire par : avant que ~
+S'utilise pour annoncer quelque chose à faire avant qu'un changement se produise et la rende plus difficile à
+réaliser
+Même sens que 前に (まえに)
+
+Construction
+Verbe à la forme neutre (affirmatif ou négatif) + うちに
+
+Exemples
+陽が昇らないうちに出発しよう。
+Partons avant que le soleil ne soit levé.
+若いうちに体を鍛えなさい。
+Entraine ton corps tant que tu es jeune.
+雨が降らないうちに帰りましょう。
+Rentrons à la maison avant qu'il ne pleuve.
+
+Page 40 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+Verbe -た + ところ
+Nom
+~たところ : quand ~, lorsque ~
+
+Description
+Peut se traduire par : quand ~, lorsque ~
+A~たところ、B~た : quand A est fait, alors B est le résultat
+L'action A ne se répète pas, elle n'est faite qu'une seule fois
+Le résultat B est une conséquence de l'action A
+On peut trouver la forme : verbe en -て + みた + ところ
+
+Construction
+Verbe au passé neutre (-た) + ところ
+
+Exemples
+マニュアルの説明通りにやってみたところうまくいった。
+Cela s'est bien passé quand j'ai essayé de faire en suivant les explications du manuel.
+新しいワ-プロを使ってみたところ、とても使いやすかった。
+C'était vraiment facile à utiliser lorsque j'ai pris le nouveau traitement de texte.
+
+Page 41 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+Verbe -た + とたん
+Nom
+Verbe -た + とたん : dès que ~, aussitôt que ~
+
+Description
+Peut se traduire par : dès que ~, aussitôt que ~
+Indique qu'après un premier évènement, un deuxième (souvent étrange ou anormal) est survenu
+brusquement
+
+Construction
+Verbe à la forme passé neutre (-た) + とたん(に)
+
+Exemples
+彼は娘が死んだ事を聞いたとたん、泣き崩れた。
+Aussitôt après avoir appris la mort de sa fille, il s'effondra en larmes.
+僕は見たとたんに彼女だと分かった。
+Je l'ai reconnu dès que je l'ai vu.
+彼女はひとりきりになったとたん、その手紙をあけた。
+Dès qu'elle fût seule, elle ouvrit la lettre.
+
+Page 42 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+Verbe -て + いらい
+Nom
+Verbe -て + 以来 (いらい) : depuis que ~
+
+Description
+Pour montrer le prolongement d'un évènement passé qui continue encore dans le présent
+Peut se traduire par : depuis que ~
+
+Construction
+Verbe à la forme en -て + 以来
+
+Exemples
+３年前に東京へ来て以来ここに住んでいる。
+J'habite ici depuis que je suis venu à Tôkyô il y a 3 ans.
+今世紀が始まって以来、多くの進歩があった。
+Beaucoup de progrès a été fait depuis le début de ce siècle.
+１５年前に卒業して以来私は昔の級友に会ったことがない。
+Je n'ai pas revu mes anciens camarades de classe depuis que j'ai eu mon diplôme il y a 15 ans.
+
+Page 43 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+わけではない
+Nom
+と言う訳ではない (というわけではない) : cela ne veut pas dire que ~, n'être pas forcément ~, n'être pas
+spécialement ~
+
+Description
+Peut se traduire par : cela ne veut pas dire que ~, n'être pas forcément ~, n'être pas spécialement ~
+Permet souvent d'infirmer quelque chose dit précédemment
+
+Construction
+Verbe à la forme neutre + (と言う)わけではない
+Adjectif en -な ou en -い + わけではない
+
+Exemples
+全く嘘と言う訳ではない。
+Cela ne veut pas dire que c'est entièrement faux.
+別に命日と言うわけではない。
+Cela ne veut pas spécialement dire que c’est une commémoration.
+きょうはとりわけ暑いというわけではない。
+Il ne fait pas spécialement chaud aujourd'hui.
+
+Page 44 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+をちゅうしんに
+Nom
+を中心に (をちゅうしんに) : centré sur ~, autour de ~
+
+Description
+Peut se traduire par : centré sur ~, autour de ~
+A を B の中心にする : rendre A au centre de B
+
+Construction
+Nom + を中心に
+Nom + を中心にとして
+Nom + を中心にする
+
+Exemples
+駅を中心にたくさんの商店が集まっている。
+Il y a des nombreuses boutiques rassemblées autour de la gare.
+中国を海外展開計画の中心に議論しましょう
+Mettons la Chine au centre des discussions de notre projet de développement à l'étranger.
+地球は太陽を中心にして回っている。
+La Terre tourne autour du Soleil.
+
+Page 45 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+をはじめ, をはじめとする
+Nom
+をはじめ, をはじめとする : à commencer par ~
+
+Description
+Permet d'introduire une liste de choses en mettant l'accent sur le premier
+Peut se traduire par : à commencer par ~
+On mentionne en premier lieu un élément d'un ensemble similaire de choses avec par exemple :
+
+
+
+
+un plat parmi une liste de plats
+une personne parmi un ensemble de personnes
+un bâtiment parmi un ensemble de bâtiments
+
+Construction
+Nom + をはじめ ou をはじめとする
+
+Exemples
+『源氏物語』をはじめとする物語が愛好されました。
+Il adorait les contes, à commencer par "Le Dit du Genji".
+サービス産業には、通信、運輸、流通、金融をはじめものの生産には関係ないたくさんの分野が
+含まれる。
+De nombreux domaines qui n'ont pas de lien avec la fabrication de produits sont inclus dans l'industrie du
+service à commencer par la finance mais aussi la distribution, le transport et la communication.
+
+Page 46 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+をぬきにして, はぬきにして
+Nom
+を抜きにして, は抜きにして (をぬきにして, はぬきにして) : laisser de côté ~, ne pas prendre en
+compte ~
+
+Description
+Permet d'indiquer que l'on met quelque chose de côté, qu'on ne le prend pas en compte
+Peut se traduire par : en laissant de côté ~, en ne prenant pas en compte ~
+
+Construction
+Nom + をぬきにして ou はぬきにして
+
+Exemples
+彼を抜きにして、パーティーを開くわけにはいかない。
+Je ne peux pas me permettre de donner une fête en le laissant de côté.
+前置きは抜きにして本題に入ろう。
+Allons directement aux points principaux sans prendre en compte l'introduction.
+
+Page 47 sur 48
+
+Grammaire du JLPT N3
+Go-I 語彙 : www.go-i.fr
+
+ように
+Nom
+ように : comme ~, dans le but de ~
+
+Description
+1er sens
+Peut se traduire par : comme ~, en suivant la manière de ~
+ように est souvent remplacé par 通りに (とおりに) particulièrement après un verbe
+2ème sens
+Peut se traduire par : dans le but de ~, pour que ~
+Indique de faire quelque chose de telle manière pour faire une autre chose
+Permet de montrer un objectif
+ように est souvent précédé d'un verbe à la forme potentielle ou négative neutre
+
+Construction
+Nom + の + ように
+Verbe à la forme neutre (présent ou négatif) + ように
+Verbe à la forme potentielle + ように
+
+Exemples
+氷のように冷たい。
+Froid comme de la glace.
+彼の言うようにしなさい。
+Veuillez faire comme il dit.
+天気予報に言ったように、今日は天気がよくない。
+Comme ils l'ont annoncé à la météo, le temps sera mauvais aujourd'hui.
+良い席が取れるように早く来た。
+Je suis venu tôt pour pouvoir avoir un bon siège.
+この花瓶を割らないように注意して下さい。
+Veuillez faire attention à ne pas briser ce vase.
+
+Page 48 sur 48
+
+

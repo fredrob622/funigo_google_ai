@@ -37,6 +37,13 @@ app.get('/', (req, res) => {
     res.render('pages/index', { title: 'Accueil' });
 });
 
+// NOUVEAU : Redirection pour l'ancienne URL index.html
+app.get('/index.html', (req, res) => {
+    // On fait une redirection 301 (redirection permanente) vers la racine du site.
+    // C'est la meilleure pratique pour le SEO.
+    res.redirect(301, '/');
+});
+
 // ------------------------------------------------------------- LANGUE ----------------------------------------------------------//
 
 // *******************************************************************************************************************************//

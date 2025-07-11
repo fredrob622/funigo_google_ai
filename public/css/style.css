@@ -99,9 +99,13 @@ h2 {
 
 .carte-item h4 {
     margin-top: 0;
-    color: #012031;
-    background-color: white;
-    padding:2px;
+    /* color: #012031;
+    background-color: white; */
+    background-color: #074107;
+    color: white;
+    padding:3px;
+    padding-left: 25px;
+    padding-right: 25px;
 }
 
 .carte-item img {

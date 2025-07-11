@@ -111,3 +111,107 @@ app.get('/departement_carte', async (req, res) => {
         res.status(500).send("Erreur serveur.");
     }
 });
+
+###################################################################################################################################################	
+
+Dans departement_carte_form.ejs 
+-------------------------------
+
+<!-- Fichier: views/pages/departement_carte_form.ejs -->
+
+<%- include('../partials/header') %>  <!-- Fichier: partials/header.js pour insérer le menu -->
+
+<!-- On utilise content-black pour un style cohérent -->
+<div class="content content-black">
+    
+    <h2>Carte des Départements de France</h2>
+    
+    <div class="form-container" style="text-align: center; margin-bottom: 30px;">
+        <label for="departement-select" style="display: block; margin-bottom: 10px; font-size: 1.0em;">Choisissez un Département ou numéro :</label>
+        
+        <!-- Voici notre liste déroulante -->
+        <select id="departement-select" style="padding: 5px; font-size: 0.8em; border-radius: 8px; min-width: 300px;">
+            <option value="" disabled selected>-- Sélectionnez un nom de départements --</option>
+            
+            <!-- Boucle EJS pour remplir la liste avec les données de la variable listeRegion -->
+            <% listeDepartement.forEach(departement => { %>
+                <option value="<%= departement.reg_nom %>"><%= departement.reg_nom %></option>
+            <% }); %>
+        </select>
+		
+		<select id="departement-select" style="padding: 5px; font-size: 0.8em; border-radius: 8px; min-width: 300px;">
+            <option value="" disabled selected>-- Sélectionnez un numero de départements --</option>
+            
+            <!-- Boucle EJS pour remplir la liste avec les données de la variable listeRegion -->
+            <% listeNumeroDepartement.forEach(numero => { %>
+                <option value="<%= numero.reg_nom %>"><%= numero.reg_nom %></option>
+            <% }); %>
+        </select>
+		
+    </div>
+
+    <!-- Ce conteneur affichera l'image. Il est caché par défaut. 
+        - On lui ajoute la classe "cartes-flex-container" pour le style. -->
+
+
+<div id="cartes-container" class="cartes-flex-container" style="display: none;">
+    
+    <!-- On ajoute la classe "carte-position" -->
+    <div class="carte-item carte-position">
+        <h4>Position en France</h4>
+        <img id="departement-position-image" src="" alt="Carte de la position de la région" width="100"/>
+    </div>
+
+    <!-- On ajoute la classe "carte-departements" -->
+    <div class="carte-item carte-departements">
+        <h4>Départements</h4>
+        <img id="departement-image" src="" alt="Carte des départements de la région" />
+    </div>
+	
+	<!-- On ajoute la classe "carte-aglomerations" -->
+    <div class="carte-item carte-departements">
+        <h4>Aglomération Départements</h4>
+        <img id="aglomeration-departement-image" src="" alt="Carte des aglomerations des départements" />
+    </div>
+
+</div>
+
+<%- include('../partials/footer') %>
+
+###################################################################################################################################################	
+
+Dans main.js
+-------------------------------
+
+    // Fonction:  charger l'image position pour la région dans departement_carte_form.ejs
+    // --- NOUVEAU : Logique pour la page carte des régions ---
+    const departementSelect = document.getElementById('departement-select');
+
+    if (regionSelect) {
+        const cartesContainer = document.getElementById('cartes-container');
+        const positionImage = document.getElementById('departement-position-image');
+        const departementImage = document.getElementById('departement-image');
+		const aglomerationImage = document.getElementById('departement-aglomeration-image');
+
+        regionSelect.addEventListener('change', () => {
+            const selectedRegion = regionSelect.value;
+
+            if (selectedRegion) {
+                // Construire les deux chemins d'image
+                const positionImagePath = `/images/cartes/france/dep_position/${selectedRegion}.webp`;
+                const departementImagePath = `/images/cartes/france/dep_departement/${selectedRegion}.webp`;
+				const aglomerationImagePath = `/images/cartes/france/dep_aglomeration/${selectedRegion}.webp`;
+                
+                // Mettre à jour la source des deux images
+                positionImage.src = positionImagePath;
+                departementImage.src = departementImagePath;
+
+                // Afficher le conteneur principal
+                cartesContainer.style.display = 'flex'; // On utilise 'flex' pour activer le CSS Flexbox
+
+            } else {
+                // Cacher le conteneur si aucune région n'est sélectionnée
+                cartesContainer.style.display = 'none';
+            }
+        });
+    }

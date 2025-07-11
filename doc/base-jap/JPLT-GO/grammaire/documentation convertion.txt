@@ -1,0 +1,78 @@
+python .\convertion_vocab_txt_vers_csv.py "C:\Fichiers_Users\funigo\doc\jpltgrammaire\VocabulaireN1_erreur.txt" "C:\Fichiers_Users\funigo\doc\jpltgrammaire\VocabulaireN1_JLPT_erreur.csv"
+
+
+
+
+
+python convertion_vocab_txt_vers_csv.py "C:\Fichiers_Users\funigo\doc\jpltgrammaire\VocabulaireN1_erreur.txt" "C:\Fichiers_Users\funigo\doc\jpltgrammaire\VocabulaireN1_JLPT_erreur.csv"
+
+python extract_malformed_csv_lines.py "C:\Fichiers_Users\funigo\doc\jpltgrammaire\VocabulaireN1_JLPT.csv"
+
+fredr@Ulysse MINGW64 /c/Fichiers_Users/funigo/doc/jpltgrammaire (main)
+$ python extract_malformed_csv_lines.py "C:\Fichiers_Users\funigo\doc\jpltgrammaire\VocabulaireN1_JLPT.csv"
+Analyse du fichier CSV : 'C:\Fichiers_Users\funigo\doc\jpltgrammaire\VocabulaireN1_JLPT.csv' pour les lignes avec un nombre de champs différent de 4.
+
+Aucune ligne malformée trouvée dans 'C:\Fichiers_Users\funigo\doc\jpltgrammaire\VocabulaireN1_JLPT.csv'. Toutes les 7849 lignes ont 4 champs.
+
+
+py .\process_csv_empty_fields.py "VocabulaireN1_JLPT.csv" "VocabulaireN1_JLPT_champs_vides.csv"
+
+
+############################################################################################################################
+
+Convertir pdf en txt
+
+   $popplerPath = "C:\poppler\poppler-24.08.0\Library\bin"
+   $pdf = "grammaireN3.pdf"
+   $txt = "GrammaireN3_extrait_doc.txt"
+   & "$popplerPath\pdftotext.exe" -f 3 -l 57 "$pdf" "$txt"
+   
+Enlève les champs inutile
+
+.\clean_grammaire_page_go_niveau.ps1  GrammaireN3_extrait_doc.txt  GrammaireN3_extrait_doc_cleaned.txt
+
+
+Convertir txt en csv 
+
+.\convertion_txt_vers_csv_gemini.ps1 .\Convert-grammaire-txt-csv-chatgpt.ps1 .\GrammaireN3_extrait_doc_cleaned.txt .\GrammaireN3_doc.csv
+
+
+
+popplerPath = "C:\poppler\poppler-24.08.0\Library\bin"
+   $pdf = "grammaireN2.pdf"
+   $txt = "GrammaireN2_extrait_doc.txt"
+   & "$popplerPath\pdftotext.exe" -f 5 -l 57 "$pdf" "$txt"
+   
+########## Conversion PDF vers TXT ###########################################
+
+
+    $txt = "GrammaireN2_extrait_doc.txt"
+    & "$popplerPath\pdftotext.exe" -f 5 -l 57 "$pdf" "$txt"
+    & "$popplerPath\pdftotext.exe" -f 5 -l 149 "$pdf" "$txt"
+    $pdf = "grammaireN2.pdf"
+
+
+
+########### Demande à Gemini ###########################################
+
+Elle était tellement heureuse juste après son mariage。"
+A partir de la page 2 (après la table des matière) je voudrais convertir le fichier pdf en csv dans le but d'être intégré dans une table mysql.
+les colonnes seront Titre Nom Description Construction Exemples  Tous les champs seront encadrés par des "" et séparés par des ;
+Il faut garder les retours à la lignes dans les cellules.
+
+exemple pour la première ligne du tableau
+
+La colonne Titre aura pour valeur "Base verbale + がち"
+
+La colonne Nom aura pour valeur "ある et いる : il y a ~ "
+
+La colonne Description aura pour valeur "Permet d'indiquer le fait qu'il y a ou qu'il existe quelque chose Pour ce qui est inanimé (objet, évènement), on utilise ある Pour ce qui est animé (être vivant), on utilise いる Le sujet est presque tout le temps marqué par la particule が"
+
+La colonne Construction  aura pour valeur "Nom + が + ある ou いる"
+
+La colonne Exemples aura pour valeur "申し訳ありません明日は先約があります。 Excusez-moi mais j'ai un rendez-vous déjà prévu demain. 私の部屋にはあまり家具がありません。 Je n'ai pas beaucoup de meubles dans ma chambre. ウッドさんには息子がいませんでした。 Mr Wood n'avait pas de fils. 私には奥さんがピアニストである友人がいる。 J'ai un ami dont la femme est pianiste. "
+Il faudra Supprimer les lignes commençant par
+Grammaire du JLPT N
+Go-I
+Page
+   
