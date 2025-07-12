@@ -1,0 +1,92 @@
+
+Dans partials/header.ejs
+************************
+
+			<li class="dropdown">
+                <a href="javascript:void(0)">Langue 語</a>
+                <div class="dropdown-content">
+                    <a href="/kanji">› Dico Kanji 漢字</a>
+                    <a href="/kanji_tracer">› Tracer Kanji  漢字を書く</a>  <=== ajout
+                    <a href="/vocab">› Dico Vocabulaire 語彙</a>
+                    <a href="/grammaire_regles.html">› Grammaire - Règles 文法</a>
+                    <a href="/grammaire_conjugaison.html">› Grammaire - Conjugaison 活用</a>
+                    <a href="/grammaire_suffixes.html">› Grammaire - Suffixes</a>
+                </div>
+			</li>
+
+
+Dans server.js
+**************
+
+	// On crée la route /kanji_tracer
+
+	app.get('/kanji_tracer', (req, res) => {
+		res.render('pages/kanji_tracer_form', { title: 'Tracer du Kanji', results: [], searchTerm: '' });
+	});
+	
+	
+Dans pages/kanji_tracer_form
+****************************
+
+	// On crée le formulaire 
+	
+	<h2>Tracer un Kanji</h2>
+    <form action="/kanji_tracer/search" method="POST" class="search-form">
+        <input type="text" name="searchTerm" value="<%= searchTerm %>" placeholder="Entrez un kanji, lecture, sens...">
+        <button type="submit">Rechercher</button>
+    </form>
+
+    // lors de la soumission on appelle la requete /kanji_tracer/search
+
+Dans server.js
+**************
+
+    // On crée la route /kanji_tracer/search
+
+	// ... à l'intérieur de app.post('/kanji_tracer/search', ...)
+
+	app.post('/kanji_tracer/search', async (req, res) => {
+		const searchTerm = req.body.searchTerm;  // On récupère la donnée à chercher 
+		try {
+			// --- MODIFICATION DE LA REQUÊTE ---
+
+			// au lieu WHERE kanji LIKE '%日%' on met  WHERE kanji LIKE ?
+			const query = `
+				SELECT kanji, onyomi, kunyomi, francais, niveau 
+				FROM kanji_char 
+				WHERE kanji LIKE ? 
+				   OR onyomi LIKE ? 
+				   OR kunyomi LIKE ? 
+				   OR francais LIKE ? 
+				   OR niveau LIKE ?`; 
+
+			// searchPattern est la donnée à rechercher dans query        
+			const searchPattern = `%${searchTerm}%`;
+
+			// Log pour voir la requête SQL et les paramètres
+			console.log("--- NOUVELLE RECHERCHE KANJI ---");
+			console.log("Requête SQL exécutée :", query);
+			console.log("Avec le paramètre de recherche :", searchPattern);
+
+			// --- ON AJOUTE LE PARAMÈTRE UNE FOIS DE PLUS ---
+			const [results] = await dbPool.query(query, [searchPattern, searchPattern, searchPattern, searchPattern, searchPattern]);
+
+			// Log pour voir le résultat brut de la base de données
+			console.log("Résultat brut obtenu de la DB :", results);
+			console.log("Nombre de résultats trouvés :", results.length);
+			console.log("--------------------------------------");
+			
+			res.render('pages/kanji_form', { title: 'Résultats Kanji', results: results, searchTerm: searchTerm });
+		} catch (err) { 
+			console.error("ERREUR lors de la recherche Kanji :", err);
+			res.status(500).send("Erreur serveur."); 
+		}
+	});
+	
+	
+Dans partials/footer.ejs
+************************
+
+		// on ajoute le script téléchargé dans le fichier partials/footer.ejs
+		
+		<script src="/js/hanzi-writer.min.js"></script>

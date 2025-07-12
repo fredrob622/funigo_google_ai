@@ -115,6 +115,21 @@ h2 {
     border-radius: 4px;
 }
 
+.tracer-btn {
+    background-color: #074107;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: background-color 0.2s;
+}
+.tracer-btn:hover {
+    background-color: #0c800c;
+}
+
 /* =================================================================== */
 /* == 2. AJUSTEMENTS RESPONSIVES (MOBILES ET TABLETTES)             == */
 /* =================================================================== */

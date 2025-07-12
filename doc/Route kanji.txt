@@ -1,0 +1,22 @@
+
+
+Dans server.js
+**************
+
+app.get('/kanji', (req, res) => {
+    res.render('pages/kanji_form', { title: 'Dictionnaire Kanji', results: [], searchTerm: '' });
+});
+
+	Dans pages/kanji_form
+	*********************
+	
+	On a le formulaire de recherche 
+	
+    <h2>Rechercher un Kanji</h2>
+    <form action="/kanji/search" method="POST" class="search-form">
+        <input type="text" name="searchTerm" value="<%= searchTerm %>" placeholder="Entrez un kanji, lecture, sens...">
+        <button type="submit">Rechercher</button>
+    </form
+	
+	
+	

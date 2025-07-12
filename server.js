@@ -60,6 +60,8 @@ app.post('/kanji/search', async (req, res) => {
     const searchTerm = req.body.searchTerm;
     try {
         // --- MODIFICATION DE LA REQUÊTE ---
+
+        // au lieu WHERE kanji LIKE '%日%' on met  WHERE kanji LIKE ?
         const query = `
             SELECT kanji, onyomi, kunyomi, francais, niveau 
             FROM kanji_char 
@@ -67,8 +69,9 @@ app.post('/kanji/search', async (req, res) => {
                OR onyomi LIKE ? 
                OR kunyomi LIKE ? 
                OR francais LIKE ? 
-               OR niveau LIKE ?`; // <-- ON AJOUTE CETTE LIGNE
+               OR niveau LIKE ?`; 
 
+        // searchPattern est la donnée à rechercher dans query        
         const searchPattern = `%${searchTerm}%`;
 
         // Log pour voir la requête SQL et les paramètres
@@ -77,7 +80,7 @@ app.post('/kanji/search', async (req, res) => {
         console.log("Avec le paramètre de recherche :", searchPattern);
 
         // --- ON AJOUTE LE PARAMÈTRE UNE FOIS DE PLUS ---
-        const [results] = await dbPool.query(query, [searchPattern, searchPattern, searchPattern, searchPattern, searchPattern]); // <-- 5 paramètres maintenant
+        const [results] = await dbPool.query(query, [searchPattern, searchPattern, searchPattern, searchPattern, searchPattern]);
 
         // Log pour voir le résultat brut de la base de données
         console.log("Résultat brut obtenu de la DB :", results);
@@ -300,6 +303,56 @@ app.get('/departement_carte', async (req, res) => {
         res.status(500).send("Erreur serveur.");
     }
 });
+
+// *******************************************************************************************************************************//
+// Dico Kanji_tracer
+// *******************************************************************************************************************************//
+
+app.get('/kanji_tracer', (req, res) => {
+    res.render('pages/kanji_tracer_form', { title: 'Tracer du Kanji', results: [], searchTerm: '' });
+});
+
+// ... à l'intérieur de app.post('/kanji_tracer/search', ...)
+
+app.post('/kanji_tracer/search', async (req, res) => {
+    const searchTerm = req.body.searchTerm;  // On récupère la donnée à chercher 
+    try {
+        // --- MODIFICATION DE LA REQUÊTE ---
+
+        // au lieu WHERE kanji LIKE '%日%' on met  WHERE kanji LIKE ?
+        const query = `
+            SELECT kanji, onyomi, kunyomi, francais, niveau 
+            FROM kanji_char 
+            WHERE kanji LIKE ? 
+               OR onyomi LIKE ? 
+               OR kunyomi LIKE ? 
+               OR francais LIKE ? 
+               OR niveau LIKE ?`; 
+
+        // searchPattern est la donnée à rechercher dans query        
+        const searchPattern = `%${searchTerm}%`.trim();
+        // searchPattern = searchPattern.trim();
+
+        // Log pour voir la requête SQL et les paramètres
+        console.log("--- NOUVELLE RECHERCHE KANJI ---");
+        console.log("Requête SQL exécutée :", query);
+        console.log("Avec le paramètre de recherche :", searchPattern);
+
+        // --- ON AJOUTE LE PARAMÈTRE UNE FOIS DE PLUS ---
+        const [results] = await dbPool.query(query, [searchPattern, searchPattern, searchPattern, searchPattern, searchPattern]);
+
+        // Log pour voir le résultat brut de la base de données
+        console.log("Résultat brut obtenu de la DB :", results);
+        console.log("Nombre de résultats trouvés :", results.length);
+        console.log("--------------------------------------");
+        
+        res.render('pages/kanji_tracer_form', { title: 'Résultats Kanji', results: results, searchTerm: searchTerm });
+    } catch (err) { 
+        console.error("ERREUR lors de la recherche Kanji :", err);
+        res.status(500).send("Erreur serveur."); 
+    }
+});
+
 
 
 //*******************************************************************************************************************************//

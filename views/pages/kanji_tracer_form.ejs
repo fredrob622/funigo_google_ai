@@ -1,0 +1,42 @@
+<!-- Fichier : views/pages/kanji_tracer_form.ejs (Version finale et propre) -->
+
+<%- include('../partials/header') %>
+
+<div class="content content-black"> 
+    
+    <h2>Tracer un Kanji</h2>
+    <form action="/kanji_tracer/search" method="POST" class="search-form">
+        <input type="text" name="searchTerm" value="<%= searchTerm %>" placeholder="Recherchez un kanji...">
+        <button type="submit">Rechercher</button>
+    </form>
+
+    <% if (results.length > 0) { %>
+        <% const kanjiToTrace = results[0].kanji; %>
+
+        <div class="tracer-container">
+            <h3>Résultats pour "<%= searchTerm %>" - Tracé de : <span class="jp-char"><%= kanjiToTrace %></span></h3>
+            
+            <!-- On passe le kanji via un attribut data-char -->
+            <div id="kanji-target" data-char="<%= kanjiToTrace %>" style="display: flex; justify-content: center; align-items: center; margin: 20px 0;"></div>
+
+            <!-- Les boutons de contrôle -->
+            <div class="tracer-controls" style="text-align: center;">
+                <button id="animate-btn" class="tracer-btn">Animer</button>
+                <button id="quiz-btn" class="tracer-btn">S'entraîner</button>
+            </div>
+        </div>
+
+    <% } else if (searchTerm) { %>
+        <p>Aucun résultat trouvé pour "<%= searchTerm %>".</p>
+    <% } %>
+</div>
+
+<!-- On charge les scripts APRES le footer pour optimiser le chargement -->
+<%- include('../partials/footer') %>
+
+<!-- 
+    CHARGEMENT DES SCRIPTS EXTERNES
+    On supprime le script inline et on appelle nos fichiers .js
+-->
+<script src="/js/hanzi-writer.min.js"></script> <!-- La bibliothèque d'abord -->
+<script src="/js/kanji-tracer.js"></script>   <!-- Notre script personnel ensuite -->
