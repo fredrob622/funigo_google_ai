@@ -188,44 +188,59 @@ app.post('/departements/search', async (req, res) => {
 });
 
 //*******************************************************************************************************************************//
-// NOUVEAU : Régions (avec liste déroulante et affichage des détails)
+// NOUVEAU : Régions
 //*******************************************************************************************************************************//
+app.get('/regions', (req, res) => {
+    res.render('pages/region_form', { title: 'Régions Françaises', results: [], searchTerm: '' });
+});
 
-app.get('/regions', async (req, res) => {
+app.post('/regions/search', async (req, res) => {
+    // Note : La table 'reg_fr' devra être créée dans votre base de données.
+    // On récupère le terme et on le nettoie avec .trim()
+    const searchTerm = req.body.searchTerm.trim();
+
     try {
-        // --- PARTIE 1 : On charge TOUJOURS la liste complète des régions ---
-        const queryAllRegions = 'SELECT reg_nom FROM reg_fr ORDER BY reg_nom ASC;';
-        const [allRegions] = await dbPool.query(queryAllRegions);
-        
-        // --- PARTIE 2 : On regarde si l'utilisateur a sélectionné une région ---
-        // La région sélectionnée arrivera dans l'URL, comme: /regions?selection=Bretagne
-        const selectedRegionName = req.query.selection || '';
-
-        let regionDetails = []; // On initialise un tableau vide pour les détails
-
-        // --- PARTIE 3 : Si une région est sélectionnée, on va chercher ses détails ---
-        if (selectedRegionName) {
-            console.log(`--- Recherche des détails pour la région : ${selectedRegionName} ---`);
-            const queryDetails = `
-                SELECT reg_nom, reg_cheflieu, reg_dep, reg_superficie, reg_population
+        // Supposons que la table region_fr ait au moins une colonne 'nom_reg'
+        const query = `
+            SELECT reg_nom, reg_cheflieu, reg_dep, reg_superficie, reg_population
                 FROM reg_fr 
-                WHERE reg_nom = ?`; // Recherche exacte avec le nom de la région
+                WHERE 
+                    LOWER(reg_nom) LIKE ?       -- CORRECTION : On compare en minuscules
+                    OR LOWER(reg_cheflieu) LIKE ?  -- CORRECTION : On compare en minuscules
+                    OR LOWER(reg_dep) LIKE ?       -- CORRECTION : On compare en minuscules
+                    OR reg_superficie LIKE ?
+                    OR reg_population LIKE ?`; 
 
-            const [details] = await dbPool.query(queryDetails, [selectedRegionName]);
-            regionDetails = details; // On remplit notre tableau avec le résultat
-        }
+        const searchPattern = `%${searchTerm.toLowerCase()}%`;
 
-        // --- PARTIE 4 : On rend la page en lui passant TOUTES les données ---
+        console.log("--- NOUVELLE RECHERCHE DÉPARTEMENT ---");
+        console.log("Requête SQL exécutée :", query.trim().replace(/\s+/g, ' '));
+        console.log("Avec le paramètre de recherche :", searchPattern);
+
+        const [results] = await dbPool.query(query, [
+            searchPattern, 
+            searchPattern, 
+            searchPattern, 
+            searchPattern, 
+            searchPattern
+        ]);
+
+        console.log("Nombre de résultats trouvés :", results.length);
+        console.log("--------------------------------------");
+        
         res.render('pages/region_form', { 
-            title: 'Les Régions Françaises',
-            listeRegion: allRegions,      // Pour la liste déroulante
-            results: regionDetails,       // Pour le tableau de résultats (contient les détails ou est vide)
-            searchTerm: selectedRegionName // Pour savoir quelle région pré-sélectionner dans la liste
-        });
+            title: 'Résultats Régions', 
+            results: results, 
+            searchTerm: searchTerm });
 
     } catch (err) {
-        console.error("ERREUR lors du chargement de la page des régions :", err);
-        res.status(500).send("Erreur serveur.");
+        console.error("Erreur de recherche Région:", err);
+        // Renvoyer un message d'erreur clair si la table n'existe pas
+        if (err.code === 'ER_NO_SUCH_TABLE') {
+            res.status(500).send("Erreur : La table 'reg_fr' n'a pas été trouvée. Veuillez la créer.");
+        } else {
+            res.status(500).send("Erreur serveur lors de la recherche.");
+        }
     }
 });
 

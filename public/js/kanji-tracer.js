@@ -18,7 +18,7 @@
                     showHintAfterMisses: 1,
                     highlightOnComplete: true,
 
-                     showOutline: true, // On s'assure que l'esquisse est bien visible
+                    showOutline: true, // On s'assure que l'esquisse est bien visible
         
                     // La couleur de l'esquisse de départ
                     outlineColor: '#555555', // Un gris moyen, bien visible sur fond noir
