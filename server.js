@@ -10,6 +10,14 @@ const { log } = require('console');
 
 // Initialiser l'application Express
 const app = express();
+
+// Cette ligne est un "middleware". Elle dit à votre application Express : "Pour chaque requête qui arrive, 
+// vérifie son en-tête Content-Type. S'il est application/json, alors prends le corps de la requête 
+// (qui est une chaîne de caractères JSON) et transforme-le en un véritable objet JavaScript. 
+// Stocke cet objet dans req.body."
+
+app.use(express.json()); // Pour parser le corps des requêtes JSON
+
 const PORT = process.env.PORT || 5000;
 
 // Configuration EJS
@@ -163,7 +171,9 @@ app.post('/departements/search', async (req, res) => {
                OR nom_dep LIKE ? 
                OR nom_pref LIKE ?`;
 
-        const searchPattern = `%${searchTerm}%`;
+      
+        // searchPattern est la donnée à rechercher dans query        
+        const searchPattern = `%${searchTerm}%`.trim();
 
         console.log("--- NOUVELLE RECHERCHE DÉPARTEMENT ---");
         console.log("Requête SQL exécutée :", query.trim().replace(/\s+/g, ' '));
@@ -408,6 +418,76 @@ app.post('/gram_jap_conjugaison/search', async (req, res) => {
         });
     }
 });
+
+// *******************************************************************************************************************************//
+// Quiz
+// *******************************************************************************************************************************//
+
+// Route pour afficher le formulaire du quiz
+app.get('/quiz', (req, res) => {
+    res.render('pages/quiz_form', { title: 'Le Quiz', results: [], searchTerm: '' });
+});
+
+// Route pour traiter la recherche de quiz
+app.post('/quiz/search', async (req, res) => {
+    const searchTerm = req.body.searchTerm;
+    try {
+        const viewName = `vue_quiz_${searchTerm}`;
+        const searchPattern = `%${searchTerm}%`;
+
+        console.log("--- Recherche dans Quiz ---");
+
+        // 1. Supprimer la vue si elle existe déjà
+        // **************************************
+        const dropViewQuery = `DROP VIEW IF EXISTS ${viewName};`;
+        console.log("Exécution de la requête SQL :", dropViewQuery);
+        await dbPool.query(dropViewQuery);
+        console.log(`Vue '${viewName}' supprimée si elle existait.`);
+
+        // 2. Créer la vue avec les questions sélectionées par niveau
+        // *************************************************************
+        const createViewQuery = `
+            CREATE VIEW ${viewName} AS
+            SELECT ANNEE, NIVEAU, TEXTE, REP_OK, QUESTION, REP1, REP2, REP3, REP4
+            FROM quiz
+            WHERE NIVEAU LIKE ?
+            ORDER BY RAND()
+            LIMIT 1000;`;
+        console.log("Exécution de la requête SQL (CREATE VIEW) :", createViewQuery.trim().replace(/\s+/g, ' '));
+        console.log("Avec le paramètre de recherche :", searchPattern);
+        await dbPool.query(createViewQuery, [searchPattern]);
+        console.log(`Vue '${viewName}' créée avec succès.`);
+
+        // 3. Initialiser la variable utilisateur pour l'indexation
+        // Note: Cette requête doit être exécutée séparément pour s'assurer que @i est réinitialisé
+        const setIndexQuery = `SET @i := 0;`;
+        console.log("Exécution de la requête SQL :", setIndexQuery);
+        await dbPool.query(setIndexQuery);
+        console.log("Variable @i initialisée.");
+
+        // 4. Sélectionner les données de la vue avec l'index
+        // Cette requête est exécutée APRÈS que la vue soit créée et @i initialisée
+        const selectFromViewQuery = `
+            SELECT @i := @i + 1 AS index_quiz, v.*
+            FROM ${viewName} v;`;
+        console.log("Exécution de la requête SQL (SELECT FROM VIEW) :", selectFromViewQuery.trim().replace(/\s+/g, ' '));
+        const [results] = await dbPool.query(selectFromViewQuery);
+
+        console.log("Nombre de résultats trouvés :", results.length);
+        console.log("--------------------------------------");
+
+        res.render('pages/quiz_form', {
+            title: 'Les questions du quiz',
+            results: results, // Maintenant 'results' contiendra les données de la vue
+            searchTerm: searchTerm
+        });
+
+    } catch (err) {
+        console.error("ERREUR lors de la recherche du Quiz :", err);
+        res.status(500).send("Erreur serveur lors de la recherche du Quiz.");
+    }
+});
+
 
 
 //*******************************************************************************************************************************//

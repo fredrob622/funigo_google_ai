@@ -1,0 +1,63 @@
+
+___________________________________
+
+***  Dans fichier quiz_form.ejs ****
+____________________________________
+
+<!-- data-nbquestion c'est le nombre ligne qui est envoyé à quiz.js-->
+<div data-nbquestion="<%= results.length %>"> </div>
+
+<!--  On affiche le tableau décomposé créer par quiz.js-->
+<div id="affichage"></div>
+
+
+___________________________________
+
+***  Dans fichier quiz.js **********
+____________________________________
+function initTabQuestion(nombreDeQuestion){
+  const nombresAvecBoucle = [];
+  for (let i = 1; i <= nombreDeQuestion; i++) {
+    nombresAvecBoucle.push(i);
+  }
+  return(nombresAvecBoucle);
+}
+
+// Appel avec une valeur définie dans le HTML :
+
+// en JavaScript, lorsque l'on parle de document (comme dans document.addEventListener ou document.getElementById), 
+// on fait référence à la page HTML actuellement chargée dans le navigateur.
+
+// document.addEventListener() est une méthode JavaScript fondamentale qui vous permet d'attacher une fonction 
+// (un "écouteur d'événement" ou "event listener") à un événement spécifique qui se produit sur un élément du document HTML.
+
+// element.addEventListener(event, function, useCapture);
+
+// element : L'objet sur lequel l'événement est écouté (par exemple, document, window, un bouton, une div, etc.).
+// event : Une chaîne de caractères spécifiant le nom de l'événement à écouter (par exemple, 'click', 'mouseover', 'submit', 'DOMContentLoaded').
+// function : La fonction à exécuter lorsque l'événement se produit. C'est votre "gestionnaire d'événement".
+// useCapture (optionnel) : Un booléen (vrai/faux) qui spécifie si l'événement doit être exécuté en phase de capture ou de propagation. Généralement false (par défaut) pour la propagation.
+
+// En termes simples, c'est comme dire au navigateur : "Quand cet événement se produit sur cet élément, exécute cette fonction."
+
+// DOMContentLoaded est un événement JavaScript qui se déclenche lorsque le document HTML initial a été entièrement chargé et 
+// analysé par le navigateur, sans attendre que les feuilles de style, les images et les sous-cadres aient fini de charger.
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const nb = document.querySelector('[data-nbquestion]');
+  if (nb) {
+    tabNombreDeQuestion = initTabQuestion(parseInt(nb.dataset.nbquestion));
+    console.log("tableau tabNombreDeQuestion :", tabNombreDeQuestion);
+
+    // Affichage dans la div
+
+    // document.getElementById('affichage') Sélectionne l’élément HTML avec l’ID affichage. Par exemple : <div id="affichage"></div>
+    // .textContent => Change le contenu textuel de cet élément (tout ce qu’on voit à l’intérieur, sans balises HTML)
+    // tabNombreDeQuestion.join(', ') => Transforme le tableau tabNombreDeQuestion en chaîne de caractères avec les éléments séparés par des virgules 
+    // et un espace
+
+    document.getElementById('affichage').textContent = tabNombreDeQuestion.join(', ');
+  }
+});
+
