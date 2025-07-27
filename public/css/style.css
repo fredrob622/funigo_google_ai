@@ -213,6 +213,75 @@ h2 {
     .quiz-btn-question:hover {
         background-color: #7592cf; /* Une couleur légèrement plus claire */
     }
+
+    /* Fichier : public/css/quiz.css */
+
+    .quiz-btn-question {
+        background-color: #5d7fb9;
+        color: white;
+        margin: 5px 0;
+        font-size: 1em;
+        text-align: left;
+        width: 100%;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .quiz-btn-question:hover:not(:disabled) {
+        background-color: #09235a;
+        transform: scale(1.02); /* Effet de zoom léger */
+    }
+
+    /* Style pour la bonne réponse */
+    .quiz-btn-question.correct {
+        background-color: #28a745; /* Vert */
+        color: white;
+        font-weight: bold;
+    }
+
+    /* Style pour la mauvaise réponse */
+    .quiz-btn-question.incorrect {
+        background-color: #dc3545; /* Rouge */
+        color: white;
+    }
+
+    /* Style pour les boutons désactivés après une réponse */
+    .quiz-btn-question:disabled {
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+
+    /* Style pour les boutons de contrôle */
+    #quiz-controls button {
+        padding: 10px 20px;
+        font-size: 1.1em;
+        margin-top: 20px;
+        cursor: pointer;
+    }
+
+    #continue-btn {
+        background-color: #013138; /* Cyan */
+        border-radius: 8px;
+        color: white;
+        border: none;
+    }
+
+    #end-btn {
+        background-color: #f09f34af; /* Gris */
+        border-radius: 8px;
+        color: white;
+        border: none;
+    }
+
+    .quiz-txt-question {
+        background-color: #333;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 10px 0;
+    }
 /*********************************************************************************************************************************/
 /* =================================================================== */
 /* == 2. AJUSTEMENTS RESPONSIVES (MOBILES ET TABLETTES) 1200        == */

@@ -21,8 +21,14 @@
   <div data-nbquestion="<%= results.length %>"> </div>
  
   <!--  On affiche le tableau décomposé créer par quiz.js-->
-  <div id="affichage"> </div>
+  <div id="affichage"></div>
        
+    <!-- NOUVEAU : Conteneur pour les boutons de contrôle -->
+    <div id="quiz-controls">
+        <button id="continue-btn" style="display: none;">CONTINUE</button>
+        <button id="end-btn" style="display: none;">FIN</button>
+    </div>
+
   <!-- NOUVELLE MÉTHODE : On stocke les données ici, de manière sûre -->
   <!-- type="application/json" indique que le contenu n'est pas du code JavaScript, mais des données au format JSON (texte brut, structure de données). -->
   <!-- <script type="text/javascript">, le code à l'intérieur n'est pas exécuté, il est juste stocké en texte dans la page -->
