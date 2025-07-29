@@ -7,8 +7,7 @@ body { font-family: Arial, sans-serif; margin: 0; display: flex; flex-direction:
 
 main:not(.homepage-main)  { flex-grow: 1; background-image: url('../images/pp3.webp'); background-size: cover; background-position: center; background-attachment: fixed; }
 main.homepage-main {flex-grow: 1;background: transparent; /* On s'assure qu'il est bien transparent */}
-/* .content { max-width: 1200px; margin: 40px auto; background-color: rgba(255, 255, 255, 0.92); padding: 20px 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); } */
-
+.content { max-width: 1200px; margin: 40px auto; background-color: rgba(255, 255, 255, 0.92); padding: 20px 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 .jp-char { font-size: 1.5em; }
 
 /* --- Header --- */
@@ -286,53 +285,8 @@ h2 {
         border-radius: 5px;
         margin: 10px 0;
     }
-    /***************************************************************/
-    /* Pour la video en page d'acceuil!
-    /***************************************************************/
 
-    /* div class="content" (Le Conteneur Parent) :
-        position: relative; : C'est la clé absolue. Cette ligne transforme le div.content en un "cadre de référence" pour tous les éléments 
-        enfants qui auront une position: absolute.
-        overflow: hidden; : C'est la sécurité. Si la vidéo est un peu plus grande que le conteneur, les bords qui dépassent seront cachés.
-    video class="background-video" (La Vidéo) :
-        position: absolute; : Cette ligne sort la vidéo du flux normal de la page et la positionne par rapport à son parent le plus proche 
-        qui a une position: relative (c'est-à-dire, notre .content).
-        top: 0; left: 0; width: 100%; height: 100%; : Ces lignes disent à la vidéo de s'étirer pour remplir complètement la surface de son parent .content.
-    z-index: 1; : Elle est placée sur la première couche.
-    div class="text-overlay" (Le Texte) :
-        position: relative; : Le texte reste dans le flux normal, mais cette propriété lui permet d'accepter un z-index.
-    z-index: 2; : Le texte est placé sur la deuxième couche, donc par-dessus la vidéo (qui est sur la couche 1). */
 
-    .content {
-        position: relative;
-        width: 50%;     /* ou largeur souhaitée */
-        max-width: 1200px;
-        height: auto;   /* hauteur souhaitée, ici la hauteur de la fenêtre */
-        margin: 40px auto; 
-        padding: 20px 30px;
-        overflow: hidden;
-    }
-
-    .background-video {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover; /* pour que la vidéo remplisse bien la zone */
-        z-index: 1;
-    }
-
-    .text-overlay {
-        position: relative;
-        z-index: 2;              /* au-dessus de la vidéo */
-        color: white;            /* couleur du texte */
-        font-size: 2em;
-        padding: 20px;
-        text-align: center;
-        /* éventuellement ajouter un fond partiellement transparent pour lisibilité */
-        background-color: rgba(0, 0, 0, 0.3);
-    }
 
 /*********************************************************************************************************************************/
 /* =================================================================== */

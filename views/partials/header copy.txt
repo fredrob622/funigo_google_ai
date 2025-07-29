@@ -42,14 +42,7 @@
         </div>
         <div class="currency-box" id="currency-eur-jpy">
             <h3>Taux de Change</h3>
-            <p>1 EUR<br>&nbsp;&nbsp;&nbsp; = <br><span id="eur-jpy-rate">-</span> JPY</p>
-        </div>
-          <!-- ===== NOUVELLES BOÎTES POUR L'HEURE ===== -->
-        <div class="currency-box"  id="time-paris">
-            <h3>Heure Paris</h3>
-            <p><span id="paris-time" class="time-display">--:--</span></p>
-            <h3>Heure Tokyo</h3>
-            <p><span id="tokyo-time" class="time-display">--:--</span></p>
+            <p>1 EUR = <span id="eur-jpy-rate">-</span> JPY</p>
         </div>
     </div>
 

@@ -1,0 +1,47 @@
+<!-- Fichier : views/pages/index.ejs (VERSION FINALE CORRIGÉE) -->
+
+<%- include('../partials/header') %>
+
+<!-- 1. Le bloc vidéo est MAINTENANT EN DEHORS de <main> -->
+<div class="video-container"> 
+    <video autoplay loop muted playsinline class="video-background">
+        <source src="/video/Funari.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas la balise vidéo.
+    </video>
+    <div class="video-content">
+        <h2>Bienvenue sur Funigo !</h2>
+        <p>Votre portail pour explorer la langue japonaise et la culture française.</p>
+        <p>Utilisez le menu ci-dessus pour naviguer et découvrez nos dernières sélections ci-dessous.</p>
+    </div>
+</div>
+
+<!-- ======================================================= -->
+<!-- LA BALISE <main> COMMENCE SEULEMENT ICI -->
+<!-- ======================================================= -->
+<main class="homepage-main">
+    <!-- 2. Le carrousel est maintenant le premier élément de <main> -->
+    <div class="swiper my-swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="/images/accueil/P01.jpg" alt="Sashimi assorti"></div>
+            <div class="swiper-slide"><img src="/images/accueil/P02.jpg" alt="Château de Himeji"></div>
+            <div class="swiper-slide"><img src="/images/accueil/P03.jpg" alt="Image Funigo 3"></div>
+            <div class="swiper-slide"><img src="/images/accueil/P04.jpg" alt="Image Funigo 4"></div>
+            <div class="swiper-slide"><img src="/images/accueil/P05.jpg" alt="Image Funigo 5"></div>
+            <div class="swiper-slide"><img src="/images/accueil/P06.jpg" alt="Image Funigo 6"></div>
+            <div class="swiper-slide"><img src="/images/accueil/P07.jpg" alt="Image Funigo 7"></div>
+            <div class="swiper-slide"><img src="/images/accueil/P08.jpg" alt="Image Funigo 8"></div>
+            <div class="swiper-slide"><img src="/images/accueil/P09.jpg" alt="Image Funigo 9"></div>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+    
+    <!-- Vous pouvez ajouter d'autres sections ici si besoin -->
+    
+</main>
+<!-- ======================================================= -->
+<!-- LA BALISE <main> SE TERMINE ICI -->
+<!-- ======================================================= -->
+
+<%- include('../partials/footer') %>

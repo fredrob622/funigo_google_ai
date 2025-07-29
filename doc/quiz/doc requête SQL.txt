@@ -256,7 +256,7 @@ mysql> SHOW VARIABLES LIKE 'secure_file_priv';
 
 
 SELECT * FROM quiz
-INTO OUTFILE 'C:\ProgramData\MySQL\MySQL Server 8.0\Uploads\quiz.csv'
+INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/quiz_20250729.csv'
 FIELDS TERMINATED BY ',' ENCLOSED BY '"'
 LINES TERMINATED BY '\n';
 
@@ -399,7 +399,7 @@ LINES TERMINATED BY '\n'
 );
 
 
-LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/1991-N3jplt.csv'
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/1992-N3jplt.csv'
 INTO TABLE quiz
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
@@ -447,6 +447,69 @@ LINES TERMINATED BY '\n'
     REP4
 );
 
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/1991-N2jplt.csv'
+INTO TABLE quiz
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+(
+    ANNEE,
+    NIVEAU,
+    TEXTE,
+    REP_OK,
+    QUESTION,
+    REP1,
+    REP2,
+    REP3,
+    REP4
+);
+
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/1993-N3jplt.csv'
+INTO TABLE quiz
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+(
+    ANNEE,
+    NIVEAU,
+    TEXTE,
+    REP_OK,
+    QUESTION,
+    REP1,
+    REP2,
+    REP3,
+    REP4
+);
+
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/1994-N4jplt.csv'
+INTO TABLE quiz
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+(
+    ANNEE,
+    NIVEAU,
+    TEXTE,
+    REP_OK,
+    QUESTION,
+    REP1,
+    REP2,
+    REP3,
+    REP4
+);
+
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/quiz_20250729.csv'
+INTO TABLE quiz
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+(
+    ANNEE,
+    NIVEAU,
+    TEXTE,
+    REP_OK,
+    QUESTION,
+    REP1,
+    REP2,
+    REP3,
+    REP4
+);
 ********************************************************************************
 	Renuméroter l'index
 ********************************************************************************
@@ -502,3 +565,24 @@ Renommer la nouvelle table quiz_new en quiz :
 SQL
 
 ALTER TABLE quiz_new RENAME TO quiz;
+
+********************************************************************************
+	Dévalider secure-file-priv
+********************************************************************************
+
+SHOW VARIABLES LIKE 'secure_file_priv';
+
++------------------+------------------------------------------------+
+| Variable_name    | Value                                          |
++------------------+------------------------------------------------+
+| secure_file_priv | C:\ProgramData\MySQL\MySQL Server 8.0\Uploads\ |
++------------------+------------------------------------------------+
+1 row in set, 1 warning (0.01 sec)
+Désactiver cette protection pour tester (ex : dans un environnement local) :
+
+Ouvre le fichier de config MySQL (my.ini ou my.cnf)
+
+Trouve (ou ajoute) cette ligne :
+
+
+secure-file-priv=""
