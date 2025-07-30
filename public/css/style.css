@@ -342,7 +342,8 @@ h2 {
 
 @media (max-width: 1200px) {
     /* --- Ajustements généraux --- */
-    .content { padding: 10px; margin: 20px auto; }
+    .content { padding: 10px; margin: 20px auto; width: 90%;     /* ou largeur souhaitée */ }
+    .text-overlay { font-size: 1.2em;}
     
     /* --- Header & API --- */
     .header-main { display: flex; justify-content: space-between; align-items: center; }
@@ -411,7 +412,8 @@ h2 {
 
 @media (max-width: 768px) {
     /* --- Ajustements généraux --- */
-    .content { padding: 10px; margin: 20px auto; }
+    .content { padding: 10px; margin: 10px auto; width: 85%; }
+    .text-overlay { font-size: 1.0em; }
     
     /* --- Header & API --- */
     .header-main { display: flex; justify-content: space-between; align-items: center; }
@@ -556,18 +558,6 @@ h2 {
     .results-table tbody tr { font-size: 1.3em; }
 
 /* =================================================================== */
-@media (max-width: 400px) {
-
-    #conjugaison-wrapper .wikitable {
-        font-size: 0.5em;
-    }
-
-    .results-table thead th { font-size: 0.6em; }
-    .results-table tbody tr { font-size: 1em; }
-}
-
-
-/* =================================================================== */
 /* == 2. AJUSTEMENTS RESPONSIVES (MOBILES ET TABLETTES) 450       　== */
 /* =================================================================== */
 @media (max-width: 450px) {
@@ -597,7 +587,7 @@ h2 {
 
     .jp-char { font-size: 1.0em; }
 
-     .api-container { gap: 2px; }
+    .api-container { gap: 2px; }
 
     /* 1. On resserre un peu le conteneur principal */
     .content, .content-black {
@@ -612,8 +602,7 @@ h2 {
         justify-content: center;
     }
     .content-black .search-form input,
-    .content-black .search-form button {
-        
+    .content-black .search-form button {  
         font-size: 10px; /* 9px est vraiment trop petit, 14px est un minimum lisible */
         margin-bottom: 10px;
     }
@@ -635,8 +624,15 @@ h2 {
     .results-table thead tr {
          font-size: 0.7em; 
     }
+    #conjugaison-wrapper .wikitable {
+         font-size: 0.5em;
+    }
 
+    .text-overlay { font-size: 0.7em; }
+    .results-table thead th { font-size: 0.6em; }
+    .results-table tbody tr { font-size: 1em; }
 }
+
 
 /*********************************************************************************************************************************/
 /* =================================================================== */
@@ -644,6 +640,7 @@ h2 {
 /* =================================================================== */
 @media (max-width: 340px) {
 
+    .text-overlay { font-size: 0.6em; }
 
     /* Chaque cellule <td> prend toute la largeur de la carte */
     .departement-table-container .results-table td {
