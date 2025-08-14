@@ -5,7 +5,7 @@ const path = require('path');
 const mysql = require('mysql2/promise');
 const axios = require('axios');
 const cheerio = require('cheerio');
-
+const fs = require('fs').promises; // On utilise la version "promise" pour async/await
 const { log } = require('console');
 
 // Initialiser l'application Express
@@ -44,8 +44,43 @@ const dbPool = mysql.createPool({
 // --- DÉFINITION DES ROUTES ---
 
 // Accueil
-app.get('/', (req, res) => {
-    res.render('pages/index', { title: 'Accueil' });
+// Accueil
+app.get('/', async (req, res) => { // La fonction devient 'async'
+    try {
+        // 1. Définir le chemin absolu vers le dossier des vidéos
+        // path.join est la méthode la plus sûre pour construire des chemins de fichiers
+        const videoDirectory = path.join(__dirname, 'public', 'video');
+        
+        // 2. Lire tous les noms de fichiers dans le dossier
+        const allFiles = await fs.readdir(videoDirectory);
+        
+        // 3. Filtrer pour ne garder que les fichiers .mp4
+        const mp4Files = allFiles.filter(file => file.endsWith('.mp4'));
+        
+        let randomVideo = 'Funari.mp4'; // Une vidéo par défaut au cas où
+        
+        // 4. S'il y a des vidéos, en choisir une au hasard
+        if (mp4Files.length > 0) {
+            const randomIndex = Math.floor(Math.random() * mp4Files.length);
+            randomVideo = mp4Files[randomIndex];
+        }
+        
+        console.log(`Vidéo choisie pour la page d'accueil : ${randomVideo}`);
+        
+        // 5. Rendre la page en passant le nom du fichier vidéo au template
+        res.render('pages/index', { 
+            title: 'Accueil',
+            videoFile: randomVideo // On envoie le nom du fichier
+        });
+        
+    } catch (err) {
+        console.error("Erreur lors de la lecture du dossier des vidéos :", err);
+        // En cas d'erreur (dossier introuvable, etc.), on rend la page avec la vidéo par défaut
+        res.render('pages/index', { 
+            title: 'Accueil',
+            videoFile: 'Funari.mp4' // Valeur de secours
+        });
+    }
 });
 
 // NOUVEAU : Redirection pour l'ancienne URL index.html
@@ -198,7 +233,7 @@ app.post('/departements/search', async (req, res) => {
 });
 
 //*******************************************************************************************************************************//
-// NOUVEAU : Régions (avec liste déroulante et affichage des détails)
+// Régions (avec liste déroulante et affichage des détails)
 //*******************************************************************************************************************************//
 
 app.get('/regions', async (req, res) => {
@@ -240,7 +275,7 @@ app.get('/regions', async (req, res) => {
 });
 
 //*******************************************************************************************************************************//
-// NOUVEAU : Carte interactive des Régions
+// Carte interactive des Régions
 //*******************************************************************************************************************************//
 app.get('/region_carte', async (req, res) => {
     try {
@@ -272,7 +307,7 @@ app.get('/region_carte', async (req, res) => {
 
 
 //*******************************************************************************************************************************//
-// NOUVEAU : Carte interactive des Départements
+// Carte interactive des Départements
 //*******************************************************************************************************************************//
 app.get('/departement_carte', async (req, res) => {
     try {
@@ -488,7 +523,52 @@ app.post('/quiz/search', async (req, res) => {
     }
 });
 
+// *******************************************************************************************************************************//
+// Grammaire japonaise les règles
+// *******************************************************************************************************************************//
 
+app.get('/gram_jap_regles', async (req, res) => {
+    try {
+        // --- PARTIE 1 : On charge TOUJOURS la liste complète de la colonne nom ---
+        const gramAllNom = 'SELECT nom FROM gram_char ORDER BY nom ASC;';
+        const [allGramNom] = await dbPool.query(gramAllNom);
+        
+        // --- PARTIE 2 : On regarde si l'utilisateur a sélectionné un nom dans la liste allGramNom ---
+        // La nom sélectionnée arrivera dans l'URL, comme: /gram_jap_regles?Nom=挙げ句に (あげくに) : finalement, en fin de compte
+        const selectedGramName = req.query.selection || '';
+
+        let gramNomDetails = []; // On initialise un tableau vide pour les détails
+
+        // --- PARTIE 3 : Si un nom est sélectionné, on va chercher ses détails ---
+        if (selectedGramName) {
+            console.log(`--- Recherche des détails pour le nom : ${selectedGramName} ---`);
+            const queryDetails = `
+                SELECT  nom, description, construction, exemple
+                FROM gram_char
+                WHERE nom = ?`; // Recherche exacte avec le nom
+
+            const [details] = await dbPool.query(queryDetails, [selectedGramName]);
+           
+            gramNomDetails = details; // On remplit notre tableau avec le résultat
+            // === MODIFICATION DU CONSOLE.LOG ===
+            // On utilise JSON.stringify pour voir la vraie structure des données
+            console.log('--- Données brutes envoyées au template ---');
+            console.log(JSON.stringify(gramNomDetails, null, 2)); // Le 2 est pour une jolie indentation
+        }
+
+        // --- PARTIE 4 : On rend la page en lui passant TOUTES les données ---
+        res.render('pages/gram_jap_regle_form', { 
+            title: 'Les Règles de grammaire Japonaise',
+            listeGramRegle: allGramNom,      // Pour la liste déroulante
+            results: gramNomDetails,       // Pour le tableau de résultats (contient les détails ou est vide)
+            searchTerm: selectedGramName   // Pour savoir quel nom pré-sélectionner dans la liste
+        });
+
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la page des grammaire japonaise :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
 
 //*******************************************************************************************************************************//
 // Démarrer le serveur

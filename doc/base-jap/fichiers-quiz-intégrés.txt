@@ -19,3 +19,8 @@ Dans quiz_20250729.csv
 1993 N3 1993-N3jplt.csv
 1993 N4 1993-N4jplt.csv
 1994 N4 1994-N4jplt.csv   
+
+
+le 03/08/2025
+
+1992 N2 1992-N2jplt.csv

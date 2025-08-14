@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
-
+    // ***************************  page carte des régions ******************************************************
     // Fonction:  charger l'image position pour la région dans region_carte_form.ejs
     // --- NOUVEAU : Logique pour la page carte des régions ---
     const regionSelect = document.getElementById('region-select');
@@ -148,8 +148,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
-     // --- NOUVEAU : Logique pour la page carte des DÉPARTEMENTS ---
+    // ***************************  page carte des DÉPARTEMENTS ******************************************************
+    // --- NOUVEAU : Logique pour la page carte des DÉPARTEMENTS ---
     const nomSelect = document.getElementById('dep-nom-select');
     const numSelect = document.getElementById('dep-num-select');
 

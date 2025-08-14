@@ -1,11 +1,16 @@
 <%- include('../partials/header') %>
 
-<!-- Fichier : views/index.ejs (Nouvelle structure Accueil) -->
-
-<!-- 1. Le bloc de bienvenue, dans un conteneur .content pour le style -->
 <div class="content">
   <video autoplay muted loop class="background-video">
-    <source src="video/Funari.mp4" type="video/mp4">
+    
+    <!-- MODIFICATION ICI : On remplace le nom en dur par la variable EJS -->
+    <% if (videoFile) { %>
+      <source src="/video/<%= videoFile %>" type="video/mp4">
+    <% } else { %>
+      <!-- Fallback si jamais la variable n'est pas passée -->
+      <source src="/video/Funari.mp4" type="video/mp4">
+    <% } %>
+    
     Ton navigateur ne supporte pas la vidéo.
   </video>
   <div class="text-overlay">
@@ -15,19 +20,22 @@
   </div>
 </div>
 
+
 <!-- 2. Le carrousel, positionné en dessous -->
 <div class="swiper my-swiper">
     <div class="swiper-wrapper">
         <!-- Les slides n'ont pas changé -->
-        <div class="swiper-slide"><img src="/images/accueil/P01.jpg" alt="Sashimi assorti"></div>
+        <div class="swiper-slide"><img src="/images/accueil/P01.jpg" alt="Temple Kiyomizu"></div>
         <div class="swiper-slide"><img src="/images/accueil/P02.jpg" alt="Château de Himeji"></div>
-        <div class="swiper-slide"><img src="/images/accueil/P03.jpg" alt="Image Funigo 3"></div>
-        <div class="swiper-slide"><img src="/images/accueil/P04.jpg" alt="Image Funigo 4"></div>
-        <div class="swiper-slide"><img src="/images/accueil/P05.jpg" alt="Image Funigo 5"></div>
-        <div class="swiper-slide"><img src="/images/accueil/P06.jpg" alt="Image Funigo 6"></div>
-        <div class="swiper-slide"><img src="/images/accueil/P07.jpg" alt="Image Funigo 7"></div>
-        <div class="swiper-slide"><img src="/images/accueil/P08.jpg" alt="Image Funigo 8"></div>
-        <div class="swiper-slide"><img src="/images/accueil/P09.jpg" alt="Image Funigo 9"></div>
+        <div class="swiper-slide"><img src="/images/accueil/P03.jpg" alt="Fête Mifune"></div>
+        <div class="swiper-slide"><img src="/images/accueil/P04.jpg" alt="Ginza la nuit"></div>
+        <div class="swiper-slide"><img src="/images/accueil/P05.jpg" alt="Sumo"></div>
+        <div class="swiper-slide"><img src="/images/accueil/P06.jpg" alt="Pont Takayama"></div>
+        <div class="swiper-slide"><img src="/images/accueil/P07.jpg" alt="Temple Asakusa La Nuit"></div>
+        <div class="swiper-slide"><img src="/images/accueil/P08.jpg" alt="Tokyo Sky Tree Tower"></div>
+        <div class="swiper-slide"><img src="/images/accueil/P09.jpg" alt="Couple En Kimono"></div>
+        <div class="swiper-slide"><img src="/images/accueil/P10.jpg" alt="Cocoon Tower"></div>
+        <div class="swiper-slide"><img src="/images/accueil/P11.jpg" alt="Hakata Dontaku Tambour"></div>
     </div>
     <!-- Les contrôles ne changent pas -->
     <div class="swiper-button-next"></div>

@@ -510,6 +510,23 @@ LINES TERMINATED BY '\n'
     REP3,
     REP4
 );
+
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/1992-N2jplt.csv'
+INTO TABLE quiz
+FIELDS TERMINATED BY ';'
+LINES TERMINATED BY '\n'
+(
+    ANNEE,
+    NIVEAU,
+    TEXTE,
+    REP_OK,
+    QUESTION,
+    REP1,
+    REP2,
+    REP3,
+    REP4
+);
+1992 N2 1992-N2jplt.csv
 ********************************************************************************
 	Renuméroter l'index
 ********************************************************************************
@@ -584,5 +601,130 @@ Ouvre le fichier de config MySQL (my.ini ou my.cnf)
 
 Trouve (ou ajoute) cette ligne :
 
+********************************************************************************
+	Avoir les caractères japonais
+********************************************************************************
+PS C:\WINDOWS\system32> mysql --default-character-set=utf8mb4 -u root -p
+Enter password: **********
 
-secure-file-priv=""
+********************************************************************************
+	Insérer des valeurs dans une table
+********************************************************************************
+INSERT INTO vocab_char (niveau, kana, kanji, francais)
+VALUES ('N5', 'つかう', '使う', 'employer, utiliser');
+
+N5 つかう 使う employer, utiliser
+
+select * from vocab_char where kanji = '使う';
+
+mysql> select * from vocab_char where kanji = '使う';
++------------+--------+-----------+--------+--------------------+
+| voca_index | niveau | kana      | kanji  | francais           |
++------------+--------+-----------+--------+--------------------+
+|      26312 | N5     | つかう    | 使う   | employer, utiliser |
++------------+--------+-----------+--------+--------------------+
+1 row in set (0.00 sec)
+
+
+********************************************************************************
+	grammaire Insérer des valeurs dans une table
+********************************************************************************
+
+-- 1. Vider la table et réinitialiser l'AUTO_INCREMENT
+TRUNCATE TABLE gram_char;
+
+ desc gram_char;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| gram_index   | int         | NO   | PRI | NULL    | auto_increment |
+| niveau       | varchar(10) | YES  |     | NULL    |                |
+| titre        | text        | YES  |     | NULL    |                |
+| nom          | text        | YES  |     | NULL    |                |
+| description  | text        | YES  |     | NULL    |                |
+| construction | text        | YES  |     | NULL    |                |
+| exemple      | text        | YES  |     | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Grammaire_JLPT_N5_Copilote_CLEAN.csv'
+INTO TABLE gram_char
+FIELDS TERMINATED BY ';'
+LINES TERMINATED BY '\n'
+(
+    NIVEAU,
+    TITRE,
+    NOM,
+    DESCRIPTION,
+    CONSTRUCTION,
+    EXEMPLE
+);
+
+
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Grammaire_JLPT_N2_Copilote_CLEAN.csv'
+INTO TABLE quiz
+FIELDS TERMINATED BY ';'
+LINES TERMINATED BY '\n'
+(
+    NIVEAU,
+    TITRE,
+    NOM,
+    DESCRIPTION,
+    CONSTRUCTION,
+    EXEMPLE
+);
+N5 ,
+N4 ;
+N3 ,
+N2 ;
+
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Grammaire_JLPT_N2.csv'
+INTO TABLE gram_char
+CHARACTER SET utf8mb4
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(niveau, titre, nom, description, construction, exemple);
+
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Grammaire_JLPT_N3_Copilote_CLEAN.csv'
+INTO TABLE gram_char
+CHARACTER SET utf8mb4
+FIELDS TERMINATED BY ';' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(niveau, titre, nom, description, construction, exemple);
+
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Grammaire_JLPT_N4_Copilote_CLEAN.csv'
+INTO TABLE gram_char
+CHARACTER SET utf8mb4
+FIELDS TERMINATED BY ';' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(niveau, titre, nom, description, construction, exemple);
+
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Grammaire_JLPT_N5_Copilote_CLEAN.csv'
+INTO TABLE gram_char
+CHARACTER SET utf8mb4
+FIELDS TERMINATED BY ';' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(niveau, titre, nom, description, construction, exemple);
+
+
+SELECT * FROM gram_char
+INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/gram_20250806.csv'
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+LINES TERMINATED BY '\n';
+
+
+
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Grammaire_JLPT_N2.csv'
+INTO TABLE gram_char
+CHARACTER SET utf8mb4
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(niveau, titre, nom, description, construction, exemple);
