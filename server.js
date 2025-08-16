@@ -40,10 +40,9 @@ const dbPool = mysql.createPool({
     connectionLimit: 10,
     queueLimit: 0
 });
-
+// ************************************************************************************************************************
 // --- DÉFINITION DES ROUTES ---
 
-// Accueil
 // Accueil
 app.get('/', async (req, res) => { // La fonction devient 'async'
     try {
@@ -140,7 +139,6 @@ app.post('/kanji/search', async (req, res) => {
     }
 });
 
-
 // *******************************************************************************************************************************//
 // Dico Vocab
 // *******************************************************************************************************************************//
@@ -184,7 +182,6 @@ app.post('/vocab/search', async (req, res) => {
             res.status(500).send("Erreur serveur."); 
         }
 });
-
 
 // *******************************************************************************************************************************//
 // Dico departements
@@ -304,7 +301,6 @@ app.get('/region_carte', async (req, res) => {
         res.status(500).send("Erreur serveur.");
     }
 });
-
 
 //*******************************************************************************************************************************//
 // Carte interactive des Départements
@@ -566,6 +562,21 @@ app.get('/gram_jap_regles', async (req, res) => {
 
     } catch (err) {
         console.error("ERREUR lors du chargement de la page des grammaire japonaise :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+// ------------------------------------------------------------- Japon ----------------------------------------------------------//
+
+// *******************************************************************************************************************************//
+// Ile de Kyushuu
+// *******************************************************************************************************************************//
+
+app.get('/japon_kyushu', (req, res) => {
+    try {
+        res.render('pages/japon_kyushu_form', { title: 'Ile de Kyushu'});
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la page de Japon Kyushu :", err);
         res.status(500).send("Erreur serveur.");
     }
 });

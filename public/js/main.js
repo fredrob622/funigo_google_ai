@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchCurrencyRate();
 
     
-
+    // ***************************  page d'acceuil ******************************************************
    // Fichier : public/js/main.js (Nouvelles options pour le carrousel)
 
     const swiper = new Swiper('.my-swiper', {
