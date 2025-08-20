@@ -277,6 +277,7 @@ h2 { font-size: 1.2em ; }
 /* == 2. AJUSTEMENTS RESPONSIVES (MOBILES ET TABLETTES) 1200        == */
 /* =================================================================== */
 
+
 @media (max-width: 1200px) {
     /* --- Ajustements généraux --- */
     .content { padding: 10px; margin: 20px auto; width: 90%;     /* ou largeur souhaitée */ }
