@@ -8,13 +8,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.querySelector('.hamburger-menu');
     const navLinks = document.querySelector('#nav-links');
 
-    hamburger.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        hamburger.classList.toggle('active');
-    });
+    // On vérifie que le menu hamburger existe
+    if (hamburger) {
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+    }
+
+
 
     // --- Logique pour les sous-menus sur mobile (accordéon) ---
     const dropdownToggles = document.querySelectorAll('.dropdown > a');
+    
 
     dropdownToggles.forEach(clickedToggle => {
         clickedToggle.addEventListener('click', (event) => {

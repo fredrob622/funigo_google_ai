@@ -90,18 +90,29 @@ app.get('/index.html', (req, res) => {
 });
 
 // ------------------------------------------------------------- LANGUE ----------------------------------------------------------//
+// *******************************************************************************************************************************//
+// Menu Kanji
+// *******************************************************************************************************************************//
 
+app.get('/kanji', (req, res) => {
+    try {
+        res.render('pages/kanji_form', { title: 'Kanji'});
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la page de Kanji :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
 // *******************************************************************************************************************************//
 // Dico Kanji
 // *******************************************************************************************************************************//
 
-app.get('/kanji', (req, res) => {
-    res.render('pages/kanji_form', { title: 'Dictionnaire Kanji', results: [], searchTerm: '' });
+app.get('/kanji_dico', (req, res) => {
+    res.render('pages/kanji_dico_form', { title: 'Dictionnaire Kanji', results: [], searchTerm: '' });
 });
 
 // ... à l'intérieur de app.post('/kanji/search', ...)
 
-app.post('/kanji/search', async (req, res) => {
+app.post('/kanji_dico/search', async (req, res) => {
     const searchTerm = req.body.searchTerm;
     try {
         // --- MODIFICATION DE LA REQUÊTE ---
@@ -132,7 +143,56 @@ app.post('/kanji/search', async (req, res) => {
         console.log("Nombre de résultats trouvés :", results.length);
         console.log("--------------------------------------");
         
-        res.render('pages/kanji_form', { title: 'Résultats Kanji', results: results, searchTerm: searchTerm });
+        res.render('pages/kanji_dico_form', { title: 'Résultats Kanji', results: results, searchTerm: searchTerm });
+    } catch (err) { 
+        console.error("ERREUR lors de la recherche Kanji :", err);
+        res.status(500).send("Erreur serveur."); 
+    }
+});
+
+// *******************************************************************************************************************************//
+// Dico Kanji_tracer
+// *******************************************************************************************************************************//
+
+app.get('/kanji_tracer', (req, res) => {
+    res.render('pages/kanji_tracer_form', { title: 'Tracer du Kanji', results: [], searchTerm: '' });
+});
+
+// ... à l'intérieur de app.post('/kanji_tracer/search', ...)
+
+app.post('/kanji_tracer/search', async (req, res) => {
+    const searchTerm = req.body.searchTerm;  // On récupère la donnée à chercher 
+    try {
+        // --- MODIFICATION DE LA REQUÊTE ---
+
+        // au lieu WHERE kanji LIKE '%日%' on met  WHERE kanji LIKE ?
+        const query = `
+            SELECT kanji, onyomi, kunyomi, francais, niveau 
+            FROM kanji_char 
+            WHERE kanji LIKE ? 
+               OR onyomi LIKE ? 
+               OR kunyomi LIKE ? 
+               OR francais LIKE ? 
+               OR niveau LIKE ?`; 
+
+        // searchPattern est la donnée à rechercher dans query        
+        const searchPattern = `%${searchTerm}%`.trim();
+        // searchPattern = searchPattern.trim();
+
+        // Log pour voir la requête SQL et les paramètres
+        console.log("--- NOUVELLE RECHERCHE KANJI ---");
+        console.log("Requête SQL exécutée :", query);
+        console.log("Avec le paramètre de recherche :", searchPattern);
+
+        // --- ON AJOUTE LE PARAMÈTRE UNE FOIS DE PLUS ---
+        const [results] = await dbPool.query(query, [searchPattern, searchPattern, searchPattern, searchPattern, searchPattern]);
+
+        // Log pour voir le résultat brut de la base de données
+        console.log("Résultat brut obtenu de la DB :", results);
+        console.log("Nombre de résultats trouvés :", results.length);
+        console.log("--------------------------------------");
+        
+        res.render('pages/kanji_tracer_form', { title: 'Résultats Kanji', results: results, searchTerm: searchTerm });
     } catch (err) { 
         console.error("ERREUR lors de la recherche Kanji :", err);
         res.status(500).send("Erreur serveur."); 
@@ -332,54 +392,20 @@ app.get('/departement_carte', async (req, res) => {
     }
 });
 
+// ------------------------------------------------------------- Langue Grammaire ----------------------------------------------------------//
 // *******************************************************************************************************************************//
-// Dico Kanji_tracer
+// Menu Grammaire
 // *******************************************************************************************************************************//
 
-app.get('/kanji_tracer', (req, res) => {
-    res.render('pages/kanji_tracer_form', { title: 'Tracer du Kanji', results: [], searchTerm: '' });
-});
-
-// ... à l'intérieur de app.post('/kanji_tracer/search', ...)
-
-app.post('/kanji_tracer/search', async (req, res) => {
-    const searchTerm = req.body.searchTerm;  // On récupère la donnée à chercher 
+app.get('/grammaire', (req, res) => {
     try {
-        // --- MODIFICATION DE LA REQUÊTE ---
-
-        // au lieu WHERE kanji LIKE '%日%' on met  WHERE kanji LIKE ?
-        const query = `
-            SELECT kanji, onyomi, kunyomi, francais, niveau 
-            FROM kanji_char 
-            WHERE kanji LIKE ? 
-               OR onyomi LIKE ? 
-               OR kunyomi LIKE ? 
-               OR francais LIKE ? 
-               OR niveau LIKE ?`; 
-
-        // searchPattern est la donnée à rechercher dans query        
-        const searchPattern = `%${searchTerm}%`.trim();
-        // searchPattern = searchPattern.trim();
-
-        // Log pour voir la requête SQL et les paramètres
-        console.log("--- NOUVELLE RECHERCHE KANJI ---");
-        console.log("Requête SQL exécutée :", query);
-        console.log("Avec le paramètre de recherche :", searchPattern);
-
-        // --- ON AJOUTE LE PARAMÈTRE UNE FOIS DE PLUS ---
-        const [results] = await dbPool.query(query, [searchPattern, searchPattern, searchPattern, searchPattern, searchPattern]);
-
-        // Log pour voir le résultat brut de la base de données
-        console.log("Résultat brut obtenu de la DB :", results);
-        console.log("Nombre de résultats trouvés :", results.length);
-        console.log("--------------------------------------");
-        
-        res.render('pages/kanji_tracer_form', { title: 'Résultats Kanji', results: results, searchTerm: searchTerm });
-    } catch (err) { 
-        console.error("ERREUR lors de la recherche Kanji :", err);
-        res.status(500).send("Erreur serveur."); 
+        res.render('pages/gram_form', { title: 'Kanji'});
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la page de Kanji :", err);
+        res.status(500).send("Erreur serveur.");
     }
 });
+
 
 // *******************************************************************************************************************************//
 // Dico gram_conjugaison
@@ -450,6 +476,123 @@ app.post('/gram_jap_conjugaison/search', async (req, res) => {
     }
 });
 
+
+// *******************************************************************************************************************************//
+// Grammaire japonaise les règles
+// *******************************************************************************************************************************//
+
+app.get('/gram_jap_regles', async (req, res) => {
+    try {
+        // --- PARTIE 1 : On charge TOUJOURS la liste complète de la colonne nom ---
+        const gramAllNom = 'SELECT nom FROM gram_char ORDER BY nom ASC;';
+        const [allGramNom] = await dbPool.query(gramAllNom);
+        
+        // --- PARTIE 2 : On regarde si l'utilisateur a sélectionné un nom dans la liste allGramNom ---
+        // La nom sélectionnée arrivera dans l'URL, comme: /gram_jap_regles?Nom=挙げ句に (あげくに) : finalement, en fin de compte
+        const selectedGramName = req.query.selection || '';
+
+        let gramNomDetails = []; // On initialise un tableau vide pour les détails
+
+        // --- PARTIE 3 : Si un nom est sélectionné, on va chercher ses détails ---
+        if (selectedGramName) {
+            console.log(`--- Recherche des détails pour le nom : ${selectedGramName} ---`);
+            const queryDetails = `
+                SELECT  nom, description, construction, exemple
+                FROM gram_char
+                WHERE nom = ?`; // Recherche exacte avec le nom
+
+            const [details] = await dbPool.query(queryDetails, [selectedGramName]);
+           
+            gramNomDetails = details; // On remplit notre tableau avec le résultat
+            // === MODIFICATION DU CONSOLE.LOG ===
+            // On utilise JSON.stringify pour voir la vraie structure des données
+            console.log('--- Données brutes envoyées au template ---');
+            console.log(JSON.stringify(gramNomDetails, null, 2)); // Le 2 est pour une jolie indentation
+        }
+
+        // --- PARTIE 4 : On rend la page en lui passant TOUTES les données ---
+        res.render('pages/gram_jap_regle_form', { 
+            title: 'Les Règles de grammaire Japonaise',
+            listeGramRegle: allGramNom,      // Pour la liste déroulante
+            results: gramNomDetails,       // Pour le tableau de résultats (contient les détails ou est vide)
+            searchTerm: selectedGramName   // Pour savoir quel nom pré-sélectionner dans la liste
+        });
+
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la page des grammaire japonaise :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+// ------------------------------------------------------------- Japon ----------------------------------------------------------//
+
+// *******************************************************************************************************************************//
+// Ile de Kyushuu
+// *******************************************************************************************************************************//
+
+app.get('/japon_kyushu', (req, res) => {
+    try {
+        res.render('pages/japon_kyushu_form', { title: 'Ile de Kyushu'});
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la page de Japon Kyushu :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+// *******************************************************************************************************************************//
+// Ile de Kyushuu
+// *******************************************************************************************************************************//
+
+app.get('/japon_kyushu', (req, res) => {
+    try {
+        res.render('pages/japon_kyushu_form', { title: 'Ile de Kyushu'});
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la page de Japon Kyushu :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+// *******************************************************************************************************************************//
+// Ile de Honshu
+// *******************************************************************************************************************************//
+
+app.get('/japon_honshu', (req, res) => {
+    try {
+        res.render('pages/japon_honshu_form', { title: 'Ile de Honshu'});
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la page de Japon Honshu :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+// *******************************************************************************************************************************//
+// Ile de Shikoku
+// *******************************************************************************************************************************//
+
+app.get('/japon_shikoku', (req, res) => {
+    try {
+        res.render('pages/japon_shikoku_form', { title: 'Ile de Shikoku'});
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la page de Japon Shikoku :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+// *******************************************************************************************************************************//
+// Ile de Hokkaido
+// *******************************************************************************************************************************//
+
+app.get('/japon_hokkaido', (req, res) => {
+    try {
+        res.render('pages/japon_hokkaido_form', { title: 'Ile de Hokkaido'});
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la page de Japon Hokkaido :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+// ------------------------------------------------------------- Quiz ----------------------------------------------------------//
+
 // *******************************************************************************************************************************//
 // Quiz
 // *******************************************************************************************************************************//
@@ -519,67 +662,6 @@ app.post('/quiz/search', async (req, res) => {
     }
 });
 
-// *******************************************************************************************************************************//
-// Grammaire japonaise les règles
-// *******************************************************************************************************************************//
-
-app.get('/gram_jap_regles', async (req, res) => {
-    try {
-        // --- PARTIE 1 : On charge TOUJOURS la liste complète de la colonne nom ---
-        const gramAllNom = 'SELECT nom FROM gram_char ORDER BY nom ASC;';
-        const [allGramNom] = await dbPool.query(gramAllNom);
-        
-        // --- PARTIE 2 : On regarde si l'utilisateur a sélectionné un nom dans la liste allGramNom ---
-        // La nom sélectionnée arrivera dans l'URL, comme: /gram_jap_regles?Nom=挙げ句に (あげくに) : finalement, en fin de compte
-        const selectedGramName = req.query.selection || '';
-
-        let gramNomDetails = []; // On initialise un tableau vide pour les détails
-
-        // --- PARTIE 3 : Si un nom est sélectionné, on va chercher ses détails ---
-        if (selectedGramName) {
-            console.log(`--- Recherche des détails pour le nom : ${selectedGramName} ---`);
-            const queryDetails = `
-                SELECT  nom, description, construction, exemple
-                FROM gram_char
-                WHERE nom = ?`; // Recherche exacte avec le nom
-
-            const [details] = await dbPool.query(queryDetails, [selectedGramName]);
-           
-            gramNomDetails = details; // On remplit notre tableau avec le résultat
-            // === MODIFICATION DU CONSOLE.LOG ===
-            // On utilise JSON.stringify pour voir la vraie structure des données
-            console.log('--- Données brutes envoyées au template ---');
-            console.log(JSON.stringify(gramNomDetails, null, 2)); // Le 2 est pour une jolie indentation
-        }
-
-        // --- PARTIE 4 : On rend la page en lui passant TOUTES les données ---
-        res.render('pages/gram_jap_regle_form', { 
-            title: 'Les Règles de grammaire Japonaise',
-            listeGramRegle: allGramNom,      // Pour la liste déroulante
-            results: gramNomDetails,       // Pour le tableau de résultats (contient les détails ou est vide)
-            searchTerm: selectedGramName   // Pour savoir quel nom pré-sélectionner dans la liste
-        });
-
-    } catch (err) {
-        console.error("ERREUR lors du chargement de la page des grammaire japonaise :", err);
-        res.status(500).send("Erreur serveur.");
-    }
-});
-
-// ------------------------------------------------------------- Japon ----------------------------------------------------------//
-
-// *******************************************************************************************************************************//
-// Ile de Kyushuu
-// *******************************************************************************************************************************//
-
-app.get('/japon_kyushu', (req, res) => {
-    try {
-        res.render('pages/japon_kyushu_form', { title: 'Ile de Kyushu'});
-    } catch (err) {
-        console.error("ERREUR lors du chargement de la page de Japon Kyushu :", err);
-        res.status(500).send("Erreur serveur.");
-    }
-});
 
 //*******************************************************************************************************************************//
 // Démarrer le serveur
