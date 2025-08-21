@@ -81,8 +81,11 @@ app.get('/', async (req, res) => { // La fonction devient 'async'
         });
     }
 });
+// ------------------------------------------------------------- ACCEUIL ----------------------------------------------------------//
+// *******************************************************************************************************************************//
+// Page acceuil Redirection pour l'ancienne URL index.html
+// *******************************************************************************************************************************//
 
-// NOUVEAU : Redirection pour l'ancienne URL index.html
 app.get('/index.html', (req, res) => {
     // On fait une redirection 301 (redirection permanente) vers la racine du site.
     // C'est la meilleure pratique pour le SEO.
@@ -102,6 +105,7 @@ app.get('/kanji', (req, res) => {
         res.status(500).send("Erreur serveur.");
     }
 });
+
 // *******************************************************************************************************************************//
 // Dico Kanji
 // *******************************************************************************************************************************//
@@ -113,7 +117,9 @@ app.get('/kanji_dico', (req, res) => {
 // ... à l'intérieur de app.post('/kanji/search', ...)
 
 app.post('/kanji_dico/search', async (req, res) => {
-    const searchTerm = req.body.searchTerm;
+    // const searchTerm = req.body.searchTerm;
+    // const searchPattern = `%${searchTerm}%`.trim();
+    const searchTerm = req.body.searchTerm.trim();
     try {
         // --- MODIFICATION DE LA REQUÊTE ---
 
@@ -199,17 +205,31 @@ app.post('/kanji_tracer/search', async (req, res) => {
     }
 });
 
+// ------------------------------------------------------------- Langue Vocabulaire ----------------------------------------------------------//
 // *******************************************************************************************************************************//
-// Dico Vocab
+// Menu Grammaire
 // *******************************************************************************************************************************//
 
 app.get('/vocab', (req, res) => {
-    res.render('pages/vocab_form', { title: 'Dictionnaire Vocabulaire', results: [], searchTerm: '' });
+    try {
+        res.render('pages/vocab_form', { title: 'Vocabulaire'});
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la page de Kanji :", err);
+        res.status(500).send("Erreur serveur.");
+    }
 });
 
-// ... à l'intérieur de app.post('/vocab/search', ...)
+// *******************************************************************************************************************************//
+// Dico Vocab JPLT
+// *******************************************************************************************************************************//
 
-app.post('/vocab/search', async (req, res) => {
+app.get('/vocab_jplt', (req, res) => {
+    res.render('pages/vocab_jplt_form', { title: 'Vocabulaire du JPLT', results: [], searchTerm: '' });
+});
+
+// ... à l'intérieur de app.post('/vocab_jplt/search', ...)
+
+app.post('/vocab_jplt/search', async (req, res) => {
     const searchTerm = req.body.searchTerm;
     try {
         // --- MODIFICATION DE LA REQUÊTE ---
@@ -236,12 +256,98 @@ app.post('/vocab/search', async (req, res) => {
         console.log("Nombre de résultats trouvés :", results.length);
         console.log("--------------------------------------");
         
-        res.render('pages/vocab_form', { title: 'Résultats Vocab', results: results, searchTerm: searchTerm });
+        res.render('pages/vocab_jplt_form', { title: 'Résultats Vocab', results: results, searchTerm: searchTerm });
         } catch (err) { 
             console.error("ERREUR lors de la recherche du mot :", err);
             res.status(500).send("Erreur serveur."); 
         }
 });
+// *******************************************************************************************************************************//
+// Dico franco/japonais en ligne
+// *******************************************************************************************************************************//
+
+app.get('/vocab_dico', (req, res) => {
+    // Cette route sert juste à afficher le formulaire vide au début.
+    res.render('pages/vocab_dico_form', { 
+        title: 'Recherche du mot', 
+        results: null, // On met null pour dire qu'il n'y a pas encore de résultat
+        searchTerm: '' 
+    });
+});
+
+app.post('/vocab_dico/search', async (req, res) => {
+    const searchTerm = req.body.searchTerm.trim();
+    
+    if (!searchTerm) {
+        return res.redirect('/vocab_dico');
+    }
+
+    try {
+        const encodedPart = encodeURIComponent(searchTerm);
+        const url = `https://www.dictionnaire-japonais.com/search.php?w=${encodedPart}&t=1`;
+
+        console.log(`--- Recherche dans le dictionnaire---`);
+        console.log(`mot recherché : ${searchTerm}`);
+        console.log(`URL cible : ${url}`);
+        
+        const response = await axios.get(url, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
+            }
+        });
+        
+        const $ = cheerio.load(response.data);
+
+        // ===============================================
+        // === LA CORRECTION EST SUR LA LIGNE SUIVANTE ===
+        // ===============================================
+
+        // 1. On crée un tableau vide pour stocker nos résultats structurés
+        const scrapedResults = [];
+
+        // 2. On boucle sur chaque élément <li> dans la liste des résultats
+        $('ul.resultsList li').each((index, element) => {
+            const li = $(element); // On sélectionne l'élément <li> courant
+
+            // 3. Pour chaque <li>, on extrait le texte de chaque <span> spécifique
+            const hiragana = li.find('span.kana').text().trim();
+            const kanji = li.find('span.jp').text().trim();
+            const romaji = li.find('span.romaji').text().trim();
+            const francais = li.find('span.fr').text().trim();
+            const detail = li.find('span.detail').text().trim();
+
+            // 4. On combine la traduction française et les détails
+            const fullFrancais = detail ? `${francais} (${detail})` : francais;
+
+            // 5. On ajoute un objet bien structuré à notre tableau de résultats
+            scrapedResults.push({
+                hiragana: hiragana,
+                kanji: kanji,
+                romaji: romaji,
+                francais: fullFrancais
+            });
+        });
+
+        console.log(`Trouvé ${scrapedResults.length} résultats et formatés en objets.`);
+
+        // 6. On envoie ce TABLEAU DE DONNÉES au template, et non plus le HTML brut
+        res.render('pages/vocab_dico_form', { 
+            title: `Traduction pour "${searchTerm}"`, 
+            results: scrapedResults, // C'est maintenant un array d'objets !
+            searchTerm: searchTerm 
+        });
+
+    } catch (err) { 
+        console.error("ERREUR lors de la recherche sur dictionnaire-japonais.com :", err.message);
+        res.render('pages/vocab_dico_form', {
+            title: 'Erreur',
+            results: [], // On envoie un tableau vide en cas d'erreur
+            searchTerm: searchTerm,
+            error: `Une erreur est survenue lors de la recherche pour "${searchTerm}".`
+        });
+    }
+});
+
 
 // *******************************************************************************************************************************//
 // Dico departements
@@ -399,7 +505,7 @@ app.get('/departement_carte', async (req, res) => {
 
 app.get('/grammaire', (req, res) => {
     try {
-        res.render('pages/gram_form', { title: 'Kanji'});
+        res.render('pages/gram_form', { title: 'Grammaire'});
     } catch (err) {
         console.error("ERREUR lors du chargement de la page de Kanji :", err);
         res.status(500).send("Erreur serveur.");

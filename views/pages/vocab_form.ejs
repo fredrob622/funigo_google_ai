@@ -1,45 +1,13 @@
-<!-- Fichier : views/pages/vocab_form.ejs -->
 
-<%- include('../partials/header', { title: title }) %>
 
-<div class="content content-black"> 
-    
-    <h2>Rechercher de Vocabulaire</h2>
-    <form action="/vocab/search" method="POST" class="search-form">
-        <input type="text" name="searchTerm" value="<%= searchTerm %>" placeholder="Entrez un mot, lecture, kanji, niveau">
-        <button type="submit">Rechercher</button>
-    </form>
+<%- include('../partials/header_vocab') %> { title: title }) %>
 
-<% if (results.length > 0) { %>
-    <!-- NOUVEAU : On ajoute le conteneur autour du tableau -->
-    <div class="results-table-container">
-        <h3>Résultats pour "<%= searchTerm %>"</h3>
-        
-        <!-- NOUVEAU : On ajoute la classe "results-table" au tableau -->
-        <table class="results-table">
-            <thead>
-                <tr>
-                    <th>Niveau</th>
-                    <th>Kanji</th>
-                    <th>Kana</th>
-                    <th>Français</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% results.forEach(result => { %>
-                    <tr>
-                        <td><%= result.niveau %></td>
-                        <td><span class="jp-char"><%= result.kanji %></span></td>
-                        <td><span class="jp-char"><%= result.kana %></span></td>
-                        <td><%= result.francais %></td>
-                    </tr>
-                <% }); %>
-            </tbody>
-        </table>
-    </div>
-<% } else if (searchTerm) { %>
-    <p>Aucun résultat trouvé pour "<%= searchTerm %>".</p>
-<% } %>
+<div id=japon-ile-titre>
+    <h2>Le vocabulaire</h2>
+</div>
+
+<div id="japon-ile-carte">
+    <img src="/images/cartes/japon/carte-kyushu.jpg" alt="Carte Kyushu"  >
 </div>
 
 <%- include('../partials/footer') %>
