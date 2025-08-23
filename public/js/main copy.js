@@ -15,9 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
             hamburger.classList.toggle('active');
         });
     }
-
-
-
+    // ***************************  Menu Accordeon ******************************************************
     // --- Logique pour les sous-menus sur mobile (accordéon) ---
     const dropdownToggles = document.querySelectorAll('.dropdown > a');
     
@@ -123,6 +121,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+    
     // ***************************  page carte des régions ******************************************************
     // Fonction:  charger l'image position pour la région dans region_carte_form.ejs
     // --- NOUVEAU : Logique pour la page carte des régions ---
@@ -154,49 +154,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
-    // ====================================================================================
-    // === NOUVELLE LOGIQUE STRUCTURÉE POUR LES PAGES DES DÉPARTEMENTS ===
-    // ====================================================================================
-
-    // --- Logique pour la page de RECHERCHE des départements (celle avec le formulaire) ---
-    const depForm = document.getElementById('dep-form');
-    if (depForm) {
-        console.log("Logique pour la page de recherche des départements activée.");
-        const nomSelect = document.getElementById('dep-nom-select');
-        const numSelect = document.getElementById('dep-num-select');
-
-        // Événement quand on change la liste des NOMS
-        nomSelect.addEventListener('change', () => {
-            if (!nomSelect.value) { // Si la valeur est vide ("-- Choisissez... --"), on ne fait rien
-                numSelect.value = '';
-                return; 
-            }
-            
-            // Synchronise l'autre liste
-            const selectedNumero = nomSelect.options[nomSelect.selectedIndex].dataset.numero;
-            numSelect.value = selectedNumero || '';
-            
-            // Soumet le formulaire
-            depForm.submit();
-        });
-
-        // Événement quand on change la liste des NUMÉROS
-        numSelect.addEventListener('change', () => {
-            if (!numSelect.value) { // Si la valeur est vide ("-- N° --"), on ne fait rien
-                nomSelect.value = '';
-                return;
-            }
-
-            // Synchronise l'autre liste
-            const selectedNom = numSelect.options[numSelect.selectedIndex].dataset.nom;
-            nomSelect.value = selectedNom || '';
-
-            // Soumet le formulaire
-            depForm.submit();
-        });
-    }
-    
     // ***************************  page carte des DÉPARTEMENTS ******************************************************
     // --- NOUVEAU : Logique pour la page carte des DÉPARTEMENTS ---
     const nomSelect = document.getElementById('dep-nom-select');

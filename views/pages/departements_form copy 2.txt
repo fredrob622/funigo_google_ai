@@ -66,18 +66,17 @@
                 </thead>
                 <tbody>
                     <% results.forEach(departement => { %>
-                   <tr>
-                        <!-- CORRIGÉ : on utilise la variable 'departement' directement -->
-                        <td data-label="N°"><%= departement.num_dep %></td>
-                        <td data-label="Département"><%= departement.nom_dep %></td>
-                        <td data-label="Région"><%= departement.nom_reg %></td>
-                        <td data-label="Superficie"><%= departement.superficie %></td>
-                        <td data-label="Population"><%= departement.pop_dep %></td> 
-                        <td data-label="Densité"><%= departement.densite %></td> 
-                        <td data-label="Préfecture"><%= departement.nom_pref %></td> 
-                        <td data-label="Pop. Préf."><%= departement.pop_pref %></td>
-                        <td data-label="Sous-Préf."><%= departement.sous_pref %></td> 						 			 
-                    </tr>  
+                        <tr>
+                            <td><%= departement.num_dep %></td>
+                            <td><%= departement.nom_dep %></td>
+                            <td><%= departement.nom_reg %></td>
+                            <td><%= departement.superficie %></td>
+                            <td><%= departement.pop_dep %></td> 
+                            <td><%= departement.densite %></td> 
+                            <td><%= departement.nom_pref %></td> 
+                            <td><%= departement.pop_pref %></td>
+                            <td><%= departement.sous_pref %></td> 						 			 
+                        </tr>  
                     <% }); %>
                 </tbody>
             </table>

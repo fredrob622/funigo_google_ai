@@ -44,7 +44,7 @@ nav { background-color: black; }
 
 /* --- Styles spécifiques aux pages sur fond noir --- */
 .content-black { background-color: black; box-shadow: none; color: white; }
-h2 { padding-top: 10px; padding-left: 10px; }
+h2 {  padding: 10px 20px 7px ; background-color: #074107; width:500px; border-radius: 15px;}
 
 /* Formulaire de recherche sur fond noir */
 .content-black .search-form input,
@@ -86,204 +86,112 @@ h2 { font-size: 1.2em ; }
     flex-wrap: wrap;         /* TRÈS IMPORTANT : Permet de passer à la ligne */
 }
 
-.carte-item {
-    text-align: center;
-    background-color: #1e1e1e;
-    padding: 15px;
-    border-radius: 8px;
-    border: 1px solid #444;    
-}
+.carte-item { text-align: center; background-color: #1e1e1e; padding: 15px; border-radius: 8px; border: 1px solid #444; }
 
 /* On définit la largeur relative des cartes */
 .carte-position { flex: 1 1 100px; /* flex-grow: 1, flex-shrink: 1, flex-basis: 200px */ }
-
 .carte-departements { flex: 6 1 400px; /* flex-grow: 4, flex-shrink: 1, flex-basis: 400px */ }
-
-.carte-item h4 {
-    margin-top: 0;
-    /* color: #012031;
-    background-color: white; */
-    background-color: #074107;
-    color: white;
-    padding:3px;
-    padding-left: 25px;
-    padding-right: 25px;
-}
-
-.carte-item img {
-    max-width: 100%;
-    height: auto;
-    border: 2px solid #555;
-    border-radius: 4px;
-}
+.carte-item h4 { margin-top: 0; background-color: #074107; color: white; padding:3px; padding-left: 25px; padding-right: 25px; }
+.carte-item img { max-width: 100%; height: auto; border: 2px solid #555; border-radius: 4px; }
 
 /* =================================================================== */
 /* == Bouton de kanji_tracer_form.ejs                               == */
 /* =================================================================== */
 
 .tracer-btn {
-    background-color: #074107;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 25px;
-    font-size: 16px;
-    cursor: pointer;
-    margin: 0 10px;
-    transition: background-color 0.2s;
-}
-.tracer-btn:hover {
-    background-color: #0c800c;
-}
+    background-color: #074107; color: white; border: none; padding: 10px 20px; border-radius: 25px; font-size: 16px; cursor: pointer; margin: 0 10px; 
+        transition: background-color 0.2s; }
+.tracer-btn:hover { background-color: #0c800c; }
 
 /* == STYLES DE BASE POUR LA PAGE DE CONJUGAISON (VUE DESKTOP)      == */
 
-    /* Style général des tableaux importés du Wiktionnaire */
-    #conjugaison-wrapper .wikitable {
-        background-color: #2c2c2c;
-        color: #f1f1f1;
-        border: 1px solid #555;
-        width: 100%;
-        margin-bottom: 20px;
-        font-size: 1.2em;
-    }
+/* Style général des tableaux importés du Wiktionnaire */
+#container-wrapper .wikitable { background-color: #2c2c2c; color: #f1f1f1; border: 1px solid #555; width: 100%; margin-bottom: 20px; font-size: 1.2em; }
 
-    #conjugaison-wrapper .wikitable th,
-    #conjugaison-wrapper .wikitable td {
-        border: 1px solid #555;
-        padding: 8px;
-    }
+#container-wrapper .wikitable th,
+#container-wrapper .wikitable td { border: 1px solid #555; padding: 8px; }
 
-    /* Style des en-têtes principaux (verts) */
-    #conjugaison-wrapper .wikitable th {
-        background-color: #074107;
-        color: white;
-    }
+/* Style des en-têtes principaux (verts) */
+#container-wrapper .wikitable th { background-color: #074107;  color: white; }
 
-    /* Style des en-têtes secondaires (ceux qui étaient jaunes) */
-    #conjugaison-wrapper .wikitable tr[style*="background-color"] th {
-        background-color: #4d4d4d !important;
-    }
+/* Style des en-têtes secondaires (ceux qui étaient jaunes) */
+#container-wrapper .wikitable tr[style*="background-color"] th { background-color: #4d4d4d !important; }
 
-    /* Style et désactivation de TOUS les liens dans la zone de conjugaison */
-    #conjugaison-wrapper a, 
-    #conjugaison-wrapper a:link, 
-    #conjugaison-wrapper a:visited,
-    #conjugaison-wrapper a:hover {
-        color: white !important;
-        text-decoration: none !important;
-        cursor: default !important;
-    }
-    /********************************************************/
-    /* NOUVELLE CLASSE POUR LES BOUTONS DE RÉPONSE DU QUIZ  */
-    /********************************************************/
+/* Style et désactivation de TOUS les liens dans la zone de conjugaison */
+#container-wrapper a, 
+#container-wrapper a:link, 
+#container-wrapper a:visited, 
+#container-wrapper a:hover { color: white !important; text-decoration: none !important; cursor: default !important; }
 
-    .quiz-txt-question {
-        background-color:  #074107;
-        color: white;
-        margin: 5px 0; /* Un peu plus d'espace vertical */
-        font-size: 1em;
-        text-align: left;
-        font-weight: 100;
-        width: 85%;             /* Prend toute la largeur disponible */
-        padding: 8px 20px;       /* Un peu plus d'espace intérieur */
-        border: none;            /* Retire la bordure par défaut des boutons */
-        border-radius: 8px;      /* Arrondit les coins */
-        transition: background-color 0.2s ease; /* Ajoute une transition douce */
-    }
+/********************************************************/
+/* NOUVELLE CLASSE POUR LES BOUTONS DE RÉPONSE DU QUIZ  */
+/********************************************************/
 
-    .quiz-btn-question {
-        /* On copie-colle les styles de l'attribut "style" */
-        background-color: #5d7fb9;
-        color: white;
-        margin: 5px 0; /* Un peu plus d'espace vertical */
-        font-size: 1em;
-        text-align: left;
-        font-weight: 100;
-        /* On peut même l'améliorer un peu */
-        width: 100%;             /* Prend toute la largeur disponible */
-        padding: 8px 20px;       /* Un peu plus d'espace intérieur */
-        border: none;            /* Retire la bordure par défaut des boutons */
-        border-radius: 8px;      /* Arrondit les coins */
-        cursor: pointer;         /* Affiche une main au survol pour montrer que c'est cliquable */
-        transition: background-color 0.2s ease; /* Ajoute une transition douce */
-    }
+.quiz-txt-question {
+    background-color:  #074107; color: white; margin: 5px 0; font-size: 1em; text-align: left; font-weight: 100; width: 85%; padding: 8px 20px;       
+    border: none; border-radius: 8px; transition: background-color 0.2s ease; /* Ajoute une transition douce */ }
+.quiz-btn-question { background-color: #5d7fb9; color: white; margin: 5px 0;  font-size: 1em;  text-align: left; font-weight: 100; 
+    width: 100%; padding: 8px 20px; border: none; border-radius: 8px;      
+    cursor: pointer;         /* Affiche une main au survol pour montrer que c'est cliquable */
+    transition: background-color 0.2s ease; /* Ajoute une transition douce */}
+/* BONUS : Ajouter un effet au survol de la souris */
+.quiz-btn-question:hover { background-color: #7592cf; /* Une couleur légèrement plus claire */    }
+.quiz-btn-question { background-color: #5d7fb9; color: white; margin: 5px 0; font-size: 1em; text-align: left; width: 100%;
+    padding: 12px 20px; border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.2s ease, transform 0.2s ease; }
 
-    /* BONUS : Ajouter un effet au survol de la souris */
-    .quiz-btn-question:hover { background-color: #7592cf; /* Une couleur légèrement plus claire */    }
-    .quiz-btn-question {
-        background-color: #5d7fb9;
-        color: white;
-        margin: 5px 0;
-        font-size: 1em;
-        text-align: left;
-        width: 100%;
-        padding: 12px 20px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background-color 0.2s ease, transform 0.2s ease;
-    }
+.quiz-btn-question:hover:not(:disabled) { background-color: #09235a; transform: scale(1.02); /* Effet de zoom léger */ }
+/* Style pour la bonne réponse */
+.quiz-btn-question.correct { background-color: #28a745; /* Vert */ color: white; }
+/* Style pour la mauvaise réponse */
+.quiz-btn-question.incorrect { background-color: #dc3545; /* Rouge */   color: white; }
+/* Style pour les boutons désactivés après une réponse */
+.quiz-btn-question:disabled { cursor: not-allowed; opacity: 0.7; }
+/* Style pour les boutons de contrôle */
+#quiz-controls button { padding: 10px 20px; font-size: 1.1em; margin-top: 20px; cursor: pointer; }
+#continue-btn { background-color: #013138; /* Cyan */ border-radius: 8px; color: white; border: none; }
+#end-btn { background-color: #f09f34af; /* Gris */ border-radius: 8px; color: white; border: none; }
+.quiz-txt-question { background-color: #333; padding: 15px; border-radius: 5px; margin: 10px 0; }
 
-    .quiz-btn-question:hover:not(:disabled) { background-color: #09235a; transform: scale(1.02); /* Effet de zoom léger */ }
-    /* Style pour la bonne réponse */
-    .quiz-btn-question.correct { background-color: #28a745; /* Vert */ color: white; }
-    /* Style pour la mauvaise réponse */
-    .quiz-btn-question.incorrect { background-color: #dc3545; /* Rouge */   color: white; }
-    /* Style pour les boutons désactivés après une réponse */
-    .quiz-btn-question:disabled { cursor: not-allowed; opacity: 0.7; }
-    /* Style pour les boutons de contrôle */
-    #quiz-controls button { padding: 10px 20px; font-size: 1.1em; margin-top: 20px; cursor: pointer; }
-    #continue-btn { background-color: #013138; /* Cyan */ border-radius: 8px; color: white; border: none; }
-    #end-btn { background-color: #f09f34af; /* Gris */ border-radius: 8px; color: white; border: none; }
-    .quiz-txt-question { background-color: #333; padding: 15px; border-radius: 5px; margin: 10px 0; }
+/***************************************************************/
+/* Pour la video en page d'acceuil!
+/***************************************************************/
+.content { position: relative; width: 50%; max-width: 1200px; height: auto; margin: 40px auto; padding: 20px 30px; overflow: hidden; }
 
-    /***************************************************************/
-    /* Pour la video en page d'acceuil!
-    /***************************************************************/
-    .content {
-        position: relative;
-        width: 50%;     /* ou largeur souhaitée */
-        max-width: 1200px;
-        height: auto;   /* hauteur souhaitée, ici la hauteur de la fenêtre */
-        margin: 40px auto; 
-        padding: 20px 30px;
-        overflow: hidden;
-    }
+.background-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover; /* pour que la vidéo remplisse bien la zone */
+    z-index: 1; }
 
-    .background-video {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover; /* pour que la vidéo remplisse bien la zone */
-        z-index: 1;
-    }
+.text-overlay { position: relative; color: white; font-size: 2em; padding: 20px; text-align: center;
+    z-index: 2;              /* au-dessus de la vidéo */
+    /* éventuellement ajouter un fond partiellement transparent pour lisibilité */
+    background-color: rgba(0, 0, 0, 0.3); }
 
-    .text-overlay {
-        position: relative;
-        z-index: 2;              /* au-dessus de la vidéo */
-        color: white;            /* couleur du texte */
-        font-size: 2em;
-        padding: 20px;
-        text-align: center;
-        /* éventuellement ajouter un fond partiellement transparent pour lisibilité */
-        background-color: rgba(0, 0, 0, 0.3);
-    }
+/***************************************************************/
+/* Pour Japon Region ( honshu ... )
+/***************************************************************/
 
-    /***************************************************************/
-    /* Pour Japon Region ( honshu ... )
-    /***************************************************************/
+#nav-submenu-links { list-style: none; padding: 0; margin: 0; display: flex; justify-content: center; }
+#nav-submenu-links > li > a { display: block; color: white; text-align: center; padding: 14px 20px; text-decoration: none; transition: background-color 0.3s; }
+#nav-submenu-links li a:hover, .dropdown:hover { background-color: #074107; }
 
-    #nav-submenu-links { list-style: none; padding: 0; margin: 0; display: flex; justify-content: center; }
-    #nav-submenu-links > li > a { display: block; color: white; text-align: center; padding: 14px 20px; text-decoration: none; transition: background-color 0.3s; }
-    #nav-submenu-links li a:hover, .dropdown:hover { background-color: #074107; }
+#japon-ile-titre { margin-top: 10px; margin-bottom: 10px; }
+#japon-ile-titre > h2 { color: white; padding: 10px; background-color: #0c800c;  width: 400px; margin: auto;
+    border-radius: 5px; text-align: center; /* Pour le centrage horizontal */ padding-top: 10px; padding-bottom: 10px; }
+#japon-ile-carte > img { display: block; margin: auto; width: 50% ; max-width : 700px; overflow :hidden; }
 
-    #japon-ile-titre { margin-top: 10px; margin-bottom: 10px; }
-    #japon-ile-titre > h2 { color: white; padding: 10px; background-color: #0c800c;  width: 400px; margin: auto;
-        border-radius: 5px; text-align: center; /* Pour le centrage horizontal */ padding-top: 10px; padding-bottom: 10px; }
-    #japon-ile-carte > img { display: block; margin: auto; width: 50% ; max-width : 700px; overflow :hidden; }
+/***************************************************************/
+/* Pour le dico KANJI FREE
+/***************************************************************/
+
+.kanji-results-container { margin-top: 30px; padding: 20px; background-color: #1e1e1e; border-radius: 8px; }
+.kanji-main-char { font-size: 100px; text-align: center; margin-bottom: 20px; color: #e0e0e0; }
+.kanji-section { margin-bottom: 25px; }
+.kanji-section h3 { background-color: #0c800c; color: white; border-radius: 2px solid #0c800c;padding: 5px 10px 5px; margin-bottom: 10px; font-size: 1.1;}
+.kanji-section p { font-size: 1.1em;  }
+.kanji-trace-img { background-color: white; padding: 3px; border-radius: 4px; width: 300px; }
+.kanji-examples-list { list-style-type: none; padding: 0; }
+.kanji-examples-list li { background-color: #2a2a2a; padding: 10px; border-radius: 4px; margin-bottom: 5px; font-size: 1.5em; }
+.kanji-approches-list { font-size: 2.5rem !important; /* On force la taille en pixels ET on ajoute !important */ text-align: left; letter-spacing: 15px; /* espace entre eux */ }
 
 /*********************************************************************************************************************************/
 /* =================================================================== */
@@ -405,13 +313,10 @@ h2 { font-size: 1.2em ; }
     .results-table tbody tr { font-size: 1.3em; }
         
     /* LA CORRECTION CLÉ : Gérer le débordement des tableaux. On cible le conteneur qui est juste autour des tableaux. */
-    #conjugaison-wrapper .results-container { overflow-x: auto; /* Affiche une barre de scroll si le tableau est trop large */ }
-
+    #container-wrapper .results-container { overflow-x: auto; /* Affiche une barre de scroll si le tableau est trop large */ }
     /* * On peut aussi légèrement réduire la police dans les tableaux pour améliorer la lisibilité sur les petits écrans.*/
-    #conjugaison-wrapper .wikitable { font-size: 1em; }
+    #container-wrapper .wikitable { font-size: 1em; }
 
-
-    
 }
 
 /************************************************************************************************************************/
@@ -428,12 +333,7 @@ h2 { font-size: 1.2em ; }
     .departement-table-container .results-table tr { display: block; border: 1px solid #444; border-radius: 8px; margin-bottom: 20px;overflow: hidden;}
     
     /* Chaque cellule <td> prend toute la largeur de la carte */
-    .departement-table-container .results-table td {
-        display: block;
-        text-align: right;
-        padding: 12px 15px;
-        padding-left: 50%;
-        position: relative;
+    .departement-table-container .results-table td { display: block; text-align: right; padding: 12px 15px; padding-left: 50%; position: relative;
         border: none; /* On enlève les bordures par défaut */
         border-bottom: 1px dashed #333; /* On met un séparateur personnalisé */
         font-size: 14px;
@@ -442,27 +342,12 @@ h2 { font-size: 1.2em ; }
     .departement-table-container .results-table td:last-child { border-bottom: 0; }
 
     /* On crée les labels avec le data-label */
-    .departement-table-container .results-table td:before {
-        content: attr(data-label);
-        position: absolute;
-        left: 15px;
-        width: 30%;
-        padding: 12px;
-        text-align: left;
-        font-weight: bold;
-        color:#f4f4f4;
-        background-color: #345a93;    
-    }
+    .departement-table-container .results-table td:before { content: attr(data-label); position: absolute; left: 15px; width: 30%; padding: 12px; 
+        text-align: left; font-weight: bold; color:#f4f4f4; background-color: #345a93; }
     
     /* On met en valeur la ligne du numéro pour servir de titre à la carte */
-    .departement-table-container .results-table td[data-label="N°"] {
-        background-color: #074107;
-        font-size: 1.5em;
-        font-weight: bold;
-        color: white;
-        text-align: center;
-        padding-left: 15px;
-    }
+    .departement-table-container .results-table td[data-label="N°"] { background-color: #074107; font-size: 1.5em; font-weight: bold; color: white; 
+        text-align: center; padding-left: 15px; }
 
     .departement-table-container .results-table td[data-label="N°"]:before {
         display: none;
@@ -479,9 +364,8 @@ h2 { font-size: 1.2em ; }
 
 @media (max-width: 620px) {
 
-    #conjugaison-wrapper .wikitable { font-size: 0.6em; }
+    #container-wrapper .wikitable { font-size: 0.6em; }
     
-
     .results-table thead th { font-size: 0.9em; }
     .results-table tbody tr { font-size: 1.3em; }
 
@@ -520,25 +404,17 @@ h2 { font-size: 1.2em ; }
     /* 2. On réduit la taille du formulaire de recherche */
     .content-black .search-form { flex-wrap: wrap; /* permet au formulaire de passer sur plusieurs lignes */ justify-content: center; }
     .content-black .search-form input,
-    .content-black .search-form button {  
-        font-size: 10px; /* 9px est vraiment trop petit, 14px est un minimum lisible */
-        margin-bottom: 10px;
-    }
+    .content-black .search-form button { font-size: 10px; margin-bottom: 10px; }
 
     /* 3. L'AJUSTEMENT CLÉ POUR LE TABLEAU */
     .results-table th,
-    .results-table td {
-        font-size: 0.6em; /* On garde une taille lisible */
-        padding: 8px 4px; /* 8px en haut/bas, 4px sur les côtés */
-    }
+    .results-table td { font-size: 0.6em;  padding: 8px 4px;  }
 
     /* 4. On s'assure que le Kanji reste visible */
-    .results-table td.kanji-cell {
-        font-size: 0.7em; /* Un peu plus grand que le reste du texte de la ligne */
-    }
+    .results-table td.kanji-cell { font-size: 0.7em; /* Un peu plus grand que le reste du texte de la ligne */ }
 
     .results-table thead tr { font-size: 0.7em; }
-    #conjugaison-wrapper .wikitable { font-size: 0.5em; }
+    #container-wrapper .wikitable { font-size: 0.5em; }
 
     .text-overlay { font-size: 0.7em; }
     .results-table thead th { font-size: 0.6em; }

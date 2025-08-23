@@ -92,7 +92,7 @@ app.get('/index.html', (req, res) => {
     res.redirect(301, '/');
 });
 
-// ------------------------------------------------------------- LANGUE ----------------------------------------------------------//
+// ------------------------------------------------------------- LANGUE KANJI ----------------------------------------------------//
 // *******************************************************************************************************************************//
 // Menu Kanji
 // *******************************************************************************************************************************//
@@ -117,8 +117,6 @@ app.get('/kanji_dico', (req, res) => {
 // ... à l'intérieur de app.post('/kanji/search', ...)
 
 app.post('/kanji_dico/search', async (req, res) => {
-    // const searchTerm = req.body.searchTerm;
-    // const searchPattern = `%${searchTerm}%`.trim();
     const searchTerm = req.body.searchTerm.trim();
     try {
         // --- MODIFICATION DE LA REQUÊTE ---
@@ -205,9 +203,154 @@ app.post('/kanji_tracer/search', async (req, res) => {
     }
 });
 
+// *******************************************************************************************************************************//
+// Dico KANJI en ligne
+// *******************************************************************************************************************************//
+
+app.get('/kanji_free_dico', (req, res) => {
+    // Cette route sert juste à afficher le formulaire vide au début.
+    res.render('pages/kanji_free_dico_form', { 
+        title: 'Dictionnaire des KANJI en ligne', 
+        results: null, // On met null pour dire qu'il n'y a pas encore de résultat
+        searchTerm: '' 
+    });
+});
+
+// ====================================================================
+// === NOUVELLE ROUTE : Proxy pour les images de kanji.free.fr ===
+// ====================================================================
+app.get('/kanji-image-proxy', async (req, res) => {
+    try {
+        // 1. On récupère le chemin de l'image depuis les paramètres de l'URL
+        const imagePath = req.query.path;
+        if (!imagePath) {
+            return res.status(400).send('Chemin de l\'image manquant');
+        }
+
+        // 2. On reconstruit l'URL complète de l'image source
+        const imageUrl = `http://kanji.free.fr/${imagePath}`;
+
+        // 3. On télécharge l'image avec axios, en lui disant de traiter la réponse comme des données binaires
+        const response = await axios.get(imageUrl, {
+            responseType: 'arraybuffer' 
+        });
+
+        // 4. On détermine le type de contenu de l'image (ici, on sait que ce sont des GIF)
+        res.setHeader('Content-Type', 'image/gif');
+        
+        // 5. On envoie les données binaires de l'image au navigateur
+        res.send(response.data);
+
+    } catch (error) {
+        console.error('Erreur du proxy d\'image:', error.message);
+        res.status(500).send('Impossible de charger l\'image');
+    }
+});
+
+// Fichier: server.js
+
+app.post('/kanji_free_dico/search', async (req, res) => {
+    const searchTerm = req.body.searchTerm.trim();
+    
+    if (!searchTerm) {
+        return res.redirect('/kanji_free_dico');
+    }
+
+    try {
+        const encodedPart = encodeURIComponent(searchTerm);
+        const url = `http://kanji.free.fr/kanji.php?utf8=${encodedPart}`;
+
+        console.log(`--- RECHERCHE KANJI EN LIGNE ---`);
+        console.log(`Kanji recherché : ${searchTerm}`);
+        console.log(`URL cible : ${url}`);
+        
+        const response = await axios.get(url);
+        const $ = cheerio.load(response.data);
+
+        // ====================================================================
+        // === CHANGEMENT MAJEUR : On parse les données au lieu de prendre le HTML brut ===
+        // ====================================================================
+
+        // 1. On sélectionne le conteneur principal avec le bon sélecteur d'attribut
+        const mainContent = $('td[width="600"]');
+
+        // Si on ne trouve pas le conteneur, on arrête
+        if (mainContent.length === 0) {
+            throw new Error("Conteneur principal du kanji non trouvé sur la page.");
+        }
+
+        // 2. On crée un objet pour stocker toutes nos données
+        const kanjiData = {};
+
+        // 3. Extraction des différentes informations
+        
+        // Le kanji lui-même
+        kanjiData.kanji = mainContent.find('font.kanji1').text().trim();
+
+        // Les significations
+        // On trouve le titre "Significations", on remonte à sa table parente, on prend la table *suivante*, et on récupère son texte.
+        kanjiData.kanji = mainContent.find('font.kanji1').text().trim();
+        kanjiData.significations = mainContent.find('font.titre2:contains("Significations")').closest('table').next('table').text().trim();
+
+        // L'image du tracé
+        const traceImgSrc = mainContent.find('font.titre2:contains("Tracé")').closest('table').next('table').find('img').attr('src');
+        // On s'assure que le lien de l'image est absolu
+        if (traceImgSrc) {
+            // Au lieu de créer un lien absolu, on crée un lien vers notre proxy
+            kanjiData.traceUrl = `/kanji-image-proxy?path=${encodeURIComponent(traceImgSrc)}`;
+        }
+
+                // Les caractères ou éléments approchés
+        kanjiData.approches = [];
+        // On trouve le titre, on va à la table suivante, et on cherche tous les kanji avec la classe 'kanji3'
+        mainContent.find('font.titre2:contains("Caractères ou éléments approchés")')
+            .closest('table')
+            .next('table')
+            .find('font.kanji3') // On cible les kanji
+            .each((i, el) => {
+                // On récupère le texte de chaque kanji et on l'ajoute au tableau
+                const char = $(el).text().trim();
+                if (char) {
+                    kanjiData.approches.push(char);
+                }
+            });
+
+        // La liste d'exemples
+        kanjiData.exemples = [];
+        // On trouve le titre "Exemples", on va à la table suivante, et on boucle sur chaque ligne (tr)
+        mainContent.find('font.titre2:contains("Exemples")').closest('table').next('table').find('tr').each((i, el) => {
+            // On récupère le texte de chaque ligne, on nettoie les espaces et on l'ajoute au tableau
+            const exempleText = $(el).text().trim().replace(/\s+/g, ' ');
+            if (exempleText) {
+                kanjiData.exemples.push(exempleText);
+            }
+        });
+
+        console.log("Données du kanji extraites avec succès.");
+
+        // 4. On envoie l'objet de données structuré à la page EJS
+        res.render('pages/kanji_free_dico_form', { 
+            title: `Détails pour ${searchTerm}`, 
+            results: kanjiData, // C'est maintenant un objet avec des données propres
+            searchTerm: searchTerm 
+        });
+
+    } catch (err) { 
+        console.error("ERREUR lors de la recherche du kanji :", err.message);
+        res.render('pages/kanji_free_dico_form', {
+            title: 'Erreur',
+            results: null,
+            searchTerm: searchTerm,
+            error: `Impossible de trouver les informations pour "${searchTerm}". Le site est peut-être inaccessible ou le kanji n'existe pas.`
+        });
+    }
+});
+
+
+
 // ------------------------------------------------------------- Langue Vocabulaire ----------------------------------------------------------//
 // *******************************************************************************************************************************//
-// Menu Grammaire
+// Menu Vocabulaire
 // *******************************************************************************************************************************//
 
 app.get('/vocab', (req, res) => {
@@ -262,6 +405,7 @@ app.post('/vocab_jplt/search', async (req, res) => {
             res.status(500).send("Erreur serveur."); 
         }
 });
+
 // *******************************************************************************************************************************//
 // Dico franco/japonais en ligne
 // *******************************************************************************************************************************//
@@ -345,156 +489,6 @@ app.post('/vocab_dico/search', async (req, res) => {
             searchTerm: searchTerm,
             error: `Une erreur est survenue lors de la recherche pour "${searchTerm}".`
         });
-    }
-});
-
-
-// *******************************************************************************************************************************//
-// Dico departements
-// *******************************************************************************************************************************//
-
-app.get('/departements', (req, res) => {
-    res.render('pages/departements_form', { title: 'Caractèristique d un departements', results: [], searchTerm: '' });
-});
-
-app.post('/departements/search', async (req, res) => {
-    const searchTerm = req.body.searchTerm;
-    try {
-        // REQUÊTE SQL CORRIGÉE : on sélectionne toutes les colonnes nécessaires
-        // On cherche dans le numéro, le nom du département et le nom de la préfecture.
-        const query = `
-            SELECT num_dep, nom_dep, nom_reg, superficie, pop_dep, densite, nom_pref, pop_pref, sous_pref
-            FROM dep_fr 
-            WHERE num_dep LIKE ?
-               OR nom_dep LIKE ? 
-               OR nom_pref LIKE ?`;
-
-      
-        // searchPattern est la donnée à rechercher dans query        
-        const searchPattern = `%${searchTerm}%`.trim();
-
-        console.log("--- NOUVELLE RECHERCHE DÉPARTEMENT ---");
-        console.log("Requête SQL exécutée :", query.trim().replace(/\s+/g, ' '));
-        console.log("Avec le paramètre de recherche :", searchPattern);
-        
-        // CORRIGÉ : On fournit bien 3 valeurs pour les 3 '?'
-        const [results] = await dbPool.query(query, [searchPattern, searchPattern, searchPattern]);
-
-        console.log("Nombre de résultats trouvés :", results.length);
-        console.log("--------------------------------------");
-
-        res.render('pages/departements_form', { 
-            title: 'Résultats Départements', 
-            results: results, 
-            searchTerm: searchTerm 
-        });
-
-    } catch (err) { 
-        console.error("ERREUR lors de la recherche du Département :", err);
-        res.status(500).send("Erreur serveur lors de la recherche du département."); 
-    }
-});
-
-//*******************************************************************************************************************************//
-// Régions (avec liste déroulante et affichage des détails)
-//*******************************************************************************************************************************//
-
-app.get('/regions', async (req, res) => {
-    try {
-        // --- PARTIE 1 : On charge TOUJOURS la liste complète des régions ---
-        const queryAllRegions = 'SELECT reg_nom FROM reg_fr ORDER BY reg_nom ASC;';
-        const [allRegions] = await dbPool.query(queryAllRegions);
-        
-        // --- PARTIE 2 : On regarde si l'utilisateur a sélectionné une région ---
-        // La région sélectionnée arrivera dans l'URL, comme: /regions?selection=Bretagne
-        const selectedRegionName = req.query.selection || '';
-
-        let regionDetails = []; // On initialise un tableau vide pour les détails
-
-        // --- PARTIE 3 : Si une région est sélectionnée, on va chercher ses détails ---
-        if (selectedRegionName) {
-            console.log(`--- Recherche des détails pour la région : ${selectedRegionName} ---`);
-            const queryDetails = `
-                SELECT reg_nom, reg_cheflieu, reg_dep, reg_superficie, reg_population
-                FROM reg_fr 
-                WHERE reg_nom = ?`; // Recherche exacte avec le nom de la région
-
-            const [details] = await dbPool.query(queryDetails, [selectedRegionName]);
-            regionDetails = details; // On remplit notre tableau avec le résultat
-        }
-
-        // --- PARTIE 4 : On rend la page en lui passant TOUTES les données ---
-        res.render('pages/region_form', { 
-            title: 'Les Régions Françaises',
-            listeRegion: allRegions,      // Pour la liste déroulante
-            results: regionDetails,       // Pour le tableau de résultats (contient les détails ou est vide)
-            searchTerm: selectedRegionName // Pour savoir quelle région pré-sélectionner dans la liste
-        });
-
-    } catch (err) {
-        console.error("ERREUR lors du chargement de la page des régions :", err);
-        res.status(500).send("Erreur serveur.");
-    }
-});
-
-//*******************************************************************************************************************************//
-// Carte interactive des Régions
-//*******************************************************************************************************************************//
-app.get('/region_carte', async (req, res) => {
-    try {
-        // 1. La requête SQL pour récupérer tous les noms de régions
-        // J'ajoute ORDER BY pour que la liste déroulante soit triée par ordre alphabétique
-        const query = 'SELECT reg_nom FROM reg_fr ORDER BY reg_nom ASC;';
-        
-        console.log("--- NOUVELLE PAGE CARTE DES RÉGIONS ---");
-        console.log("Exécution de la requête :", query);
-
-        // 2. On exécute la requête
-        const [regions] = await dbPool.query(query);
-
-        console.log(`${regions.length} régions trouvées.`);
-        console.log("---------------------------------------");
-
-        // 3. On rend la nouvelle page EJS en lui passant la liste des régions
-        res.render('pages/region_carte_form', { 
-            title: 'Carte des Régions',
-            // La variable `listeRegion` contient maintenant un tableau d'objets [{ reg_nom: '...' }, ...]
-            listeRegion: regions 
-        });
-
-    } catch (err) {
-        console.error("ERREUR lors du chargement de la page carte des régions :", err);
-        res.status(500).send("Erreur serveur.");
-    }
-});
-
-//*******************************************************************************************************************************//
-// Carte interactive des Départements
-//*******************************************************************************************************************************//
-app.get('/departement_carte', async (req, res) => {
-    try {
-        // 1. On fait une seule requête pour récupérer les numéros ET les noms
-        // On trie par numéro de département pour un ordre logique.
-        const query = 'SELECT num_dep, nom_dep FROM dep_fr ORDER BY num_dep ASC;';
-        
-        console.log("--- NOUVELLE PAGE CARTE DES DÉPARTEMENTS ---");
-        console.log("Exécution de la requête :", query);
-
-        const [departements] = await dbPool.query(query);
-
-        console.log(`${departements.length} départements trouvés.`);
-        console.log("------------------------------------------");
-
-        // 2. On rend la nouvelle page EJS en lui passant la liste complète
-        res.render('pages/departement_carte_form', { 
-            title: 'Carte des Départements',
-            // La variable `listeDepartement` contient maintenant un tableau d'objets [{ num_dep: '01', nom_dep: 'Ain' }, ...]
-            listeDepartement: departements
-        });
-
-    } catch (err) {
-        console.error("ERREUR lors du chargement de la page carte des départements :", err);
-        res.status(500).send("Erreur serveur.");
     }
 });
 
@@ -626,6 +620,185 @@ app.get('/gram_jap_regles', async (req, res) => {
 
     } catch (err) {
         console.error("ERREUR lors du chargement de la page des grammaire japonaise :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+// ------------------------------------------------------------- France ----------------------------------------------------------//
+
+// *******************************************************************************************************************************//
+// Dico departements
+// *******************************************************************************************************************************//
+
+app.get('/departements', async (req, res) => {
+    try {
+        // 1. On récupère la liste complète des départements pour les menus déroulants
+        const query = 'SELECT num_dep, nom_dep FROM dep_fr ORDER BY num_dep ASC;';
+        
+        console.log("--- NOUVELLE PAGE DÉPARTEMENTS ---");
+        console.log("Exécution de la requête :", query);
+
+        const [departements] = await dbPool.query(query);
+
+        console.log(`${departements.length} départements trouvés pour les listes.`);
+        console.log("------------------------------------------");
+		
+	    // 2. On rend la page en lui passant la liste, et des valeurs VIDES pour les résultats
+        res.render('pages/departements_form', { 
+            title: 'Caractéristiques d\'un département', 
+            listeDepartement: departements,
+            results: [], // Tableau de résultats vide au premier chargement
+            searchTerm: '' // Terme de recherche vide au premier chargement
+        });
+
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la page des départements :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+// Fichier: server.js
+
+app.post('/departements/search', async (req, res) => {
+    // NOUVEAU : On récupère la valeur de la liste qui a été changée
+    const nomDep = req.body.nom_dep;
+    const numDep = req.body.num_dep;
+    
+    // On détermine le terme de recherche (celui qui n'est pas vide)
+    const searchTerm = nomDep || numDep;
+
+    try {
+        // --- On doit toujours re-charger la liste complète pour réafficher les menus ---
+        const listQuery = 'SELECT num_dep, nom_dep FROM dep_fr ORDER BY num_dep ASC;';
+        const [departements] = await dbPool.query(listQuery);
+
+        let searchResults = [];
+
+        // --- On exécute la recherche si un terme a été sélectionné ---
+        if (searchTerm) {
+            // La requête recherche maintenant une correspondance EXACTE, ce qui est mieux pour une liste
+            const searchQuery = `
+                SELECT num_dep, nom_dep, nom_reg, superficie, pop_dep, densite, nom_pref, pop_pref, sous_pref
+                FROM dep_fr 
+                WHERE nom_dep = ? OR num_dep = ?`;
+            
+            // On passe le même terme pour les deux conditions
+            const [results] = await dbPool.query(searchQuery, [searchTerm, searchTerm]);
+            searchResults = results;
+        }
+
+        // --- On rend la même page, en passant toutes les infos nécessaires ---
+        res.render('pages/departements_form', { 
+            title: 'Résultats Départements',
+            listeDepartement: departements,
+            results: searchResults,
+            searchTerm: searchTerm // Très important pour pré-sélectionner les listes !
+        });
+
+    } catch (err) { 
+        console.error("ERREUR lors de la recherche du Département :", err);
+        res.status(500).send("Erreur serveur lors de la recherche du département."); 
+    }
+});
+
+//*******************************************************************************************************************************//
+// Carte interactive des Départements
+//*******************************************************************************************************************************//
+app.get('/departement_carte', async (req, res) => {
+    try {
+        // 1. On fait une seule requête pour récupérer les numéros ET les noms
+        // On trie par numéro de département pour un ordre logique.
+        const query = 'SELECT num_dep, nom_dep FROM dep_fr ORDER BY num_dep ASC;';
+        
+        console.log("--- NOUVELLE PAGE CARTE DES DÉPARTEMENTS ---");
+        console.log("Exécution de la requête :", query);
+
+        const [departements] = await dbPool.query(query);
+
+        console.log(`${departements.length} départements trouvés.`);
+        console.log("------------------------------------------");
+
+        // 2. On rend la nouvelle page EJS en lui passant la liste complète
+        res.render('pages/departement_carte_form', { 
+            title: 'Carte des Départements',
+            // La variable `listeDepartement` contient maintenant un tableau d'objets [{ num_dep: '01', nom_dep: 'Ain' }, ...]
+            listeDepartement: departements
+        });
+
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la page carte des départements :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+//*******************************************************************************************************************************//
+// Régions (avec liste déroulante et affichage des détails)
+//*******************************************************************************************************************************//
+
+app.get('/regions', async (req, res) => {
+    try {
+        // --- PARTIE 1 : On charge TOUJOURS la liste complète des régions ---
+        const queryAllRegions = 'SELECT reg_nom FROM reg_fr ORDER BY reg_nom ASC;';
+        const [allRegions] = await dbPool.query(queryAllRegions);
+        
+        // --- PARTIE 2 : On regarde si l'utilisateur a sélectionné une région ---
+        // La région sélectionnée arrivera dans l'URL, comme: /regions?selection=Bretagne
+        const selectedRegionName = req.query.selection || '';
+
+        let regionDetails = []; // On initialise un tableau vide pour les détails
+
+        // --- PARTIE 3 : Si une région est sélectionnée, on va chercher ses détails ---
+        if (selectedRegionName) {
+            console.log(`--- Recherche des détails pour la région : ${selectedRegionName} ---`);
+            const queryDetails = `
+                SELECT reg_nom, reg_cheflieu, reg_dep, reg_superficie, reg_population
+                FROM reg_fr 
+                WHERE reg_nom = ?`; // Recherche exacte avec le nom de la région
+
+            const [details] = await dbPool.query(queryDetails, [selectedRegionName]);
+            regionDetails = details; // On remplit notre tableau avec le résultat
+        }
+
+        // --- PARTIE 4 : On rend la page en lui passant TOUTES les données ---
+        res.render('pages/region_form', { 
+            title: 'Les Régions Françaises',
+            listeRegion: allRegions,      // Pour la liste déroulante
+            results: regionDetails,       // Pour le tableau de résultats (contient les détails ou est vide)
+            searchTerm: selectedRegionName // Pour savoir quelle région pré-sélectionner dans la liste
+        });
+
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la page des régions :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+//*******************************************************************************************************************************//
+// Carte interactive des Régions
+//*******************************************************************************************************************************//
+app.get('/region_carte', async (req, res) => {
+    try {
+        // 1. La requête SQL pour récupérer tous les noms de régions
+        // J'ajoute ORDER BY pour que la liste déroulante soit triée par ordre alphabétique
+        const query = 'SELECT reg_nom FROM reg_fr ORDER BY reg_nom ASC;';
+        
+        console.log("--- NOUVELLE PAGE CARTE DES RÉGIONS ---");
+        console.log("Exécution de la requête :", query);
+
+        // 2. On exécute la requête
+        const [regions] = await dbPool.query(query);
+
+        console.log(`${regions.length} régions trouvées.`);
+        console.log("---------------------------------------");
+
+        // 3. On rend la nouvelle page EJS en lui passant la liste des régions
+        res.render('pages/region_carte_form', { 
+            title: 'Carte des Régions',
+            // La variable `listeRegion` contient maintenant un tableau d'objets [{ reg_nom: '...' }, ...]
+            listeRegion: regions 
+        });
+
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la page carte des régions :", err);
         res.status(500).send("Erreur serveur.");
     }
 });
