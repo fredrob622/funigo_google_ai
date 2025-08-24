@@ -11,13 +11,13 @@
       Il soumettra les données à notre route POST.
     -->
     <form action="/departements/search" method="POST" id="dep-form">
-        <div class="form-container-double" style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; flex-wrap: wrap;">
+        <div class="form-container-double">
             
             <!-- Liste déroulante par Nom -->
             <div>
-                <label for="dep-nom-select" style="display: block; margin-bottom: 10px;">Par Nom :</label>
+                <label for="dep-nom-select" >Par Nom :</label>
                 <!-- On ajoute un 'name' pour que sa valeur soit envoyée -->
-                <select id="dep-nom-select" name="nom_dep" class="dep-select" style="padding: 5px; font-size: 0.9em; border-radius: 8px; min-width: 250px;">
+                <select id="dep-nom-select" name="nom_dep" class="dep-select">
                     <option value="">-- Choisissez un département --</option>
                     <% listeDepartement.forEach(dep => { %>
                         <!-- On utilise 'searchTerm' pour pré-sélectionner l'option -->
@@ -30,14 +30,28 @@
 
             <!-- Liste déroulante par Numéro -->
             <div>
-                <label for="dep-num-select" style="display: block; margin-bottom: 10px;">Par Numéro :</label>
+                <label for="dep-num-select" >Par Numéro :</label>
                 <!-- On ajoute un 'name' pour que sa valeur soit envoyée -->
-                <select id="dep-num-select" name="num_dep" class="dep-select" style="padding: 5px; font-size: 0.9em; border-radius: 8px; min-width: 150px;">
+                <select id="dep-num-select" name="num_dep" class="dep-select">
                     <option value="">-- N° --</option>
                     <% listeDepartement.forEach(dep => { %>
                          <!-- On utilise 'searchTerm' pour pré-sélectionner l'option -->
                         <option value="<%= dep.num_dep %>" data-nom="<%= dep.nom_dep %>" <%= (searchTerm === dep.num_dep) ? 'selected' : '' %>>
                             <%= dep.num_dep %>
+                        </option>
+                    <% }); %>
+                </select>
+            </div>
+
+             <!-- Liste déroulante par Préfecture -->
+            <div>
+                <label for="dep-pref-select">Par Préfecture :</label>
+                <select id="dep-pref-select" name="nom_pref" class="dep-select">
+                    <option value="">-- Choisissez une préfecture --</option>
+                    <% listeDepartement.forEach(dep => { %>
+                        <!-- On utilise bien searchTerm === dep.nom_pref ici -->
+                        <option value="<%= dep.nom_pref %>" data-pref="<%= dep.nom_pref %>" <%= (searchTerm === dep.nom_pref) ? 'selected' : '' %>>
+                            <%= dep.nom_pref %>
                         </option>
                     <% }); %>
                 </select>
@@ -48,7 +62,7 @@
 
     <!-- L'affichage des résultats reste le même -->
     <% if (results && results.length > 0) { %>
-        <div class="departement-table-container" style="margin-top: 30px;">
+        <div class="departement-table-container" >
             <h3>Résultats pour "<%= searchTerm %>"</h3>
             <table class="results-table">
                 <thead>

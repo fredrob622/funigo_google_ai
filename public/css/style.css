@@ -44,7 +44,7 @@ nav { background-color: black; }
 
 /* --- Styles spécifiques aux pages sur fond noir --- */
 .content-black { background-color: black; box-shadow: none; color: white; }
-h2 {  padding: 10px 20px 7px ; background-color: #074107; width:500px; border-radius: 15px;}
+h2 {  padding: 10px 20px 7px ; background-color: #074107; width:700px; border-radius: 15px;}
 
 /* Formulaire de recherche sur fond noir */
 .content-black .search-form input,
@@ -175,7 +175,7 @@ h2 { font-size: 1.2em ; }
 #nav-submenu-links li a:hover, .dropdown:hover { background-color: #074107; }
 
 #japon-ile-titre { margin-top: 10px; margin-bottom: 10px; }
-#japon-ile-titre > h2 { color: white; padding: 10px; background-color: #0c800c;  width: 400px; margin: auto;
+#japon-ile-titre > h2 { color: white; padding: 10px; background-color: #074107;  width: 400px; margin: auto;
     border-radius: 5px; text-align: center; /* Pour le centrage horizontal */ padding-top: 10px; padding-bottom: 10px; }
 #japon-ile-carte > img { display: block; margin: auto; width: 50% ; max-width : 700px; overflow :hidden; }
 
@@ -186,12 +186,28 @@ h2 { font-size: 1.2em ; }
 .kanji-results-container { margin-top: 30px; padding: 20px; background-color: #1e1e1e; border-radius: 8px; }
 .kanji-main-char { font-size: 100px; text-align: center; margin-bottom: 20px; color: #e0e0e0; }
 .kanji-section { margin-bottom: 25px; }
-.kanji-section h3 { background-color: #0c800c; color: white; border-radius: 2px solid #0c800c;padding: 5px 10px 5px; margin-bottom: 10px; font-size: 1.1;}
+.kanji-section h3 { background-color: #074107;  color: white; border-radius: 2px solid #0c800c;padding: 5px 10px 5px; margin-bottom: 10px; font-size: 1.2em;}
 .kanji-section p { font-size: 1.1em;  }
 .kanji-trace-img { background-color: white; padding: 3px; border-radius: 4px; width: 300px; }
 .kanji-examples-list { list-style-type: none; padding: 0; }
-.kanji-examples-list li { background-color: #2a2a2a; padding: 10px; border-radius: 4px; margin-bottom: 5px; font-size: 1.5em; }
+.kanji-examples-list li { background-color: #2a2a2a; padding: 10px; border-radius: 4px; margin-bottom: 5px; font-size: 1.1em; }
 .kanji-approches-list { font-size: 2.5rem !important; /* On force la taille en pixels ET on ajoute !important */ text-align: left; letter-spacing: 15px; /* espace entre eux */ }
+
+/***************************************************************/
+/* Pour la route /departement 
+/***************************************************************/
+
+.form-container-double{display: flex; justify-content: center; gap: 5px; margin-bottom: 10px; flex-wrap: wrap; }
+.departement-table-container { margin-top: 10px; }
+.dep-select { padding: 5px; font-size: 0.9em; border-radius: 8px; min-width: 250px;} 
+.dep-select { padding: 5px; font-size: 0.9em; border-radius: 8px; min-width: 150px;}
+#dep-nom-select { display: block; margin-bottom: 10px; }
+#dep-num-select { display: block; margin-bottom: 10px; } 
+#dep-pref-select { display: block; margin-bottom: 10px; } 
+/* Style pour les labels associés aux selects */
+label[for="dep-nom-select"],
+label[for="dep-num-select"],
+label[for="dep-pref-select"] {display: block; margin-top: 10px; margin-bottom: 10px; }
 
 /*********************************************************************************************************************************/
 /* =================================================================== */
@@ -203,6 +219,7 @@ h2 { font-size: 1.2em ; }
     /* --- Ajustements généraux --- */
     .content { padding: 10px; margin: 20px auto; width: 90%;     /* ou largeur souhaitée */ }
     .text-overlay { font-size: 1.2em;}
+    h2 {  padding: 5px 20px 5px ; background-color: #074107; width:500px; border-radius: 15px; font-size: 1em}
     
     /* --- Header & API --- */
     .header-main { display: flex; justify-content: space-between; align-items: center; }
@@ -274,6 +291,7 @@ h2 { font-size: 1.2em ; }
     /* --- Ajustements généraux --- */
     .content { padding: 10px; margin: 10px auto; width: 85%; }
     .text-overlay { font-size: 1.0em; }
+    h2 {  padding: 5px 20px 5px ; background-color: #074107; width:450px; border-radius: 15px; font-size: 0.9em;}
     
     /* --- Header & API --- */
     .header-main { display: flex; justify-content: space-between; align-items: center; }
@@ -368,6 +386,7 @@ h2 { font-size: 1.2em ; }
     
     .results-table thead th { font-size: 0.9em; }
     .results-table tbody tr { font-size: 1.3em; }
+     h2 {  padding: 10px 20px 7px ; background-color: #074107; width:350px; border-radius: 15px; font-size: 0.9em;}
 
     }
 
@@ -375,7 +394,7 @@ h2 { font-size: 1.2em ; }
 /* == 2. AJUSTEMENTS RESPONSIVES (MOBILES ET TABLETTES) 450       　== */
 /* =================================================================== */
 @media (max-width: 450px) {
-
+    h2 {  padding: 10px 20px 7px ; background-color: #074107; width:300px; border-radius: 15px; font-size: 0.8em;}
     .jp-char { font-size: 1.0em; }
     /* Pour les très petits écrans, on réduit encore un peu la police */
     .content-black .search-form input,
@@ -395,6 +414,7 @@ h2 { font-size: 1.2em ; }
 /* =================================================================== */
 @media (max-width: 400px) {
 
+    h2 {  padding: 10px 20px 7px ; background-color: #074107; width:260px; border-radius: 15px; font-size: 0.7em;}
     .jp-char { font-size: 1.0em; }
     .api-container { gap: 2px; }
 
@@ -428,6 +448,7 @@ h2 { font-size: 1.2em ; }
 /* =================================================================== */
 @media (max-width: 340px) {
 
+    h2 {  padding: 10px 20px 7px ; background-color: #074107; width:230px; border-radius: 15px; font-size: 0.7em;}
     .text-overlay { font-size: 0.6em; }
 
     /* Chaque cellule <td> prend toute la largeur de la carte */

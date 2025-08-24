@@ -633,7 +633,7 @@ app.get('/gram_jap_regles', async (req, res) => {
 app.get('/departements', async (req, res) => {
     try {
         // 1. On récupère la liste complète des départements pour les menus déroulants
-        const query = 'SELECT num_dep, nom_dep FROM dep_fr ORDER BY num_dep ASC;';
+        const query = 'SELECT num_dep, nom_dep, nom_pref FROM dep_fr ORDER BY num_dep ASC;';
         
         console.log("--- NOUVELLE PAGE DÉPARTEMENTS ---");
         console.log("Exécution de la requête :", query);
@@ -662,13 +662,15 @@ app.post('/departements/search', async (req, res) => {
     // NOUVEAU : On récupère la valeur de la liste qui a été changée
     const nomDep = req.body.nom_dep;
     const numDep = req.body.num_dep;
+    const nomPref = req.body.nom_pref;
     
-    // On détermine le terme de recherche (celui qui n'est pas vide)
-    const searchTerm = nomDep || numDep;
+ 
+    // 2. On détermine le terme de recherche (le premier qui n'est pas vide)
+    const searchTerm = nomDep || numDep || nomPref; // <-- On ajoute la préfecture ici
 
     try {
         // --- On doit toujours re-charger la liste complète pour réafficher les menus ---
-        const listQuery = 'SELECT num_dep, nom_dep FROM dep_fr ORDER BY num_dep ASC;';
+        const listQuery = 'SELECT num_dep, nom_dep, nom_pref FROM dep_fr ORDER BY num_dep ASC;';
         const [departements] = await dbPool.query(listQuery);
 
         let searchResults = [];
@@ -679,10 +681,10 @@ app.post('/departements/search', async (req, res) => {
             const searchQuery = `
                 SELECT num_dep, nom_dep, nom_reg, superficie, pop_dep, densite, nom_pref, pop_pref, sous_pref
                 FROM dep_fr 
-                WHERE nom_dep = ? OR num_dep = ?`;
+                WHERE nom_dep = ? OR num_dep = ? OR nom_pref = ?`;
             
             // On passe le même terme pour les deux conditions
-            const [results] = await dbPool.query(searchQuery, [searchTerm, searchTerm]);
+            const [results] = await dbPool.query(searchQuery, [searchTerm, searchTerm, searchTerm]);
             searchResults = results;
         }
 

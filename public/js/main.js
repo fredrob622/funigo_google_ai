@@ -165,38 +165,41 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("Logique pour la page de recherche des départements activée.");
         const nomSelect = document.getElementById('dep-nom-select');
         const numSelect = document.getElementById('dep-num-select');
+        const prefSelect = document.getElementById('dep-pref-select');
 
-        // Événement quand on change la liste des NOMS
-        nomSelect.addEventListener('change', () => {
-            if (!nomSelect.value) { // Si la valeur est vide ("-- Choisissez... --"), on ne fait rien
-                numSelect.value = '';
-                return; 
-            }
-            
-            // Synchronise l'autre liste
-            const selectedNumero = nomSelect.options[nomSelect.selectedIndex].dataset.numero;
-            numSelect.value = selectedNumero || '';
-            
-            // Soumet le formulaire
-            depForm.submit();
-        });
+        // On stocke la dernière liste modifiée pour éviter les boucles infinies
+        let lastChanged = null;
 
-        // Événement quand on change la liste des NUMÉROS
-        numSelect.addEventListener('change', () => {
-            if (!numSelect.value) { // Si la valeur est vide ("-- N° --"), on ne fait rien
-                nomSelect.value = '';
-                return;
-            }
+         nomSelect.addEventListener('change', () => {
+        // On ne fait quelque chose que si l'utilisateur a vraiment changé cette liste
+        if (lastChanged !== nomSelect) {
+            lastChanged = nomSelect;
+            // On réinitialise les autres listes
+            numSelect.value = '';
+            prefSelect.value = '';
+            // On soumet le formulaire
+            if (nomSelect.value) depForm.submit();
+        }
+    });
 
-            // Synchronise l'autre liste
-            const selectedNom = numSelect.options[numSelect.selectedIndex].dataset.nom;
-            nomSelect.value = selectedNom || '';
+    numSelect.addEventListener('change', () => {
+        if (lastChanged !== numSelect) {
+            lastChanged = numSelect;
+            nomSelect.value = '';
+            prefSelect.value = '';
+            if (numSelect.value) depForm.submit();
+        }
+    });
 
-            // Soumet le formulaire
-            depForm.submit();
-        });
-    }
-    
+    prefSelect.addEventListener('change', () => {
+        if (lastChanged !== prefSelect) {
+            lastChanged = prefSelect;
+            nomSelect.value = '';
+            numSelect.value = '';
+            if (prefSelect.value) depForm.submit();
+        }
+    });
+}
     // ***************************  page carte des DÉPARTEMENTS ******************************************************
     // --- NOUVEAU : Logique pour la page carte des DÉPARTEMENTS ---
     const nomSelect = document.getElementById('dep-nom-select');
