@@ -6,10 +6,6 @@
     
     <h2>Rechercher un Département</h2>
 
-    <!-- 
-      NOUVEAU : Un formulaire unique qui entoure les listes déroulantes.
-      Il soumettra les données à notre route POST.
-    -->
     <form action="/departements/search" method="POST" id="dep-form">
         <div class="form-container-double">
             
@@ -21,7 +17,7 @@
                     <option value="">-- Choisissez un département --</option>
                     <% listeDepartement.forEach(dep => { %>
                         <!-- On utilise 'searchTerm' pour pré-sélectionner l'option -->
-                        <option value="<%= dep.nom_dep %>" data-numero="<%= dep.num_dep %>" <%= (searchTerm === dep.nom_dep) ? 'selected' : '' %>>
+                        <option value="<%= dep.nom_dep %>" data-numero="<%= dep.num_dep %>" data-pref="<%= dep.nom_pref %>"  <%= (searchTerm === dep.nom_dep) ? 'selected' : '' %>>
                             <%= dep.nom_dep %>
                         </option>
                     <% }); %>
@@ -36,7 +32,7 @@
                     <option value="">-- N° --</option>
                     <% listeDepartement.forEach(dep => { %>
                          <!-- On utilise 'searchTerm' pour pré-sélectionner l'option -->
-                        <option value="<%= dep.num_dep %>" data-nom="<%= dep.nom_dep %>" <%= (searchTerm === dep.num_dep) ? 'selected' : '' %>>
+                        <option value="<%= dep.num_dep %>" data-nom="<%= dep.nom_dep %>" data-pref="<%= dep.nom_pref %>" <%= (searchTerm === dep.num_dep) ? 'selected' : '' %>>
                             <%= dep.num_dep %>
                         </option>
                     <% }); %>
@@ -50,7 +46,7 @@
                     <option value="">-- Choisissez une préfecture --</option>
                     <% listeDepartement.forEach(dep => { %>
                         <!-- On utilise bien searchTerm === dep.nom_pref ici -->
-                        <option value="<%= dep.nom_pref %>" data-pref="<%= dep.nom_pref %>" <%= (searchTerm === dep.nom_pref) ? 'selected' : '' %>>
+                        <option value="<%= dep.nom_pref %>" data-nom="<%= dep.nom_dep %>" et data-numero="<%= dep.num_dep %>"  <%= (searchTerm === dep.nom_pref) ? 'selected' : '' %>>
                             <%= dep.nom_pref %>
                         </option>
                     <% }); %>

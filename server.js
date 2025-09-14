@@ -5,8 +5,9 @@ const path = require('path');
 const mysql = require('mysql2/promise');
 const axios = require('axios');
 const cheerio = require('cheerio');
-const fs = require('fs').promises; // On utilise la version "promise" pour async/await
 const { log } = require('console');
+const fs = require('fs').promises; // On utilise la version "promise" pour async/await
+
 
 // Initialiser l'application Express
 const app = express();
@@ -107,7 +108,7 @@ app.get('/kanji', (req, res) => {
 });
 
 // *******************************************************************************************************************************//
-// Dico Kanji
+// Dico Kanji_dico
 // *******************************************************************************************************************************//
 
 app.get('/kanji_dico', (req, res) => {
@@ -265,7 +266,9 @@ app.post('/kanji_free_dico/search', async (req, res) => {
         console.log(`URL cible : ${url}`);
         
         const response = await axios.get(url);
+       
         const $ = cheerio.load(response.data);
+
 
         // ====================================================================
         // === CHANGEMENT MAJEUR : On parse les données au lieu de prendre le HTML brut ===
@@ -273,7 +276,7 @@ app.post('/kanji_free_dico/search', async (req, res) => {
 
         // 1. On sélectionne le conteneur principal avec le bon sélecteur d'attribut
         const mainContent = $('td[width="600"]');
-
+        
         // Si on ne trouve pas le conteneur, on arrête
         if (mainContent.length === 0) {
             throw new Error("Conteneur principal du kanji non trouvé sur la page.");
@@ -300,7 +303,7 @@ app.post('/kanji_free_dico/search', async (req, res) => {
             kanjiData.traceUrl = `/kanji-image-proxy?path=${encodeURIComponent(traceImgSrc)}`;
         }
 
-                // Les caractères ou éléments approchés
+        // Les caractères ou éléments approchés
         kanjiData.approches = [];
         // On trouve le titre, on va à la table suivante, et on cherche tous les kanji avec la classe 'kanji3'
         mainContent.find('font.titre2:contains("Caractères ou éléments approchés")')
@@ -327,7 +330,7 @@ app.post('/kanji_free_dico/search', async (req, res) => {
         });
 
         console.log("Données du kanji extraites avec succès.");
-
+        console.log(JSON.stringify(kanjiData, null, 2));
         // 4. On envoie l'objet de données structuré à la page EJS
         res.render('pages/kanji_free_dico_form', { 
             title: `Détails pour ${searchTerm}`, 
@@ -642,6 +645,7 @@ app.get('/departements', async (req, res) => {
 
         console.log(`${departements.length} départements trouvés pour les listes.`);
         console.log("------------------------------------------");
+       console.log(departements);
 		
 	    // 2. On rend la page en lui passant la liste, et des valeurs VIDES pour les résultats
         res.render('pages/departements_form', { 
@@ -656,7 +660,6 @@ app.get('/departements', async (req, res) => {
         res.status(500).send("Erreur serveur.");
     }
 });
-// Fichier: server.js
 
 app.post('/departements/search', async (req, res) => {
     // NOUVEAU : On récupère la valeur de la liste qui a été changée
@@ -940,6 +943,19 @@ app.post('/quiz/search', async (req, res) => {
     } catch (err) {
         console.error("ERREUR lors de la recherche du Quiz :", err);
         res.status(500).send("Erreur serveur lors de la recherche du Quiz.");
+    }
+});
+// ------------------------------------------------------------- Le blog ----------------------------------------------------------//
+// *******************************************************************************************************************************//
+// Menu Blog
+// *******************************************************************************************************************************//
+
+app.get('/Blog', (req, res) => {
+    try {
+        res.render('pages/blog_form', { title: 'Le Blog'});
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la page de Blog :", err);
+        res.status(500).send("Erreur serveur.");
     }
 });
 

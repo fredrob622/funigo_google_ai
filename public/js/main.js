@@ -88,11 +88,11 @@ document.addEventListener('DOMContentLoaded', () => {
         slidesPerView: 3,      // Affiche 3 slides en même temps sur grand écran
         spaceBetween: 20,      // Espace de 20px entre les slides
         
-        loop: true,
+        loop: true, // pour faire tourner en boucle
         
         autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
+            delay: 3000,  // temps en ms entre deux slides (ici 3 secondes)
+            disableOnInteraction: false, // continue l'autoplay même après une action de l'utilisateur 
         },
         pagination: {
             el: '.swiper-pagination',
@@ -179,27 +179,27 @@ document.addEventListener('DOMContentLoaded', () => {
             prefSelect.value = '';
             // On soumet le formulaire
             if (nomSelect.value) depForm.submit();
-        }
-    });
+            }
+        });
 
-    numSelect.addEventListener('change', () => {
-        if (lastChanged !== numSelect) {
-            lastChanged = numSelect;
-            nomSelect.value = '';
-            prefSelect.value = '';
-            if (numSelect.value) depForm.submit();
-        }
-    });
+        numSelect.addEventListener('change', () => {
+            if (lastChanged !== numSelect) {
+                lastChanged = numSelect;
+                nomSelect.value = '';
+                prefSelect.value = '';
+                if (numSelect.value) depForm.submit();
+            }
+        });
 
-    prefSelect.addEventListener('change', () => {
-        if (lastChanged !== prefSelect) {
-            lastChanged = prefSelect;
-            nomSelect.value = '';
-            numSelect.value = '';
-            if (prefSelect.value) depForm.submit();
-        }
-    });
-}
+        prefSelect.addEventListener('change', () => {
+            if (lastChanged !== prefSelect) {
+                lastChanged = prefSelect;
+                nomSelect.value = '';
+                numSelect.value = '';
+                if (prefSelect.value) depForm.submit();
+            }
+        });
+    }
     // ***************************  page carte des DÉPARTEMENTS ******************************************************
     // --- NOUVEAU : Logique pour la page carte des DÉPARTEMENTS ---
     const nomSelect = document.getElementById('dep-nom-select');
