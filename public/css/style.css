@@ -209,6 +209,19 @@ label[for="dep-nom-select"],
 label[for="dep-num-select"],
 label[for="dep-pref-select"] {display: block; margin-top: 10px; margin-bottom: 10px; }
 
+/***************************************************************/
+/* Pour le blog 
+/***************************************************************/
+.blog_article { margin-top: 30px }
+.blog_article_entete { display: flex;  justify-content: space-between; gap: 5px; margin-bottom: 10px; flex-direction: row; background-color: white; color: black; 
+    font-size: 0.9em; padding: 2px; border-radius: 5px; margin-left: 5px; margin-right: 5px;}
+.blog_date { display: flex; flex-direction: row; gap: 15px; text-align: end; margin-right: 5px; }
+
+.blog_h2 { font-size: 1.3em ; font-weight: 400;}
+.blog_h3 { font-size:1.2em; font-weight: 600; margin-left: 5px;}
+.blog_article_entete p { font-size:0.9em; font-weight: 400; }
+.blog_contenu { margin-left: 10px; margin-right: 10px;}
+
 /*********************************************************************************************************************************/
 /* =================================================================== */
 /* == 2. AJUSTEMENTS RESPONSIVES (MOBILES ET TABLETTES) 1200        == */
@@ -292,6 +305,7 @@ label[for="dep-pref-select"] {display: block; margin-top: 10px; margin-bottom: 1
     .content { padding: 10px; margin: 10px auto; width: 85%; }
     .text-overlay { font-size: 1.0em; }
     h2 {  padding: 5px 20px 5px ; background-color: #074107; width:450px; border-radius: 15px; font-size: 0.9em;}
+    .blog_h2 { font-size: 1em; font-weight: 400; }
     
     /* --- Header & API --- */
     .header-main { display: flex; justify-content: space-between; align-items: center; }
@@ -386,7 +400,7 @@ label[for="dep-pref-select"] {display: block; margin-top: 10px; margin-bottom: 1
     
     .results-table thead th { font-size: 0.9em; }
     .results-table tbody tr { font-size: 1.3em; }
-     h2 {  padding: 10px 20px 7px ; background-color: #074107; width:350px; border-radius: 15px; font-size: 0.9em;}
+     h2 {  padding: 10px 20px 7px ; background-color: #074107; width:325px; border-radius: 15px; font-size: 0.9em;}
 
     }
 
@@ -394,7 +408,7 @@ label[for="dep-pref-select"] {display: block; margin-top: 10px; margin-bottom: 1
 /* == 2. AJUSTEMENTS RESPONSIVES (MOBILES ET TABLETTES) 450       　== */
 /* =================================================================== */
 @media (max-width: 450px) {
-    h2 {  padding: 10px 20px 7px ; background-color: #074107; width:300px; border-radius: 15px; font-size: 0.8em;}
+    h2 {  padding: 10px 20px 7px ; background-color: #074107; width:250px; border-radius: 15px; font-size: 0.8em; margin:auto}
     .jp-char { font-size: 1.0em; }
     /* Pour les très petits écrans, on réduit encore un peu la police */
     .content-black .search-form input,
@@ -414,7 +428,7 @@ label[for="dep-pref-select"] {display: block; margin-top: 10px; margin-bottom: 1
 /* =================================================================== */
 @media (max-width: 400px) {
 
-    h2 {  padding: 10px 20px 7px ; background-color: #074107; width:260px; border-radius: 15px; font-size: 0.7em;}
+    h2 {  padding: 10px 20px 7px ; background-color: #074107; width:260px; border-radius: 15px; font-size: 0.8em;}
     .jp-char { font-size: 1.0em; }
     .api-container { gap: 2px; }
 
@@ -448,7 +462,8 @@ label[for="dep-pref-select"] {display: block; margin-top: 10px; margin-bottom: 1
 /* =================================================================== */
 @media (max-width: 340px) {
 
-    h2 {  padding: 10px 20px 7px ; background-color: #074107; width:230px; border-radius: 15px; font-size: 0.7em;}
+    h2 {  padding: 10px 20px 7px ; background-color: #074107; width:200px; border-radius: 15px; font-size: 0.6em;}
+   
     .text-overlay { font-size: 0.6em; }
 
     /* Chaque cellule <td> prend toute la largeur de la carte */

@@ -649,6 +649,7 @@ mysql> SELECT DISTINCT annee, niveau
 9 rows in set (0.00 sec)
 
 mysql>
+
 ********************************************************************************
 	Inserer des données avec un retour à la ligne dans un champ
 ********************************************************************************
@@ -664,3 +665,15 @@ Autre méthode avec la fonction CHAR() pour insérer un saut de ligne (code ASCI
 sql
 INSERT INTO funigo_blog (TITRE, ARTICLE, DATE_CREAT, DATE_MODIF)
 VALUES ('Titre', CONCAT('Première ligne', CHAR(10), 'Deuxième ligne', CHAR(10), 'Troisième ligne'), '2025-09-10', '2025-09-10');
+
+********************************************************************************
+	Création table blog
+********************************************************************************
+
+CREATE TABLE blog (
+	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+		titre VARCHAR(200),
+		article TEXT,
+		date_creat DATE,
+		date_modif DATE
+);

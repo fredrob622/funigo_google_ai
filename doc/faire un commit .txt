@@ -1,6 +1,7 @@
-   43  node server.js
-   44  git add *
-   45  git commit -m "202506260730 avec menu hamburguer"
-   46  git branch -M main
-   47  git push -u origin main
-   48  history
+node server.js
+git add *
+git commit -m "202509141800 avec la documentation mise à jour"
+git branch -M main
+git push -u origin main
+git log --oneline
+history

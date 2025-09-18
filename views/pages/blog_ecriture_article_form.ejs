@@ -1,0 +1,23 @@
+<%- include('../partials/header_blog') %>
+<div  class="content content-black">
+    <h2 class="blog_h2" ><%= title %></h2>
+
+<form action="/blog_stockage" method="POST" id="blog_form">
+
+    <div>
+        <label for="titre">Titre</label>
+        <input type="text" name="titre" class="blog_input" placeholder="Entrer le titre de l'article">
+    </div>
+
+     <div>
+        <label for="contenu">Contenu de l'article</label>
+        <textarea name="contenu" class="blog_contenu" placeholder="Entrer le contenu de l'article" row="3"></textarea>
+    </div>
+
+    <button type="submit">Insérer un article</button>
+</form>
+
+
+
+<%- include('../partials/footer') %>
+

@@ -41,6 +41,7 @@ const dbPool = mysql.createPool({
     connectionLimit: 10,
     queueLimit: 0
 });
+
 // ************************************************************************************************************************
 // --- DÉFINITION DES ROUTES ---
 
@@ -947,10 +948,10 @@ app.post('/quiz/search', async (req, res) => {
 });
 // ------------------------------------------------------------- Le blog ----------------------------------------------------------//
 // *******************************************************************************************************************************//
-// Menu Blog
+// Menu Blog liste des articles
 // *******************************************************************************************************************************//
 
-app.get('/Blog', (req, res) => {
+app.get('/blog', (req, res) => {
     try {
         res.render('pages/blog_form', { title: 'Le Blog'});
     } catch (err) {
@@ -959,6 +960,88 @@ app.get('/Blog', (req, res) => {
     }
 });
 
+app.get('/blog_liste', async (req, res) => {
+    try {
+        const query = 'SELECT id, titre, contenu, date_creat, date_modif FROM blog ORDER BY DATE_MODIF DESC;';
+        console.log("Exécution de la requête :", query);
+
+        const [articles] = await dbPool.query(query);
+
+        // Formatage des dates avant de les passer au template
+        const formattedArticles = articles.map(article => {
+            // Convertir DATE_CREAT et DATE_MODIF en objets Date JavaScript si ce n'est pas déjà fait
+            // Si DATE_CREAT/DATE_MODIF sont des strings, il faut les parser
+            const dateCreat = article.date_creat ? new Date(article.date_creat) : null;
+            const dateModif = article.date_modif ? new Date(article.date_modif) : null;
+
+            // Définir les options de formatage
+            const options = { 
+                year: 'numeric', 
+                month: '2-digit', 
+                day: '2-digit', 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                hour12: false // Pour utiliser le format 24 heures (HH:MM)
+            };
+
+            return {
+                ...article,
+                // Utiliser toLocaleString pour formater la date dans le fuseau horaire local du serveur
+                // ou spécifiez un fuseau horaire si nécessaire
+                DATE_CREAT_FORMATTED: dateCreat ? dateCreat.toLocaleString('fr-FR', options).replace(',', '') : null, // 'fr-FR' pour le format français, .replace(',', '') pour enlever la virgule entre date et heure
+                DATE_MODIF_FORMATTED: dateModif ? dateModif.toLocaleString('fr-FR', options).replace(',', '') : null
+            };
+        });
+
+        console.log(`${formattedArticles.length} Liste des articles formatés.`);
+        console.log(formattedArticles);
+
+        res.render('pages/blog_liste_article_form.ejs', { 
+            title: 'Liste des Articles du Blog',
+            listeArticles: formattedArticles 
+        });
+
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la liste des articles :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+// *******************************************************************************************************************************//
+// Blog écriture d'un article
+// *******************************************************************************************************************************//
+
+app.get('/blog_ecriture', (req, res) => {
+    try {
+        res.render('pages/blog_ecriture_article_form', { title: 'Ecrirure d\'un article'});
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la page de Blog_ecriture :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+app.post('/blog_stockage', async (req, res) => {
+    const artTitre = req.body.titre;
+    const artContenu = req.body.contenu;
+    const artDateCreat = new Date();
+    const artDateModif = new Date();
+
+    try {
+
+        const queryDetails=`
+            INSERT INTO blog (titre, contenu, date_creat, date_modif )
+            VALUES (?, ?, ?, ?)
+        `;
+
+        // Exécution de la requête avec les valeurs des variables comme paramètres
+        // dbPool.query attend un tableau de valeurs correspondant aux placeholders (?)
+        await dbPool.query(queryDetails, [artTitre, artContenu, artDateCreat, artDateModif]);
+
+        } catch (err) { 
+        console.error("ERREUR lors de l'intégration d'un article:", err);
+        res.status(500).send("ERREUR lors de l'intégration d'un article:"); 
+    }
+});
 
 //*******************************************************************************************************************************//
 // Démarrer le serveur

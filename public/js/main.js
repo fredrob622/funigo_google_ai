@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-
     // --- Logique pour les sous-menus sur mobile (accordéon) ---
     const dropdownToggles = document.querySelectorAll('.dropdown > a');
     
