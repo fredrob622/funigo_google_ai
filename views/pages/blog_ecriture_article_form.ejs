@@ -4,17 +4,18 @@
 
 <form action="/blog_stockage" method="POST" id="blog_form">
 
-    <div>
-        <label for="titre">Titre</label>
-        <input type="text" name="titre" class="blog_input" placeholder="Entrer le titre de l'article">
+    <div class="blog_add_mod_titre">
+        <label for="titre">Titre de l'article</label>
+        <input type="text" name="titre" class="blog_add_mod_titre_input" placeholder="Entrer le titre de l'article" required >
     </div>
 
-     <div>
+     <div class="blog_add_mod_contenu">
         <label for="contenu">Contenu de l'article</label>
-        <textarea name="contenu" class="blog_contenu" placeholder="Entrer le contenu de l'article" row="3"></textarea>
+        <textarea name="contenu" class="blog_add_mod_contenu_text" placeholder="Entrer le contenu de l'article" rows="10" required></textarea>
     </div>
 
-    <button type="submit">Insérer un article</button>
+    <button type="submit" class="blog_button" >Insérer un article</button>
+    <a href="/blog_liste" class="blog_button">Annuler</a>
 </form>
 
 

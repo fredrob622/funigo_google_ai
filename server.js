@@ -1043,6 +1043,65 @@ app.post('/blog_stockage', async (req, res) => {
     }
 });
 
+// *******************************************************************************************************************************//
+// Blog Route pour afficher le formulaire de modification d'un article
+// *******************************************************************************************************************************//
+
+
+app.get('/blog/modifier/:id', async (req, res) => {
+    const articleId = req.params.id;
+    try {
+        const query = 'SELECT id, titre, contenu FROM blog WHERE id = ?';
+        const [rows] = await dbPool.query(query, [articleId]);
+
+        if (rows.length === 0) {
+            return res.status(404).send("Article non trouvé.");
+        }
+
+        const article = rows[0];
+        res.render('pages/blog_modifier_article_form.ejs', {
+            title: `Modifier l'article : ${article.titre}`,
+            article: article
+        });
+
+    } catch (err) {
+        console.error(`ERREUR lors du chargement de l'article ${articleId} pour modification :`, err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+// Route pour soumettre la modification (POST)
+
+app.post('/blog/modifier/:id', async (req, res) => {
+    const articleId = req.params.id;
+    const { titre, contenu } = req.body; // Récupérer le titre et le contenu du formulaire
+
+    try {
+        const query = 'UPDATE blog SET titre = ?, contenu = ?, date_modif = NOW() WHERE id = ?';
+        await dbPool.query(query, [titre, contenu, articleId]);
+        res.redirect('/blog_liste'); // Rediriger vers la liste après modification
+    } catch (err) {
+        console.error(`ERREUR lors de la modification de l'article ${articleId} :`, err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+//*******************************************************************************************************************************//
+// Route pour la suppression d'un article (via POST)
+//*******************************************************************************************************************************//
+
+app.post('/blog/supprimer/:id', async (req, res) => {
+    const articleId = req.params.id;
+    try {
+        const query = 'DELETE FROM blog WHERE id = ?';
+        await dbPool.query(query, [articleId]);
+        res.redirect('/blog_liste'); // Rediriger vers la liste après suppression
+    } catch (err) {
+        console.error(`ERREUR lors de la suppression de l'article ${articleId} :`, err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
 //*******************************************************************************************************************************//
 // Démarrer le serveur
 app.listen(PORT, () => {
