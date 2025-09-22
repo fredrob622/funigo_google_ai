@@ -229,11 +229,12 @@ label[for="dep-pref-select"] {display: block; margin-top: 10px; margin-bottom: 1
 .blog_article { margin-top: 20px }
 .blog_article_entete { display: flex;  justify-content: space-between; flex-direction: row; background-color: white; color: black; 
     font-size: 0.9em;  border-radius: 5px; margin-left: 5px; margin-right: 5px;}
-.blog_date { display: flex; flex-direction: column; text-align: end; margin-right: 5px; white-space: nowrap; font-size: 0.8em;}
+.blog_date { display: flex; flex-direction: column; text-align: end; margin-right: 5px; white-space: nowrap; font-size: 1em;}
+.blog_date p { font-size: 0.5em;}
 
 .blog_h2 { font-size: 1.3em ; font-weight: 400;}
-.blog_h3 { font-size:1.0em; font-weight: 600; margin-left: 5px;}
-.blog_article_entete p { font-size:0.9em; font-weight: 400; }
+.blog_h3 { font-size:1.2em; font-weight: 600; margin-left: 5px;}
+.blog_article_entete p { font-size:0.9em; font-weight: 400; margin-bottom: 2px;}
 .blog_contenu { margin-left: 10px; margin-right: 10px; white-space: pre-line;}
 
 .blog_add_mod_titre { display: flex;  flex-direction: column; margin: 10px; }
@@ -423,6 +424,10 @@ label[for="dep-pref-select"] {display: block; margin-top: 10px; margin-bottom: 1
     .results-table tbody tr { font-size: 1.3em; }
      h2 {  padding: 10px 20px 7px ; background-color: #074107; width:325px; border-radius: 15px; font-size: 0.9em;}
 
+    .blog_h3 { font-size:1.0em; font-weight: 600; margin-left: 5px;}
+    .blog_date { display: flex; flex-direction: column; text-align: end; margin-right: 5px; white-space: nowrap; font-size: 0.9em;}
+    .blog_contenu p { margin-left: 10px; margin-right: 10px; white-space: pre-line; font-size: 0.9em;}
+
     }
 
 /* =================================================================== */
@@ -442,6 +447,9 @@ label[for="dep-pref-select"] {display: block; margin-top: 10px; margin-bottom: 1
     .results-table td.kanji-cell { font-size: 1.2em; /* Un peu plus grand que le reste du texte de la ligne */ }
 
     .results-table thead tr { font-size: 0.7em; }
+
+    .blog_h3 { font-size:0.9em; font-weight: 600; margin-left: 5px;}
+    .blog_date { display: flex; flex-direction: column; text-align: end; margin-right: 5px; white-space: nowrap; font-size: 0.9em;}
 }
 
 /* =================================================================== */
