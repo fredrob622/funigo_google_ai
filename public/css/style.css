@@ -78,13 +78,8 @@ footer { background-color: black; color: white; text-align: center; padding: 20p
 h2 { font-size: 1.2em ; }
 
 .cartes-flex-container {
-    display: flex;           /* Les cartes sont côte à côte par défaut */
-    justify-content: center;   /* Elles sont centrées */
-    align-items: flex-start; /* Alignées en haut */
-    gap: 30px;               /* Espace entre elles */
-    margin-top: 30px;
-    flex-wrap: wrap;         /* TRÈS IMPORTANT : Permet de passer à la ligne */
-}
+    display: flex; /* Les cartes sont côte à côte par défaut */ justify-content: center;   /* Elles sont centrées */
+    align-items: flex-start; /* Alignées en haut */ gap: 30px; margin-top: 30px; flex-wrap: wrap; /* TRÈS IMPORTANT : Permet de passer à la ligne */ }
 
 .carte-item { text-align: center; background-color: #1e1e1e; padding: 15px; border-radius: 8px; border: 1px solid #444; }
 
@@ -130,10 +125,8 @@ h2 { font-size: 1.2em ; }
 .quiz-txt-question {
     background-color:  #074107; color: white; margin: 5px 0; font-size: 1em; text-align: left; font-weight: 100; width: 85%; padding: 8px 20px;       
     border: none; border-radius: 8px; transition: background-color 0.2s ease; /* Ajoute une transition douce */ }
-.quiz-btn-question { background-color: #5d7fb9; color: white; margin: 5px 0;  font-size: 1em;  text-align: left; font-weight: 100; 
-    width: 100%; padding: 8px 20px; border: none; border-radius: 8px;      
-    cursor: pointer;         /* Affiche une main au survol pour montrer que c'est cliquable */
-    transition: background-color 0.2s ease; /* Ajoute une transition douce */}
+.quiz-btn-question { background-color: #5d7fb9; color: white; margin: 5px 0;  font-size: 1em;  text-align: left; font-weight: 100; border-radius: 8px; 
+    width: 100%; padding: 8px 20px; border: none; cursor: pointer; /* Affiche une main au survol */ transition: background-color 0.2s ease; /* Ajoute une transition douce */}
 /* BONUS : Ajouter un effet au survol de la souris */
 .quiz-btn-question:hover { background-color: #7592cf; /* Une couleur légèrement plus claire */    }
 .quiz-btn-question { background-color: #5d7fb9; color: white; margin: 5px 0; font-size: 1em; text-align: left; width: 100%;
@@ -157,12 +150,9 @@ h2 { font-size: 1.2em ; }
 /***************************************************************/
 .content { position: relative; width: 50%; max-width: 1200px; height: auto; margin: 40px auto; padding: 20px 30px; overflow: hidden; }
 
-.background-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    object-fit: cover; /* pour que la vidéo remplisse bien la zone */
-    z-index: 1; }
+.background-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; /* pour que la vidéo remplisse bien la zone */ z-index: 1; }
 
-.text-overlay { position: relative; color: white; font-size: 2em; padding: 20px; text-align: center;
-    z-index: 2;              /* au-dessus de la vidéo */
+.text-overlay { position: relative; color: white; font-size: 2em; padding: 20px; text-align: center; z-index: 2;  /* au-dessus de la vidéo */
     /* éventuellement ajouter un fond partiellement transparent pour lisibilité */
     background-color: rgba(0, 0, 0, 0.3); }
 
@@ -499,6 +489,7 @@ label[for="dep-pref-select"] {display: block; margin-top: 10px; margin-bottom: 1
     .departement-table-container .results-table td { font-size: 1.0em; }
     .departement-table-container .results-table td:before { font-size: 1.0em; padding: 10px; font-weight: 200; }
 }
+
 /*********************************************************************************************************************************/
 /* =================================================================== */
 /* ==  AJUSTEMENTS RESPONSIVES    max-width: 320px                  == */

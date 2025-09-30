@@ -496,6 +496,60 @@ app.post('/vocab_dico/search', async (req, res) => {
     }
 });
 
+// *******************************************************************************************************************************//
+// route adjectif
+// *******************************************************************************************************************************//
+
+app.get('/vocab_adjectif', async (req, res) => { 
+    
+    try {
+
+        // --- MODIFICATION DE LA REQUÊTE ---
+        const query = `SELECT francais, kanji, kana FROM adj_jp `; 
+
+        // --- ON AJOUTE LE PARAMÈTRE UNE FOIS DE PLUS ---
+        const [results] = await dbPool.query(query); 
+
+        // Log pour voir le résultat brut de la base de données
+        console.log("Résultat brut obtenu de la DB :", results);
+        console.log("Nombre de résultats trouvés :", results.length);
+        console.log("--------------------------------------");
+        
+        
+        res.render('pages/vocab_adjectif', { title: 'Les Adjectifs', results: results});
+    } catch (err) {
+        console.error("ERREUR lors du chargement des adjectifs :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+// *******************************************************************************************************************************//
+// route adverbe
+// *******************************************************************************************************************************//
+
+app.get('/vocab_adverbe', async (req, res) => { 
+    
+    try {
+
+        // --- MODIFICATION DE LA REQUÊTE ---
+        const query = `SELECT francais, kanji, kana FROM adv_jp `; 
+
+        // --- ON AJOUTE LE PARAMÈTRE UNE FOIS DE PLUS ---
+        const [results] = await dbPool.query(query); 
+
+        // Log pour voir le résultat brut de la base de données
+        console.log("Résultat brut obtenu de la DB :", results);
+        console.log("Nombre de résultats trouvés :", results.length);
+        console.log("--------------------------------------");
+        
+        
+        res.render('pages/vocab_adverbe', { title: 'Les Adverbes', results: results});
+    } catch (err) {
+        console.error("ERREUR lors du chargement des adverbes :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
 // ------------------------------------------------------------- Langue Grammaire ----------------------------------------------------------//
 // *******************************************************************************************************************************//
 // Menu Grammaire
@@ -951,14 +1005,7 @@ app.post('/quiz/search', async (req, res) => {
 // Menu Blog liste des articles
 // *******************************************************************************************************************************//
 
-// app.get('/blog', (req, res) => {
-//     try {
-//         res.render('pages/blog_form', { title: 'Le Blog'});
-//     } catch (err) {
-//         console.error("ERREUR lors du chargement de la page de Blog :", err);
-//         res.status(500).send("Erreur serveur.");
-//     }
-// });
+
 
 app.get('/blog_liste', async (req, res) => {
     try {

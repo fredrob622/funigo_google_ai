@@ -2,8 +2,7 @@
 <div  class="content content-black">
     <h2 class="blog_h2" ><%= title %></h2>
 
-<% if ( listeArticles && listeArticles.length > 0) { %>
-    
+<% if ( listeArticles && listeArticles.length > 0) { %> 
     
     <% listeArticles.forEach(article => { %>
     <div class="blog_article"> 
@@ -46,8 +45,6 @@
 <% } else { %>
     <p>Aucun article trouvé.</p>
 <% } %>
-
-
 
 <%- include('../partials/footer') %>
 

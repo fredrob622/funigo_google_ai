@@ -10,36 +10,36 @@
         <button type="submit">Rechercher</button>
     </form>
 
-<% if (results.length > 0) { %>
-    <!-- NOUVEAU : On ajoute le conteneur autour du tableau -->
-    <div class="results-table-container">
-        <h3>Résultats pour "<%= searchTerm %>"</h3>
-        
-        <!-- NOUVEAU : On ajoute la classe "results-table" au tableau -->
-        <table class="results-table">
-            <thead>
-                <tr>
-                    <th>Niveau</th>
-                    <th>Kanji</th>
-                    <th>Kana</th>
-                    <th>Français</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% results.forEach(result => { %>
+    <% if (results.length > 0) { %>
+        <!-- NOUVEAU : On ajoute le conteneur autour du tableau -->
+        <div class="results-table-container">
+            <h3>Résultats pour "<%= searchTerm %>"</h3>
+            
+            <!-- NOUVEAU : On ajoute la classe "results-table" au tableau -->
+            <table class="results-table">
+                <thead>
                     <tr>
-                        <td><%= result.niveau %></td>
-                        <td><span class="jp-char"><%= result.kanji %></span></td>
-                        <td><span class="jp-char"><%= result.kana %></span></td>
-                        <td><%= result.francais %></td>
+                        <th>Niveau</th>
+                        <th>Kanji</th>
+                        <th>Kana</th>
+                        <th>Français</th>
                     </tr>
-                <% }); %>
-            </tbody>
-        </table>
-    </div>
-<% } else if (searchTerm) { %>
-    <p>Aucun résultat trouvé pour "<%= searchTerm %>".</p>
-<% } %>
+                </thead>
+                <tbody>
+                    <% results.forEach(result => { %>
+                        <tr>
+                            <td><%= result.niveau %></td>
+                            <td><span class="jp-char"><%= result.kanji %></span></td>
+                            <td><span class="jp-char"><%= result.kana %></span></td>
+                            <td><%= result.francais %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    <% } else if (searchTerm) { %>
+        <p>Aucun résultat trouvé pour "<%= searchTerm %>".</p>
+    <% } %>
 </div>
 
 <%- include('../partials/footer') %>

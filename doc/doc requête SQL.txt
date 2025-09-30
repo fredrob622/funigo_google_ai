@@ -673,7 +673,76 @@ VALUES ('Titre', CONCAT('Première ligne', CHAR(10), 'Deuxième ligne', CHAR(10)
 CREATE TABLE blog (
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 		titre VARCHAR(200),
-		article TEXT,
+		contenu TEXT,
 		date_creat DATE,
 		date_modif DATE
 );
+
+INSERT INTO blog (titre, contenu, date_creat, date_modif )
+VALUES ('Liste des fichiers PDF insérer dans la table QUIZ', ' 1991 N2
+1991 N3
+1991 N4
+1992 N2
+1992 N3
+1992 N4
+1993 N3
+1993 N4
+1993 N3
+1994 N2
+1994 N3
+1994 N4
+1995 N2
+1995 N3
+1995 N4
+1995 N3
+1995 N4
+ ', '2025-09-10', '2025-09-10');
+ 
+INSERT INTO blog (titre, contenu, date_creat, date_modif )
+VALUES ('Commit pour sauvegarder la documentation', '  doc funigo', '2025-09-11', '2025-09-12');
+
+********************************************************************************
+	Création et chargement de la table adjectif
+********************************************************************************
+
+Français;Kanji;Kana;Rōmaji;Type
+CREATE TABLE adj_jp (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    FRANCAIS VARCHAR(100),
+    KANJI VARCHAR(100),
+	KANA VARCHAR(100),
+	ROMAJI VARCHAR(100),
+	TYPE VARCHAR(20)
+);
+
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/donnees_table_adj_jp.csv'
+INTO TABLE adj_jp 
+FIELDS TERMINATED BY ';' 
+ENCLOSED BY '"' 
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(FRANCAIS, KANJI, KANA, ROMAJI, TYPE);
+
+
+
+********************************************************************************
+	Création et chargement de la table adverbe
+********************************************************************************
+
+Français;Kanji;Kana;Rōmaji
+CREATE TABLE adv_jp (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    FRANCAIS VARCHAR(100),
+    KANJI VARCHAR(100),
+	KANA VARCHAR(100),
+	ROMAJI VARCHAR(100)
+);
+
+
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/donnees_table_adv_jp.csv'
+INTO TABLE adj_jp 
+FIELDS TERMINATED BY ';' 
+ENCLOSED BY '"' 
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(FRANCAIS, KANJI, KANA, ROMAJI);

@@ -1,13 +1,21 @@
 
 
-<%- include('../partials/header_vocab') %> { title: title }) %>
-
-<div id=japon-ile-titre>
+<%- include('../partials/header_vocab') %> 
+<div class="content content-black"> 
+<div >
     <h2>Le vocabulaire</h2>
 </div>
 
-<div id="japon-ile-carte">
-    <img src="/images/cartes/japon/carte-kyushu.jpg" alt="Carte Kyushu"  >
+<div style="display: flex; flex-direction: row; flex-wrap: wrap;">
+
+    <a href="/vocab_adjectif" class="vocab_href">Adjectif 形容詞 (けいようし) </a>
+    <a href="/vocab_adverbe" class="vocab_href">Adverbe  副詞 (ふくし)</a>
+
 </div>
 
 <%- include('../partials/footer') %>
+
+<style>
+    .vocab_href { color: white;text-decoration: none;padding: 10px;background-color:  #345a93; max-width: 220px;border-radius: 15px;margin: 10px; cursor: pointer; }
+    .vocab_href:hover { background-color: #074107;}
+</style>
