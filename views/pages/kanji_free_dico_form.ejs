@@ -1,8 +1,13 @@
 <%- include('../partials/header_kanji') %> <!-- Assurez-vous d'avoir un header adapté -->
 
 <div class="content content-black"> 
+
+    <div class="vocab_titre" >   
+        <h2>Dictionnaire des KANJI en ligne</h2>
+        <a href="/kanji" class="vocab_href">Retour</a>
+    </div>
     
-    <h2>Dictionnaire des KANJI en ligne</h2>
+    
     <form action="/kanji_free_dico/search" method="POST" class="search-form">
         <input type="text" name="searchTerm" value="<%= searchTerm %>" placeholder="Entrez un kanji">
         <button type="submit">Rechercher</button>

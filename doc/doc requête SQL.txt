@@ -740,9 +740,37 @@ CREATE TABLE adv_jp (
 
 
 LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/donnees_table_adv_jp.csv'
-INTO TABLE adj_jp 
+INTO TABLE adv_jp 
 FIELDS TERMINATED BY ';' 
 ENCLOSED BY '"' 
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS
 (FRANCAIS, KANJI, KANA, ROMAJI);
+
+
+********************************************************************************
+	Création et chargement de la table verbe transitifs intransitifs
+********************************************************************************
+
+
+CREATE TABLE verbe_trans_intrans (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    trans_kanji VARCHAR(100),
+    trans_hiragana VARCHAR(100),
+	trans_francais VARCHAR(100),
+	trans_romanji VARCHAR(100),
+	intrans_kanji VARCHAR(100),
+    intrans_hiragana VARCHAR(100),
+	intrans_francais VARCHAR(100),
+	inttrans_romanji VARCHAR(100)
+);
+
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/donnees_verbes_jp.csv'
+INTO TABLE verbe_trans_intrans 
+FIELDS TERMINATED BY ';' 
+ENCLOSED BY '"' 
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(trans_kanji, trans_hiragana, trans_francais, trans_romanji, intrans_hiragana, intrans_romanji, intrans_francais, intrans_romanji );
+
+

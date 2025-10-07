@@ -3,7 +3,12 @@
 <!-- ON AJOUTE L'ID ICI, SUR LE CONTENEUR PRINCIPAL -->
 <div id="container-wrapper" class="content content-black"> 
     
-    <h2>Rechercher un mot dans le dictionnaire en ligne</h2>
+   
+    <div class="vocab_titre" >   
+        <h2>Rechercher un mot dans le dictionnaire en ligne</h2>
+        <a href="/vocab" class="vocab_href">Retour</a>
+    </div>
+
     <form action="/vocab_dico/search" method="POST" class="search-form">
         <input type="text" name="searchTerm" value="<%= searchTerm %>" placeholder="Entrez un mot en japonais ou en français">
         <button type="submit">Rechercher</button>

@@ -4,7 +4,12 @@
 
 <div class="content content-black"> 
     
-    <h2>Rechercher de Vocabulaire</h2>
+    
+    <div class="vocab_titre" >   
+        <h2>Vocabulaire JPLT</h2>
+        <a href="/vocab" class="vocab_href">Retour</a>
+    </div>
+
     <form action="/vocab_jplt/search" method="POST" class="search-form">
         <input type="text" name="searchTerm" value="<%= searchTerm %>" placeholder="Entrez un mot, lecture, kanji, niveau">
         <button type="submit">Rechercher</button>

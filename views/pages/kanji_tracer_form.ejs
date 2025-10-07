@@ -3,8 +3,13 @@
 <%- include('../partials/header_kanji') %>
 
 <div class="content content-black"> 
+
+    <div class="vocab_titre" >   
+        <h2>Tracer un Kanji</h2>
+        <a href="/kanji" class="vocab_href">Retour</a>
+    </div>
     
-    <h2>Tracer un Kanji</h2>
+    
     <form action="/kanji_tracer/search" method="POST" class="search-form">
         <input type="text" name="searchTerm" value="<%= searchTerm %>" placeholder="Recherchez un kanji...">
         <button type="submit">Rechercher</button>

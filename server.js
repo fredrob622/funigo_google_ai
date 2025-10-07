@@ -350,7 +350,36 @@ app.post('/kanji_free_dico/search', async (req, res) => {
     }
 });
 
+// *******************************************************************************************************************************//
+// Menukanji Hiragana
+// *******************************************************************************************************************************//
+app.get('/kanji_hiragana', (req, res) => {
+    // Cette route sert juste à afficher le formulaire vide au début.
+    res.render('pages/kanji_hiragana_form', { 
+        title: 'Les Hiraganas'
+    });
+});
 
+// *******************************************************************************************************************************//
+// Menukanji Katakana
+// *******************************************************************************************************************************//
+app.get('/kanji_katakana', (req, res) => {
+    // Cette route sert juste à afficher le formulaire vide au début.
+    res.render('pages/kanji_katakana_form', { 
+        title: 'Les Katakanas'
+    });
+});
+
+
+// *******************************************************************************************************************************//
+// Menukanji Furigana
+// *******************************************************************************************************************************//
+app.get('/kanji_furigana', (req, res) => {
+    // Cette route sert juste à afficher le formulaire vide au début.
+    res.render('pages/kanji_furigana_form', { 
+        title: 'Les Furiganas'
+    });
+});
 
 // ------------------------------------------------------------- Langue Vocabulaire ----------------------------------------------------------//
 // *******************************************************************************************************************************//
@@ -550,6 +579,18 @@ app.get('/vocab_adverbe', async (req, res) => {
     }
 });
 
+// *******************************************************************************************************************************//
+// route vocab mot interrogatif
+// *******************************************************************************************************************************//
+
+app.get('/vocab_mot_interrogatif', (req, res) => {
+    // Cette route sert juste à afficher le formulaire vide au début.
+    res.render('pages/vocab_interrogatif_form', { 
+        title: 'Mots Interrogatifs'
+    });
+});
+
+
 // ------------------------------------------------------------- Langue Grammaire ----------------------------------------------------------//
 // *******************************************************************************************************************************//
 // Menu Grammaire
@@ -681,6 +722,75 @@ app.get('/gram_jap_regles', async (req, res) => {
         res.status(500).send("Erreur serveur.");
     }
 });
+
+// *******************************************************************************************************************************//
+// Grammaire japonaise les verbes transitifs/intansitifs
+// *******************************************************************************************************************************//
+
+app.get('/verbe_transitif_intransitif', (req, res) => {
+    try {
+        res.render('pages/gram_verbe_transitif_intransitif', { title: 'Les verbes transitifs / intransitifs'});
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la page de Kanji :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+
+// *******************************************************************************************************************************//
+// Grammaire japonaise les verbes transitifs
+// *******************************************************************************************************************************//
+
+app.get('/verbe_transitif', async (req, res) => { 
+    
+    try {
+
+        // --- MODIFICATION DE LA REQUÊTE ---
+        const query = `SELECT trans_kanji, trans_hiragana, trans_francais, trans_romanji FROM verbe_trans_intrans  `; 
+
+        // --- ON AJOUTE LE PARAMÈTRE UNE FOIS DE PLUS ---
+        const [results] = await dbPool.query(query); 
+
+        // Log pour voir le résultat brut de la base de données
+        console.log("Résultat brut obtenu de la DB :", results);
+        console.log("Nombre de résultats trouvés :", results.length);
+        console.log("--------------------------------------");
+        
+        
+        res.render('pages/gram_verbe_transitif_form', { title: 'Les verbes transitifs', results: results});
+    } catch (err) {
+        console.error("ERREUR lors du chargement des adverbes :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+// *******************************************************************************************************************************//
+// Grammaire japonaise les verbes intransitifs
+// *******************************************************************************************************************************//
+
+app.get('/verbe_intransitif', async (req, res) => { 
+    
+    try {
+
+        // --- MODIFICATION DE LA REQUÊTE ---
+        const query = `SELECT  intrans_kanji, intrans_hiragana, intrans_francais, intrans_romanji FROM verbe_trans_intrans  `; 
+
+        // --- ON AJOUTE LE PARAMÈTRE UNE FOIS DE PLUS ---
+        const [results] = await dbPool.query(query); 
+
+        // Log pour voir le résultat brut de la base de données
+        console.log("Résultat brut obtenu de la DB :", results);
+        console.log("Nombre de résultats trouvés :", results.length);
+        console.log("--------------------------------------");
+        
+        
+        res.render('pages/gram_verbe_intransitif_form', { title: 'Les verbes intransitifs', results: results});
+    } catch (err) {
+        console.error("ERREUR lors du chargement des adverbes :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
 
 // ------------------------------------------------------------- France ----------------------------------------------------------//
 
@@ -1133,6 +1243,7 @@ app.post('/blog_stockage', async (req, res) => {
         // Exécution de la requête avec les valeurs des variables comme paramètres
         // dbPool.query attend un tableau de valeurs correspondant aux placeholders (?)
         await dbPool.query(queryDetails, [artTitre, artContenu, artDateCreat, artDateModif]);
+        res.redirect('/blog_liste'); // Rediriger vers la liste après modification
 
         } catch (err) { 
         console.error("ERREUR lors de l'intégration d'un article:", err);

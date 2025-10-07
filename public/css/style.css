@@ -4,11 +4,11 @@
 
 /* --- Général --- */
 body { font-family: Arial, sans-serif; margin: 0; display: flex; flex-direction: column; min-height: 100vh; background-color: #f4f4f4; }
-
+p { margin: 0 5px 0 5px;}
 main:not(.homepage-main)  { flex-grow: 1; background-image: url('../images/pp3.webp'); background-size: cover; background-position: center; background-attachment: fixed; }
 main.homepage-main {flex-grow: 1;background: transparent; /* On s'assure qu'il est bien transparent */}
 /* .content { max-width: 1200px; margin: 40px auto; background-color: rgba(255, 255, 255, 0.92); padding: 20px 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); } */
-
+span.spancolor { color:#0056b3;font-weight: 600;}
 .jp-char { font-size: 1.5em; }
 
 /* --- Header --- */
@@ -70,6 +70,7 @@ footer { background-color: black; color: white; text-align: center; padding: 20p
 .gram-nom-select { font-size: 1rem; padding: 5px; border-radius: 8px; margin-right: 20px;
     width: 80%; /* occupe toute la largeur dispo */ max-width: 700px; box-sizing: border-box;  /* évite débordement avec padding */ }
 .gram-nom-select option { font-size: 0.9rem; white-space: normal; }
+ul.gramUl { margin-left: 100px;}
 
 /* =================================================================== */
 /* == STYLES POUR LA PAGE CARTE DES RÉGIONS                         == */
@@ -117,6 +118,8 @@ h2 { font-size: 1.2em ; }
 #container-wrapper a:link, 
 #container-wrapper a:visited, 
 #container-wrapper a:hover { color: white !important; text-decoration: none !important; cursor: default !important; }
+
+#imageStandard > img { display: block; margin: auto; width: 95% ; max-width : 800px; overflow :hidden; background-color: white;}
 
 /********************************************************/
 /* NOUVELLE CLASSE POUR LES BOUTONS DE RÉPONSE DU QUIZ  */
@@ -216,10 +219,10 @@ label[for="dep-pref-select"] {display: block; margin-top: 10px; margin-bottom: 1
 .delete-icon { color: #dc3545; background: none;  border: none; cursor: pointer; padding: 0; }
 .delete-icon:hover { color: #c82333; }
 
-.blog_article { margin-top: 20px }
+.blog_article { margin-top: 10px }
 .blog_article_entete { display: flex;  justify-content: space-between; flex-direction: row; background-color: white; color: black; 
     font-size: 0.9em;  border-radius: 5px; margin-left: 5px; margin-right: 5px;}
-.blog_date { display: flex; flex-direction: column; text-align: end; margin-right: 5px; white-space: nowrap; font-size: 1em;}
+.blog_date { display: flex; flex-direction: column; text-align: end; margin-right: 5px; white-space: nowrap; font-size: 1em;padding-top: 10px;}
 .blog_date p { font-size: 0.5em;}
 
 .blog_h2 { font-size: 1.3em ; font-weight: 400;}
@@ -233,6 +236,14 @@ label[for="dep-pref-select"] {display: block; margin-top: 10px; margin-bottom: 1
 .blog_add_mod_contenu_text { margin: 10px 0px 10px 0px; padding: 10px;}
 
 .blog_button { background-color: #074107; color: white; padding: 5px; font-size: 1em; margin-right: 10px; margin-bottom: 10px; text-decoration: none}
+
+/***************************************************************/
+/* Page vocabulaire 
+/***************************************************************/
+.vocab_href { color: white;text-decoration: none;padding: 10px;background-color:  #345a93; max-width: 250px;border-radius: 15px;margin: 10px; cursor: pointer; }
+.vocab_href:hover { background-color: #074107; }
+.vocab_titre { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between; }
+.vocab_h3 { background-color: #074107; }
 
 /*********************************************************************************************************************************/
 /* =================================================================== */
@@ -301,10 +312,11 @@ label[for="dep-pref-select"] {display: block; margin-top: 10px; margin-bottom: 1
 
     
     #japon-ile-titre > h2 { width: 250px;  padding-top: 5px; padding-bottom: 5px;}
-    #japon-ile-carte > img { width: 70%; max-width : 500px; margin-top: 10px;}
+    #japon-ile-carte > img { width: 90%; max-width : 500px; margin-top: 10px;}
 
     #nav-submenu-links { flex-direction: row ; flex-wrap: wrap; }
     #nav-submenu-links > li > a { font-size: 0.6em; padding: 10px 10px; }
+    .vocab_h3 { background-color: #074107; font-size: 0.9em; }
 }
 
 /*********************************************************************************************************************************/
@@ -398,12 +410,12 @@ label[for="dep-pref-select"] {display: block; margin-top: 10px; margin-bottom: 1
     }
 
     .results-table thead th,
-    .results-table tbody tr { font-size: 1.5em; }
+    .results-table tbody tr { font-size: 1.3em; }
     .gram-nom-select { font-size: 0.8rem; max-width: 100%; padding: 2px;  margin: 5px 0 10px 0; }
 }
 /* =================================================================== */
 /* =================================================================== */
-/* == GESTION DU RESPONSIVE POUR LA PAGE DE CONJUGAISON  600        == */
+/* == GESTION DU RESPONSIVE POUR LA PAGE DE CONJUGAISON  620        == */
 /* =================================================================== */
 
 @media (max-width: 620px) {
@@ -418,6 +430,8 @@ label[for="dep-pref-select"] {display: block; margin-top: 10px; margin-bottom: 1
     .blog_date { display: flex; flex-direction: column; text-align: end; margin-right: 5px; white-space: nowrap; font-size: 0.9em;}
     .blog_contenu p { margin-left: 10px; margin-right: 10px; white-space: pre-line; font-size: 0.9em;}
 
+    .vocab_href { color: white;text-decoration: none;padding: 10px;background-color:  #345a93; max-width: 250px;border-radius: 15px;margin: 10px; cursor: pointer;font-size: 0.7em; }
+   
     }
 
 /* =================================================================== */
@@ -440,6 +454,8 @@ label[for="dep-pref-select"] {display: block; margin-top: 10px; margin-bottom: 1
 
     .blog_h3 { font-size:0.9em; font-weight: 600; margin-left: 5px;}
     .blog_date { display: flex; flex-direction: column; text-align: end; margin-right: 5px; white-space: nowrap; font-size: 0.9em;}
+
+    ul.gramUl { margin-left: 30px;}
 }
 
 /* =================================================================== */
@@ -481,7 +497,7 @@ label[for="dep-pref-select"] {display: block; margin-top: 10px; margin-bottom: 1
 /* =================================================================== */
 @media (max-width: 340px) {
 
-    h2 {  padding: 10px 20px 7px ; background-color: #074107; width:200px; border-radius: 15px; font-size: 0.6em;}
+    h2 {  padding: 10px 20px 7px ; background-color: #074107; width:200px; border-radius: 15px; font-size: 0.8em;}
    
     .text-overlay { font-size: 0.6em; }
 

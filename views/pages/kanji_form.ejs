@@ -1,13 +1,21 @@
 
 
-<%- include('../partials/header_kanji') %> { title: title }) %>
-
-<div id=japon-ile-titre>
-    <h2>Les Kanjis</h2>
+<%- include('../partials/header_vocab') %> 
+<div class="content content-black"> 
+<div >
+    <h2>Les caractères</h2>
 </div>
 
-<div id="japon-ile-carte">
-    <img src="/images/cartes/japon/carte-kyushu.jpg" alt="Carte Kyushu"  >
+<div style="display: flex; flex-direction: row; flex-wrap: wrap;">
+
+    <p> Les caractères japonais (kana) sont constitués de trois types de caractères : hiragana, katakana et kanji.</p><br><br>
+
+    <div>
+        <a href="/kanji_hiragana" class="vocab_href">Hiraganas 平仮名 (ひらがな)</a>
+        <a href="/kanji_katakana" class="vocab_href">Katakanas 片仮名 (カタカナ)</a>
+        <a href="/kanji_furigana" class="vocab_href">Furigana  振り仮名（ふりがな）</a>
+        <br><br>
+    </div>
 </div>
 
 <%- include('../partials/footer') %>
