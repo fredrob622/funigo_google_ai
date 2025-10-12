@@ -590,6 +590,71 @@ app.get('/vocab_mot_interrogatif', (req, res) => {
     });
 });
 
+// *******************************************************************************************************************************//
+// route vocab onomatopee
+// *******************************************************************************************************************************//
+
+app.get('/vocab_onomatopee', (req, res) => {
+    // Cette route sert juste à afficher le formulaire vide au début.
+    res.render('pages/vocab_onomatopee_form', { 
+        title: 'Mots onomatopee'
+    });
+});
+
+// *******************************************************************************************************************************//
+// route vocab onomatopee giseigo
+// *******************************************************************************************************************************//
+
+app.get('/vocab_giseigo', async (req, res) => {
+    
+    try {
+
+        // --- MODIFICATION DE LA REQUÊTE ---
+        const query = `SELECT type, signification, katakana, romanji FROM  onomatopees_jp WHERE type = 'Giseigo';`; 
+
+        // --- ON AJOUTE LE PARAMÈTRE UNE FOIS DE PLUS ---
+        const [results] = await dbPool.query(query); 
+
+        // Log pour voir le résultat brut de la base de données
+        console.log("Résultat brut obtenu de la DB :", results);
+        console.log("Nombre de résultats trouvés :", results.length);
+        console.log("--------------------------------------");
+        
+        
+        res.render('pages/vocab_giseigo_form', { title: 'Mots onomatopées Giseigo', results: results});
+    } catch (err) {
+        console.error("ERREUR lors du chargement des onomatopées Giseigo :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+// *******************************************************************************************************************************//
+// route vocab onomatopee gitaigo
+// *******************************************************************************************************************************//
+
+app.get('/vocab_gitaigo', async (req, res) => {
+    
+    try {
+
+        // --- MODIFICATION DE LA REQUÊTE ---
+        const query = `SELECT type, signification, katakana, romanji FROM  onomatopees_jp WHERE type = 'Gitaigo';`; 
+
+        // --- ON AJOUTE LE PARAMÈTRE UNE FOIS DE PLUS ---
+        const [results] = await dbPool.query(query); 
+
+        // Log pour voir le résultat brut de la base de données
+        console.log("Résultat brut obtenu de la DB :", results);
+        console.log("Nombre de résultats trouvés :", results.length);
+        console.log("--------------------------------------");
+        
+        
+        res.render('pages/vocab_gitaigo_form', { title: 'Mots onomatopées Gitaigo', results: results});
+    } catch (err) {
+        console.error("ERREUR lors du chargement des onomatopées Gitaigo :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
 
 // ------------------------------------------------------------- Langue Grammaire ----------------------------------------------------------//
 // *******************************************************************************************************************************//
