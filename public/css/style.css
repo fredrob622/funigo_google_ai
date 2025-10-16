@@ -64,6 +64,7 @@ h2 {  padding: 10px 20px 7px ; background-color: #074107; width:700px; border-ra
 
 /* --- Footer --- */
 footer { background-color: black; color: white; text-align: center; padding: 20px; position: relative; z-index: 10; border: 3px solid white; }
+
 .gram-regles-h2 { background-color: #074107; padding: 7px ; border-radius: 8px; }
 .gram-regle h4 { background-color: #345a93; padding: 7px ; border-radius: 8px; }
 .gram-regle p { white-space: pre-wrap; padding: 7px ; border-radius: 8px; }
@@ -245,11 +246,32 @@ label[for="dep-pref-select"] {display: block; margin-top: 10px; margin-bottom: 1
 .vocab_titre { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between; }
 .vocab_h3 { background-color: #074107; }
 
+/***************************************************************/
+/* Pour la route vocab onomatopée détail
+/***************************************************************/
+
+.form-container-double{display: flex; justify-content: center; gap: 5px; margin-bottom: 10px; flex-wrap: wrap; }
+.departement-table-container { margin-top: 10px; }
+.ono-detail-form { padding: 5px; font-size: 0.9em; border-radius: 8px; min-width: 250px;} 
+.ono-detail { padding: 5px; font-size: 0.9em; border-radius: 8px; max-width: 250px;}
+#ono-katana-select { display: block; margin-bottom: 10px; }
+#ono-signification-select { display: block; margin-bottom: 10px; } 
+#ono-romanji-select { display: block; margin-bottom: 10px; } 
+
+.ono-results-table {border-spacing: 15px; }
+.ono-results-table thead th { background-color: #074107; color: white; font-weight: bold; text-transform: uppercase; border-radius: 5px; padding: 3px 15px 3px 15px;}
+.ono-detail-result h4 {  background-color: #345a93; padding: 7px ; border-radius: 8px; font-size: 1em;}
+.ono-detail-result p {  padding: 7px ; border-radius: 8px; font-size: 1em;white-space: pre-wrap;}
+
+/* Style pour les labels associés aux selects */
+label[for="ono-katana-select"],
+label[for="ono-signification-select"],
+label[for="ono-romanji-select"] {display: block; margin-top: 10px; margin-bottom: 10px;  margin-right: 5px;}
+
 /*********************************************************************************************************************************/
 /* =================================================================== */
 /* == 2. AJUSTEMENTS RESPONSIVES (MOBILES ET TABLETTES) 1200        == */
 /* =================================================================== */
-
 
 @media (max-width: 1200px) {
     /* --- Ajustements généraux --- */
@@ -431,7 +453,20 @@ label[for="dep-pref-select"] {display: block; margin-top: 10px; margin-bottom: 1
     .blog_contenu p { margin-left: 10px; margin-right: 10px; white-space: pre-line; font-size: 0.9em;}
 
     .vocab_href { color: white;text-decoration: none;padding: 10px;background-color:  #345a93; max-width: 250px;border-radius: 15px;margin: 10px; cursor: pointer;font-size: 0.7em; }
-   
+
+    .ono-detail-result h4 {  background-color: #345a93; padding: 7px ; border-radius: 8px; font-size: 0.9em;}
+    .ono-detail-result p {  padding: 7px ; border-radius: 8px; font-size: 0.9em;}
+
+    .results-table thead th { font-size: 0.9em; }
+    .results-table tbody tr { font-size: 1.3em; }
+     h2 {  padding: 10px 20px 7px ; background-color: #074107; width:325px; border-radius: 15px; font-size: 0.9em;}
+
+    .ono-results-table th,
+    .ono-results-table td {
+        font-size: 0.7em; /* On garde une taille lisible */       
+        /* LA LIGNE LA PLUS IMPORTANTE : on réduit l'espacement intérieur */
+        padding: 8px 4px; /* 8px en haut/bas, 4px sur les côtés */
+    }
     }
 
 /* =================================================================== */
@@ -449,13 +484,17 @@ label[for="dep-pref-select"] {display: block; margin-top: 10px; margin-bottom: 1
 
     /* 4. On s'assure que le Kanji reste visible */
     .results-table td.kanji-cell { font-size: 1.2em; /* Un peu plus grand que le reste du texte de la ligne */ }
-
     .results-table thead tr { font-size: 0.7em; }
 
     .blog_h3 { font-size:0.9em; font-weight: 600; margin-left: 5px;}
     .blog_date { display: flex; flex-direction: column; text-align: end; margin-right: 5px; white-space: nowrap; font-size: 0.9em;}
 
     ul.gramUl { margin-left: 30px;}
+
+    .ono-results-table {border-spacing: 5px; }
+    .ono-results-table thead th { background-color: #074107; color: white; font-weight: bold; text-transform: uppercase; border-radius: 5px; padding: 3px 5px 3px 5px;}
+    .ono-detail-result h4 {  background-color: #345a93; padding: 7px ; border-radius: 8px; font-size: 1em;}
+    .ono-detail-result p {  padding: 7px ; border-radius: 8px; font-size: 1em;}
 }
 
 /* =================================================================== */

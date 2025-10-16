@@ -1,0 +1,93 @@
+
+<%- include('../partials/header_vocab', { title: title }) %> 
+<div class="content content-black">
+
+    <div id="haut"></div>
+
+    <div class="vocab_titre" >   
+        <h2><%= title %></h2>
+        <a href="/vocab_onomatopee" class="vocab_href">Retour</a>
+    </div>
+
+    <form action="/vocab_onomatopee_detail/search" method="POST" id="ono-detail-form">
+        <div class="form-container-double">
+            
+            <!-- Liste déroulante par Katakana -->
+            <div>
+                <label for="ono-katana-select" >Par Katakana :</label>
+                <select id="ono-katana-select" name="katakana" class="ono-detail">
+                    <option value="">-- Choisir par Katakana--</option>
+                    <% listeOnoDetail.forEach( onoDetail => { %>
+                        <!-- On utilise 'searchTerm' pour pré-sélectionner l'option -->
+                        <option value="<%= onoDetail.katakana %>" data-signification="<%= onoDetail.signification %>" data-romanji="<%= onoDetail.romanji %>"  <%= (searchTerm === onoDetail.katakana) ? 'selected' : '' %>>
+                            <%= onoDetail.katakana %>
+                        </option>
+                    <% }); %>
+                </select>
+            </div>
+
+            <!-- Liste déroulante par Signification -->
+            <div>
+                <label for="ono-signification-select" >Par Signification :</label>
+                <select id="ono-signification-select" name="ono_katakana" class="ono-detail">
+                    <option value="">-- Choisir une signification--</option>
+                    <% listeOnoDetail.forEach( onoDetail => { %>
+                        <!-- On utilise 'searchTerm' pour pré-sélectionner l'option -->
+                        <option value="<%= onoDetail.signification %>" data-katakana="<%= onoDetail.katakana %>" data-romanji="<%= onoDetail.romanji %>"  <%= (searchTerm === onoDetail.signification) ? 'selected' : '' %>>
+                            <%= onoDetail.signification %>
+                        </op tion>
+                    <% }); %>
+                </select>
+            </div>
+
+            <!-- Liste déroulante par Romanji -->
+            <div>
+                <label for="ono-romanji-select" >Par Romanji :</label>
+                <select id="ono-romanji-select" name="romanji" class="ono-detail">
+                    <option value="">-- Choisir par romanji --</option>
+                    <% listeOnoDetail.forEach( onoDetail => { %>
+                        <!-- On utilise 'searchTerm' pour pré-sélectionner l'option -->
+                        <option value="<%= onoDetail.romanji %>" data-katakana="<%= onoDetail.katakana %>" data-romanji="<%= onoDetail.romanji %>"  <%= (searchTerm === onoDetail.romanji) ? 'selected' : '' %>>
+                            <%= onoDetail.romanji %>
+                        </option>
+                    <% }); %>
+                </select>
+            </div>
+
+
+    <% if (results.length > 0) { %>
+        <!-- NOUVEAU : On ajoute le conteneur autour du tableau -->
+        <div class="results-table-container">
+            
+            <!-- NOUVEAU : On ajoute la classe "results-table" au tableau -->
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>katakana</th>
+                        <th>signification</th>
+                        <th>Romanji</th>                      
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% results.forEach(result => { %>
+                        <tr>
+                            <td><span class="jp-char"></span><%= result.katakana %></span></td>
+                            <td><%= result.signification %></td>
+                            <td><%= result.romanji %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    <% } else if (results) { %>
+        <p>Aucun résultat trouvé pour l'onomatopée recherchée.</p>
+    <% } %>
+
+    <div class="vocab_titre" >   
+        <a href="#haut" class="vocab_href">Haut</a>
+    </div>
+
+</div>
+
+<%- include('../partials/footer') %>

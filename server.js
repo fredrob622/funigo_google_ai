@@ -351,7 +351,7 @@ app.post('/kanji_free_dico/search', async (req, res) => {
 });
 
 // *******************************************************************************************************************************//
-// Menukanji Hiragana
+// Menu kanji Hiragana
 // *******************************************************************************************************************************//
 app.get('/kanji_hiragana', (req, res) => {
     // Cette route sert juste à afficher le formulaire vide au début.
@@ -361,7 +361,7 @@ app.get('/kanji_hiragana', (req, res) => {
 });
 
 // *******************************************************************************************************************************//
-// Menukanji Katakana
+// Menu kanji Katakana
 // *******************************************************************************************************************************//
 app.get('/kanji_katakana', (req, res) => {
     // Cette route sert juste à afficher le formulaire vide au début.
@@ -372,7 +372,7 @@ app.get('/kanji_katakana', (req, res) => {
 
 
 // *******************************************************************************************************************************//
-// Menukanji Furigana
+// Menu kanji Furigana
 // *******************************************************************************************************************************//
 app.get('/kanji_furigana', (req, res) => {
     // Cette route sert juste à afficher le formulaire vide au début.
@@ -655,6 +655,82 @@ app.get('/vocab_gitaigo', async (req, res) => {
     }
 });
 
+// *******************************************************************************************************************************//
+// Dico Vocab Onomatopée Détails /vocab_onomatopee_detail
+// *******************************************************************************************************************************//
+
+app.get('/vocab_onomatopee_detail', async (req, res) => {
+    try {
+        // 1. On récupère la liste complète des départements pour les menus déroulants
+        const query = 'SELECT signification, katakana, romanji FROM onomatopees_jp ORDER BY romanji ASC;';
+        
+        console.log("--- Liste pour la sélection ---");
+        console.log("Exécution de la requête :", query);
+
+        const [onomatopees] = await dbPool.query(query);
+
+        console.log(`${onomatopees.length} Onomatopées.`);
+        console.log("------------------------------------------");
+        console.log(onomatopees);
+		
+	    // 2. On rend la page en lui passant la liste, et des valeurs VIDES pour les résultats
+        res.render('pages/vocab_onomatopee_detail_form', { 
+            title: 'Détail onomatopée', 
+            listeOnoDetail: onomatopees,
+            results: [], // Tableau de résultats vide au premier chargement
+            searchTerm: '' // Terme de recherche vide au premier chargement
+        });
+
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la selection des onomatopées:", err);
+        res.status(500).send("ERREUR lors du chargement de la selection des onomatopées.");
+    }
+});
+
+app.post('/vocab_onomatopee_detail/search', async (req, res) => {
+    // NOUVEAU : On récupère la valeur de la liste qui a été changée
+    const onoKatakana = req.body.katakana;
+    const onoSignification = req.body.signification;
+    const onoRomanji = req.body.romanji;
+    
+    console.log("recherche détail")
+    // 2. On détermine le terme de recherche (le premier qui n'est pas vide)
+    const searchTerm = onoKatakana || onoSignification || onoRomanji ; 
+    console.log(searchTerm)
+    try {
+        // --- On doit toujours re-charger la liste complète pour réafficher les menus ---
+        const listQuery = 'SELECT signification, katakana, romanji FROM onomatopees_jp ORDER BY romanji ASC;';
+        const [onomatopees] = await dbPool.query(listQuery);
+
+        let searchResults = [];
+
+        // --- On exécute la recherche si un terme a été sélectionné ---
+        if (searchTerm) {
+            // La requête recherche maintenant une correspondance EXACTE, ce qui est mieux pour une liste
+            const searchQuery = `
+                SELECT signification, katakana, romanji, detail, exemple 
+                FROM onomatopees_jp 
+                WHERE signification = ? OR katakana = ? OR romanji = ?`;
+            console.log(searchQuery)
+            // On passe le même terme pour les deux conditions
+            const [results] = await dbPool.query(searchQuery, [searchTerm, searchTerm, searchTerm ]);
+            searchResults = results;
+        }
+
+        // console.log(`${results} onomatopéess.`);
+        // --- On rend la même page, en passant toutes les infos nécessaires ---
+        res.render('pages/vocab_onomatopee_detail_form', { 
+            title: 'Détail onomatopée', 
+            listeOnoDetail: onomatopees,
+            results: searchResults,
+            searchTerm: searchTerm // Très important pour pré-sélectionner les listes !
+        });
+
+    } catch (err) { 
+        console.error("ERREUR lors de la recherche des détails de l'onomatopées :", err);
+        res.status(500).send("ERREUR lors de la recherche des détails de l'onomatopées."); 
+    }
+});
 
 // ------------------------------------------------------------- Langue Grammaire ----------------------------------------------------------//
 // *******************************************************************************************************************************//

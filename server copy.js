@@ -5,8 +5,9 @@ const path = require('path');
 const mysql = require('mysql2/promise');
 const axios = require('axios');
 const cheerio = require('cheerio');
-const fs = require('fs').promises; // On utilise la version "promise" pour async/await
 const { log } = require('console');
+const fs = require('fs').promises; // On utilise la version "promise" pour async/await
+
 
 // Initialiser l'application Express
 const app = express();
@@ -40,6 +41,7 @@ const dbPool = mysql.createPool({
     connectionLimit: 10,
     queueLimit: 0
 });
+
 // ************************************************************************************************************************
 // --- DÉFINITION DES ROUTES ---
 
@@ -107,7 +109,7 @@ app.get('/kanji', (req, res) => {
 });
 
 // *******************************************************************************************************************************//
-// Dico Kanji
+// Dico Kanji_dico
 // *******************************************************************************************************************************//
 
 app.get('/kanji_dico', (req, res) => {
@@ -265,7 +267,9 @@ app.post('/kanji_free_dico/search', async (req, res) => {
         console.log(`URL cible : ${url}`);
         
         const response = await axios.get(url);
+       
         const $ = cheerio.load(response.data);
+
 
         // ====================================================================
         // === CHANGEMENT MAJEUR : On parse les données au lieu de prendre le HTML brut ===
@@ -273,7 +277,7 @@ app.post('/kanji_free_dico/search', async (req, res) => {
 
         // 1. On sélectionne le conteneur principal avec le bon sélecteur d'attribut
         const mainContent = $('td[width="600"]');
-
+        
         // Si on ne trouve pas le conteneur, on arrête
         if (mainContent.length === 0) {
             throw new Error("Conteneur principal du kanji non trouvé sur la page.");
@@ -300,7 +304,7 @@ app.post('/kanji_free_dico/search', async (req, res) => {
             kanjiData.traceUrl = `/kanji-image-proxy?path=${encodeURIComponent(traceImgSrc)}`;
         }
 
-                // Les caractères ou éléments approchés
+        // Les caractères ou éléments approchés
         kanjiData.approches = [];
         // On trouve le titre, on va à la table suivante, et on cherche tous les kanji avec la classe 'kanji3'
         mainContent.find('font.titre2:contains("Caractères ou éléments approchés")')
@@ -327,7 +331,7 @@ app.post('/kanji_free_dico/search', async (req, res) => {
         });
 
         console.log("Données du kanji extraites avec succès.");
-
+        console.log(JSON.stringify(kanjiData, null, 2));
         // 4. On envoie l'objet de données structuré à la page EJS
         res.render('pages/kanji_free_dico_form', { 
             title: `Détails pour ${searchTerm}`, 
@@ -346,7 +350,36 @@ app.post('/kanji_free_dico/search', async (req, res) => {
     }
 });
 
+// *******************************************************************************************************************************//
+// Menu kanji Hiragana
+// *******************************************************************************************************************************//
+app.get('/kanji_hiragana', (req, res) => {
+    // Cette route sert juste à afficher le formulaire vide au début.
+    res.render('pages/kanji_hiragana_form', { 
+        title: 'Les Hiraganas'
+    });
+});
 
+// *******************************************************************************************************************************//
+// Menu kanji Katakana
+// *******************************************************************************************************************************//
+app.get('/kanji_katakana', (req, res) => {
+    // Cette route sert juste à afficher le formulaire vide au début.
+    res.render('pages/kanji_katakana_form', { 
+        title: 'Les Katakanas'
+    });
+});
+
+
+// *******************************************************************************************************************************//
+// Menu kanji Furigana
+// *******************************************************************************************************************************//
+app.get('/kanji_furigana', (req, res) => {
+    // Cette route sert juste à afficher le formulaire vide au début.
+    res.render('pages/kanji_furigana_form', { 
+        title: 'Les Furiganas'
+    });
+});
 
 // ------------------------------------------------------------- Langue Vocabulaire ----------------------------------------------------------//
 // *******************************************************************************************************************************//
@@ -492,6 +525,213 @@ app.post('/vocab_dico/search', async (req, res) => {
     }
 });
 
+// *******************************************************************************************************************************//
+// route adjectif
+// *******************************************************************************************************************************//
+
+app.get('/vocab_adjectif', async (req, res) => { 
+    
+    try {
+
+        // --- MODIFICATION DE LA REQUÊTE ---
+        const query = `SELECT francais, kanji, kana FROM adj_jp `; 
+
+        // --- ON AJOUTE LE PARAMÈTRE UNE FOIS DE PLUS ---
+        const [results] = await dbPool.query(query); 
+
+        // Log pour voir le résultat brut de la base de données
+        console.log("Résultat brut obtenu de la DB :", results);
+        console.log("Nombre de résultats trouvés :", results.length);
+        console.log("--------------------------------------");
+        
+        
+        res.render('pages/vocab_adjectif', { title: 'Les Adjectifs', results: results});
+    } catch (err) {
+        console.error("ERREUR lors du chargement des adjectifs :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+// *******************************************************************************************************************************//
+// route adverbe
+// *******************************************************************************************************************************//
+
+app.get('/vocab_adverbe', async (req, res) => { 
+    
+    try {
+
+        // --- MODIFICATION DE LA REQUÊTE ---
+        const query = `SELECT francais, kanji, kana FROM adv_jp `; 
+
+        // --- ON AJOUTE LE PARAMÈTRE UNE FOIS DE PLUS ---
+        const [results] = await dbPool.query(query); 
+
+        // Log pour voir le résultat brut de la base de données
+        console.log("Résultat brut obtenu de la DB :", results);
+        console.log("Nombre de résultats trouvés :", results.length);
+        console.log("--------------------------------------");
+        
+        
+        res.render('pages/vocab_adverbe', { title: 'Les Adverbes', results: results});
+    } catch (err) {
+        console.error("ERREUR lors du chargement des adverbes :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+// *******************************************************************************************************************************//
+// route vocab mot interrogatif
+// *******************************************************************************************************************************//
+
+app.get('/vocab_mot_interrogatif', (req, res) => {
+    // Cette route sert juste à afficher le formulaire vide au début.
+    res.render('pages/vocab_interrogatif_form', { 
+        title: 'Mots Interrogatifs'
+    });
+});
+
+// *******************************************************************************************************************************//
+// route vocab onomatopee
+// *******************************************************************************************************************************//
+
+app.get('/vocab_onomatopee', (req, res) => {
+    // Cette route sert juste à afficher le formulaire vide au début.
+    res.render('pages/vocab_onomatopee_form', { 
+        title: 'Mots onomatopee'
+    });
+});
+
+// *******************************************************************************************************************************//
+// route vocab onomatopee giseigo
+// *******************************************************************************************************************************//
+
+app.get('/vocab_giseigo', async (req, res) => {
+    
+    try {
+
+        // --- MODIFICATION DE LA REQUÊTE ---
+        const query = `SELECT type, signification, katakana, romanji FROM  onomatopees_jp WHERE type = 'Giseigo';`; 
+
+        // --- ON AJOUTE LE PARAMÈTRE UNE FOIS DE PLUS ---
+        const [results] = await dbPool.query(query); 
+
+        // Log pour voir le résultat brut de la base de données
+        console.log("Résultat brut obtenu de la DB :", results);
+        console.log("Nombre de résultats trouvés :", results.length);
+        console.log("--------------------------------------");
+        
+        
+        res.render('pages/vocab_giseigo_form', { title: 'Mots onomatopées Giseigo', results: results});
+    } catch (err) {
+        console.error("ERREUR lors du chargement des onomatopées Giseigo :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+// *******************************************************************************************************************************//
+// route vocab onomatopee gitaigo
+// *******************************************************************************************************************************//
+
+app.get('/vocab_gitaigo', async (req, res) => {
+    
+    try {
+
+        // --- MODIFICATION DE LA REQUÊTE ---
+        const query = `SELECT type, signification, katakana, romanji FROM  onomatopees_jp WHERE type = 'Gitaigo';`; 
+
+        // --- ON AJOUTE LE PARAMÈTRE UNE FOIS DE PLUS ---
+        const [results] = await dbPool.query(query); 
+
+        // Log pour voir le résultat brut de la base de données
+        console.log("Résultat brut obtenu de la DB :", results);
+        console.log("Nombre de résultats trouvés :", results.length);
+        console.log("--------------------------------------");
+        
+        
+        res.render('pages/vocab_gitaigo_form', { title: 'Mots onomatopées Gitaigo', results: results});
+    } catch (err) {
+        console.error("ERREUR lors du chargement des onomatopées Gitaigo :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+// *******************************************************************************************************************************//
+// Dico Vocab Onomatopée Détails /vocab_onomatopee_detail
+// *******************************************************************************************************************************//
+
+app.get('/vocab_onomatopee_detail', async (req, res) => {
+    try {
+        // 1. On récupère la liste complète des départements pour les menus déroulants
+        const query = 'SELECT signification, katakana, romanji FROM onomatopees_jp ORDER BY romanji ASC;';
+        
+        console.log("--- Liste pour la sélection ---");
+        console.log("Exécution de la requête :", query);
+
+        const [onomatopees] = await dbPool.query(query);
+
+        console.log(`${onomatopees.length} Onomatopées.`);
+        console.log("------------------------------------------");
+        console.log(onomatopees);
+		
+	    // 2. On rend la page en lui passant la liste, et des valeurs VIDES pour les résultats
+        res.render('pages/vocab_onomatopee_detail_form', { 
+            title: 'Détail onomatopée', 
+            listeOnoDetail: onomatopees,
+            results: [], // Tableau de résultats vide au premier chargement
+            searchTerm: '' // Terme de recherche vide au premier chargement
+        });
+
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la selection des onomatopées:", err);
+        res.status(500).send("ERREUR lors du chargement de la selection des onomatopées.");
+    }
+});
+
+app.post('/vocab_onomatopee_detail/search', async (req, res) => {
+    // NOUVEAU : On récupère la valeur de la liste qui a été changée
+    const onoKatakana = req.body.katakana.trim();
+    const onoSignification = req.body.signification.trim();
+    const onoRomanji = req.body.romanji.trim();
+    
+    console.log("recherche détail")
+    // 2. On détermine le terme de recherche (le premier qui n'est pas vide)
+    const searchTerm = onoKatakana || onoSignification || onoRomanji ; 
+    console.log(searchTerm)
+    try {
+        // --- On doit toujours re-charger la liste complète pour réafficher les menus ---
+        const listQuery = 'SELECT signification, katakana, romanji FROM onomatopees_jp ORDER BY romanji ASC;';
+        const [onomatopees] = await dbPool.query(listQuery);
+
+        let searchResults = [];
+
+        // --- On exécute la recherche si un terme a été sélectionné ---
+        if (searchTerm) {
+            // La requête recherche maintenant une correspondance EXACTE, ce qui est mieux pour une liste
+            const searchQuery = `
+                SELECT signification, katakana, romanji, detail, exemple 
+                FROM onomatopees_jp 
+                WHERE signification = ? OR katakana = ? OR romanji = ?`;
+            
+            // On passe le même terme pour les deux conditions
+            const [results] = await dbPool.query(searchQuery, [searchTerm, searchTerm, searchTerm ]);
+            searchResults = results;
+        }
+
+        console.log(`${results}onomatopéess.`);
+        // --- On rend la même page, en passant toutes les infos nécessaires ---
+        res.render('pages/vocab_onomatopee_detail_form', { 
+            title: 'Détail onomatopée', 
+            listeOnoDetail: onomatopees,
+            results: searchResults,
+            searchTerm: searchTerm // Très important pour pré-sélectionner les listes !
+        });
+
+    } catch (err) { 
+        console.error("ERREUR lors de la recherche des détails de l'onomatopées :", err);
+        res.status(500).send("ERREUR lors de la recherche des détails de l'onomatopées."); 
+    }
+});
+
 // ------------------------------------------------------------- Langue Grammaire ----------------------------------------------------------//
 // *******************************************************************************************************************************//
 // Menu Grammaire
@@ -624,46 +864,145 @@ app.get('/gram_jap_regles', async (req, res) => {
     }
 });
 
+// *******************************************************************************************************************************//
+// Grammaire japonaise les verbes transitifs/intansitifs
+// *******************************************************************************************************************************//
+
+app.get('/verbe_transitif_intransitif', (req, res) => {
+    try {
+        res.render('pages/gram_verbe_transitif_intransitif', { title: 'Les verbes transitifs / intransitifs'});
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la page de Kanji :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+
+// *******************************************************************************************************************************//
+// Grammaire japonaise les verbes transitifs
+// *******************************************************************************************************************************//
+
+app.get('/verbe_transitif', async (req, res) => { 
+    
+    try {
+
+        // --- MODIFICATION DE LA REQUÊTE ---
+        const query = `SELECT trans_kanji, trans_hiragana, trans_francais, trans_romanji FROM verbe_trans_intrans  `; 
+
+        // --- ON AJOUTE LE PARAMÈTRE UNE FOIS DE PLUS ---
+        const [results] = await dbPool.query(query); 
+
+        // Log pour voir le résultat brut de la base de données
+        console.log("Résultat brut obtenu de la DB :", results);
+        console.log("Nombre de résultats trouvés :", results.length);
+        console.log("--------------------------------------");
+        
+        
+        res.render('pages/gram_verbe_transitif_form', { title: 'Les verbes transitifs', results: results});
+    } catch (err) {
+        console.error("ERREUR lors du chargement des adverbes :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+// *******************************************************************************************************************************//
+// Grammaire japonaise les verbes intransitifs
+// *******************************************************************************************************************************//
+
+app.get('/verbe_intransitif', async (req, res) => { 
+    
+    try {
+
+        // --- MODIFICATION DE LA REQUÊTE ---
+        const query = `SELECT  intrans_kanji, intrans_hiragana, intrans_francais, intrans_romanji FROM verbe_trans_intrans  `; 
+
+        // --- ON AJOUTE LE PARAMÈTRE UNE FOIS DE PLUS ---
+        const [results] = await dbPool.query(query); 
+
+        // Log pour voir le résultat brut de la base de données
+        console.log("Résultat brut obtenu de la DB :", results);
+        console.log("Nombre de résultats trouvés :", results.length);
+        console.log("--------------------------------------");
+        
+        
+        res.render('pages/gram_verbe_intransitif_form', { title: 'Les verbes intransitifs', results: results});
+    } catch (err) {
+        console.error("ERREUR lors du chargement des adverbes :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+
 // ------------------------------------------------------------- France ----------------------------------------------------------//
 
 // *******************************************************************************************************************************//
 // Dico departements
 // *******************************************************************************************************************************//
 
-app.get('/departements', (req, res) => {
-    res.render('pages/departements_form', { title: 'Caractèristique d un departements', results: [], searchTerm: '' });
+app.get('/departements', async (req, res) => {
+    try {
+        // 1. On récupère la liste complète des départements pour les menus déroulants
+        const query = 'SELECT num_dep, nom_dep, nom_pref FROM dep_fr ORDER BY num_dep ASC;';
+        
+        console.log("--- NOUVELLE PAGE DÉPARTEMENTS ---");
+        console.log("Exécution de la requête :", query);
+
+        const [departements] = await dbPool.query(query);
+
+        console.log(`${departements.length} départements trouvés pour les listes.`);
+        console.log("------------------------------------------");
+       console.log(departements);
+		
+	    // 2. On rend la page en lui passant la liste, et des valeurs VIDES pour les résultats
+        res.render('pages/departements_form', { 
+            title: 'Caractéristiques d\'un département', 
+            listeDepartement: departements,
+            results: [], // Tableau de résultats vide au premier chargement
+            searchTerm: '' // Terme de recherche vide au premier chargement
+        });
+
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la page des départements :", err);
+        res.status(500).send("Erreur serveur.");
+    }
 });
 
 app.post('/departements/search', async (req, res) => {
-    const searchTerm = req.body.searchTerm.trim();
+    // NOUVEAU : On récupère la valeur de la liste qui a été changée
+    const nomDep = req.body.nom_dep;
+    const numDep = req.body.num_dep;
+    const nomPref = req.body.nom_pref;
+    
+ 
+    // 2. On détermine le terme de recherche (le premier qui n'est pas vide)
+    const searchTerm = nomDep || numDep || nomPref; // <-- On ajoute la préfecture ici
+
     try {
-        // REQUÊTE SQL CORRIGÉE : on sélectionne toutes les colonnes nécessaires
-        // On cherche dans le numéro, le nom du département et le nom de la préfecture.
-        const query = `
-            SELECT num_dep, nom_dep, nom_reg, superficie, pop_dep, densite, nom_pref, pop_pref, sous_pref
-            FROM dep_fr 
-            WHERE num_dep LIKE ?
-               OR nom_dep LIKE ? 
-               OR nom_pref LIKE ?`;
+        // --- On doit toujours re-charger la liste complète pour réafficher les menus ---
+        const listQuery = 'SELECT num_dep, nom_dep, nom_pref FROM dep_fr ORDER BY num_dep ASC;';
+        const [departements] = await dbPool.query(listQuery);
 
-      
-        // searchPattern est la donnée à rechercher dans query        
-        const searchPattern = `%${searchTerm}%`.trim();
+        let searchResults = [];
 
-        console.log("--- NOUVELLE RECHERCHE DÉPARTEMENT ---");
-        console.log("Requête SQL exécutée :", query.trim().replace(/\s+/g, ' '));
-        console.log("Avec le paramètre de recherche :", searchPattern);
-        
-        // CORRIGÉ : On fournit bien 3 valeurs pour les 3 '?'
-        const [results] = await dbPool.query(query, [searchPattern, searchPattern, searchPattern]);
+        // --- On exécute la recherche si un terme a été sélectionné ---
+        if (searchTerm) {
+            // La requête recherche maintenant une correspondance EXACTE, ce qui est mieux pour une liste
+            const searchQuery = `
+                SELECT num_dep, nom_dep, nom_reg, superficie, pop_dep, densite, nom_pref, pop_pref, sous_pref
+                FROM dep_fr 
+                WHERE nom_dep = ? OR num_dep = ? OR nom_pref = ?`;
+            
+            // On passe le même terme pour les deux conditions
+            const [results] = await dbPool.query(searchQuery, [searchTerm, searchTerm, searchTerm]);
+            searchResults = results;
+        }
 
-        console.log("Nombre de résultats trouvés :", results.length);
-        console.log("--------------------------------------");
-
+        // --- On rend la même page, en passant toutes les infos nécessaires ---
         res.render('pages/departements_form', { 
-            title: 'Résultats Départements', 
-            results: results, 
-            searchTerm: searchTerm 
+            title: 'Résultats Départements',
+            listeDepartement: departements,
+            results: searchResults,
+            searchTerm: searchTerm // Très important pour pré-sélectionner les listes !
         });
 
     } catch (err) { 
@@ -912,7 +1251,205 @@ app.post('/quiz/search', async (req, res) => {
         res.status(500).send("Erreur serveur lors de la recherche du Quiz.");
     }
 });
+// ------------------------------------------------------------- Le blog ----------------------------------------------------------//
+// *******************************************************************************************************************************//
+// Menu Blog liste des articles
+// *******************************************************************************************************************************//
 
+
+
+app.get('/blog_liste', async (req, res) => {
+    try {
+        const query = 'SELECT id, titre, contenu, date_creat, date_modif FROM blog ORDER BY DATE_MODIF DESC;';
+        console.log("Exécution de la requête :", query);
+
+        const [articles] = await dbPool.query(query);
+
+        // Formatage des dates avant de les passer au template
+        const formattedArticles = articles.map(article => {
+            // Convertir DATE_CREAT et DATE_MODIF en objets Date JavaScript si ce n'est pas déjà fait
+            // Si DATE_CREAT/DATE_MODIF sont des strings, il faut les parser
+            const dateCreat = article.date_creat ? new Date(article.date_creat) : null;
+            const dateModif = article.date_modif ? new Date(article.date_modif) : null;
+
+            // Définir les options de formatage
+            const options = { 
+                year: 'numeric', 
+                month: '2-digit', 
+                day: '2-digit', 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                hour12: false // Pour utiliser le format 24 heures (HH:MM)
+            };
+
+            return {
+                ...article,
+                // Utiliser toLocaleString pour formater la date dans le fuseau horaire local du serveur
+                // ou spécifiez un fuseau horaire si nécessaire
+                DATE_CREAT_FORMATTED: dateCreat ? dateCreat.toLocaleString('fr-FR', options).replace(',', '') : null, // 'fr-FR' pour le format français, .replace(',', '') pour enlever la virgule entre date et heure
+                DATE_MODIF_FORMATTED: dateModif ? dateModif.toLocaleString('fr-FR', options).replace(',', '') : null
+            };
+        });
+
+        console.log(`${formattedArticles.length} Liste des articles formatés.`);
+        console.log(formattedArticles);
+
+        res.render('pages/blog_liste_article_form.ejs', { 
+            title: 'Liste des Articles du Blog',
+            listeArticles: formattedArticles 
+        });
+
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la liste des articles :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+// *******************************************************************************************************************************//
+// Blog modification ou suppression d'un article
+// *******************************************************************************************************************************//
+app.get('/blog_modif', async (req, res) => {
+    try {
+        const query = 'SELECT id, titre, contenu, date_creat, date_modif FROM blog ORDER BY DATE_MODIF DESC;';
+        console.log("Exécution de la requête :", query);
+
+        const [articles] = await dbPool.query(query);
+
+        // Formatage des dates avant de les passer au template
+        const formattedArticles = articles.map(article => {
+            // Convertir DATE_CREAT et DATE_MODIF en objets Date JavaScript si ce n'est pas déjà fait
+            // Si DATE_CREAT/DATE_MODIF sont des strings, il faut les parser
+            const dateCreat = article.date_creat ? new Date(article.date_creat) : null;
+            const dateModif = article.date_modif ? new Date(article.date_modif) : null;
+
+            // Définir les options de formatage
+            const options = { 
+                year: 'numeric', 
+                month: '2-digit', 
+                day: '2-digit', 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                hour12: false // Pour utiliser le format 24 heures (HH:MM)
+            };
+
+            return {
+                ...article,
+                // Utiliser toLocaleString pour formater la date dans le fuseau horaire local du serveur
+                // ou spécifiez un fuseau horaire si nécessaire
+                DATE_CREAT_FORMATTED: dateCreat ? dateCreat.toLocaleString('fr-FR', options).replace(',', '') : null, // 'fr-FR' pour le format français, .replace(',', '') pour enlever la virgule entre date et heure
+                DATE_MODIF_FORMATTED: dateModif ? dateModif.toLocaleString('fr-FR', options).replace(',', '') : null
+            };
+        });
+
+        console.log(`${formattedArticles.length} Liste des articles formatés.`);
+        console.log(formattedArticles);
+
+        res.render('pages/blog_modif_article_form.ejs', { 
+            title: 'Modifier ou supprimer un Articles du Blog',
+            listeArticles: formattedArticles 
+        });
+
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la liste des articles :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+// *******************************************************************************************************************************//
+// Blog écriture d'un article
+// *******************************************************************************************************************************//
+
+app.get('/blog_ecriture', (req, res) => {
+    try {
+        res.render('pages/blog_ecriture_article_form', { title: 'Ecrirure d\'un article'});
+    } catch (err) {
+        console.error("ERREUR lors du chargement de la page de Blog_ecriture :", err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+app.post('/blog_stockage', async (req, res) => {
+    const artTitre = req.body.titre;
+    const artContenu = req.body.contenu;
+    const artDateCreat = new Date();
+    const artDateModif = new Date();
+
+    try {
+
+        const queryDetails=`
+            INSERT INTO blog (titre, contenu, date_creat, date_modif )
+            VALUES (?, ?, ?, ?)
+        `;
+
+        // Exécution de la requête avec les valeurs des variables comme paramètres
+        // dbPool.query attend un tableau de valeurs correspondant aux placeholders (?)
+        await dbPool.query(queryDetails, [artTitre, artContenu, artDateCreat, artDateModif]);
+        res.redirect('/blog_liste'); // Rediriger vers la liste après modification
+
+        } catch (err) { 
+        console.error("ERREUR lors de l'intégration d'un article:", err);
+        res.status(500).send("ERREUR lors de l'intégration d'un article:"); 
+    }
+});
+
+// *******************************************************************************************************************************//
+// Blog Route pour afficher le formulaire de modification d'un article
+// *******************************************************************************************************************************//
+
+
+app.get('/blog/modifier/:id', async (req, res) => {
+    const articleId = req.params.id;
+    try {
+        const query = 'SELECT id, titre, contenu FROM blog WHERE id = ?';
+        const [rows] = await dbPool.query(query, [articleId]);
+
+        if (rows.length === 0) {
+            return res.status(404).send("Article non trouvé.");
+        }
+
+        const article = rows[0];
+        res.render('pages/blog_modifier_article_form.ejs', {
+            title: `Modifier l'article : ${article.titre}`,
+            article: article
+        });
+
+    } catch (err) {
+        console.error(`ERREUR lors du chargement de l'article ${articleId} pour modification :`, err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+// Route pour soumettre la modification (POST)
+
+app.post('/blog/modifier/:id', async (req, res) => {
+    const articleId = req.params.id;
+    const { titre, contenu } = req.body; // Récupérer le titre et le contenu du formulaire
+
+    try {
+        const query = 'UPDATE blog SET titre = ?, contenu = ?, date_modif = NOW() WHERE id = ?';
+        await dbPool.query(query, [titre, contenu, articleId]);
+        res.redirect('/blog_liste'); // Rediriger vers la liste après modification
+    } catch (err) {
+        console.error(`ERREUR lors de la modification de l'article ${articleId} :`, err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
+
+//*******************************************************************************************************************************//
+// Route pour la suppression d'un article (via POST)
+//*******************************************************************************************************************************//
+
+app.post('/blog/supprimer/:id', async (req, res) => {
+    const articleId = req.params.id;
+    try {
+        const query = 'DELETE FROM blog WHERE id = ?';
+        await dbPool.query(query, [articleId]);
+        res.redirect('/blog_liste'); // Rediriger vers la liste après suppression
+    } catch (err) {
+        console.error(`ERREUR lors de la suppression de l'article ${articleId} :`, err);
+        res.status(500).send("Erreur serveur.");
+    }
+});
 
 //*******************************************************************************************************************************//
 // Démarrer le serveur

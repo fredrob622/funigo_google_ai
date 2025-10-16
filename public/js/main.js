@@ -199,8 +199,67 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    // ***************************  page carte des DÉPARTEMENTS ******************************************************
+
+// ====================================================================================
+// === NOUVELLE LOGIQUE STRUCTURÉE POUR LES DETAILS ONOMATOPEES ===
+// ====================================================================================
+
+const onoDetailForm = document.getElementById('ono-detail-form'); // Assurez-vous que l'ID est correct
+if (onoDetailForm) {
+    console.log("Logique pour la page de recherche des détails de l'onomatopée activée.");
+    
+    // Récupération des 3 listes déroulantes
+    const onoKatakanaSelect = document.getElementById('ono-katana-select');
+    const onoSignificationSelect = document.getElementById('ono-signification-select');
+    const onoRomanjiSelect = document.getElementById('ono-romanji-select');
+
+    // On stocke la dernière liste modifiée pour éviter les soumissions multiples
+    let lastChanged = null;
+
+    // Écouteur pour la liste Katakana
+    onoKatakanaSelect.addEventListener('change', () => {
+        // On ne fait rien si l'événement a été déclenché par une autre liste
+        if (lastChanged !== onoKatakanaSelect) {
+            lastChanged = onoKatakanaSelect;
+            // On réinitialise les autres listes pour garantir qu'un seul critère est envoyé
+            onoSignificationSelect.value = '';
+            onoRomanjiSelect.value = '';
+            // On soumet le formulaire si une valeur est sélectionnée
+            if (onoKatakanaSelect.value) {
+                onoDetailForm.submit(); // C'est ici que la requête POST est lancée
+            }
+        }
+    });
+
+    // Écouteur pour la liste Signification
+    onoSignificationSelect.addEventListener('change', () => {
+        if (lastChanged !== onoSignificationSelect) {
+            lastChanged = onoSignificationSelect;
+            onoKatakanaSelect.value = '';
+            onoRomanjiSelect.value = '';
+            if (onoSignificationSelect.value) {
+                onoDetailForm.submit();
+            }
+        }
+    });
+
+    // Écouteur pour la liste Romanji
+    onoRomanjiSelect.addEventListener('change', () => {
+        if (lastChanged !== onoRomanjiSelect) {
+            lastChanged = onoRomanjiSelect;
+            onoKatakanaSelect.value = '';
+            onoSignificationSelect.value = '';
+            if (onoRomanjiSelect.value) {
+                onoDetailForm.submit();
+            }
+        }
+    });
+}
+
+    // ====================================================================================
+    // ***************************  page carte des DÉPARTEMENTS ***************************
     // --- NOUVEAU : Logique pour la page carte des DÉPARTEMENTS ---
+
     const nomSelect = document.getElementById('dep-nom-select');
     const numSelect = document.getElementById('dep-num-select');
 
