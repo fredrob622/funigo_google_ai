@@ -1,4 +1,3 @@
-
 <%- include('../partials/header_vocab', { title: title }) %> 
 <div class="content content-black">
 
@@ -8,41 +7,151 @@
         <h2><%= title %></h2>
         <a href="/vocab_onomatopee" class="vocab_href">Retour</a>
     </div>
-
-
-    <% if (results.length > 0) { %>
-        <!-- NOUVEAU : On ajoute le conteneur autour du tableau -->
-        <div class="results-table-container">
-            
-            <!-- NOUVEAU : On ajoute la classe "results-table" au tableau -->
-            <table class="results-table">
+        <p><br>Cliquer sur une ligne pour avoir des détails<br></p>
+        <% if (results && results.length > 0) { %>
+            <table  class="results-table">
                 <thead>
                     <tr>
-                        <th>katakana</th>
-                        <th>signification</th>
-                        <th>Romanji</th>                      
+                        <th>KATAKANA</th>
+                        <th>SIGNIFICATION</th>
+                        <th>ROMANJI</th>
                     </tr>
                 </thead>
-
                 <tbody>
-                    <% results.forEach(result => { %>
-                        <tr>
-                            <td><span class="jp-char"></span><%= result.katakana %></span></td>
-                            <td><%= result.signification %></td>
-                            <td><%= result.romanji %></td>
+                    <% results.forEach(function(item) { %>
+                        <!-- Ligne principale cliquable -->
+                        <tr class="main-row">
+                            <td><%= item.katakana %></td>
+                            <td><%= item.signification %></td>
+                            <td><%= item.romanji %></td>
+                        </tr>
+                        <!-- Ligne de détail cachée. Elle DOIT suivre immédiatement la ligne principale. -->
+                        <!-- Nous ajoutons les données brutes dans les attributs pour que le JS puisse les nettoyer. -->
+                        <tr class="detail-row hidden" data-detail-brut="<%- item.detail %>" data-exemple-brut="<%- item.exemple %>">
+                            <!-- colspan="3" étend la cellule de détail sur toutes les colonnes -->
+                            <td colspan="3">
+                                <div class="detail-content">
+                                    
+                                    <!-- Affichage du DETALIL (texte inséré par JS) -->
+                                    <div class="detail-title">Détail :</div>
+                                    <!-- La classe pre-wrap permet de conserver les sauts de ligne (\n) -->
+                                    <p><br></p>
+                                    <p class="pre-wrap detail-text"></p>
+
+                                    <!-- Affichage de l'EXEMPLE (texte inséré par JS) -->
+                                    <div class="detail-title">Exemple :</div>
+                                    <p><br></p>
+                                    <p class="pre-wrap exemple-text"></p>
+                                </div>
+                            </td>
                         </tr>
                     <% }); %>
                 </tbody>
             </table>
-        </div>
-    <% } else if (results) { %>
-        <p>Aucun résultat trouvé pour les onomatopées Giseigo.</p>
-    <% } %>
-
-    <div class="vocab_titre" >   
-        <a href="#haut" class="vocab_href">Haut</a>
+        <% } else { %>
+            <p>Aucune onomatopée Giseigo trouvée.</p>
+        <% } %>
     </div>
 
-</div>
 
-<%- include('../partials/footer') %>
+<script src="/js/ono-detail.js"></script>
+</body>
+
+<style>
+    /* body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f4f4f9;
+    } */
+
+    /* h1 {
+        color: #333;
+        text-align: center;
+    } */
+
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #4CAF50;
+        color: white;
+        cursor: default;
+    }
+
+    /* Style pour la ligne de données principale */
+    .main-row {
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .main-row:hover {
+        background-color: #e6f7e6;
+    }
+    
+    /* Style pour la ligne active (détail ouvert) */
+    .main-row.active {
+        background-color: #d1e7d1;
+        border-bottom: 1px solid #4CAF50;
+    }
+
+    /* Style pour le conteneur de détail */
+    .detail-row {
+        background-color: black;
+        color: #f9f9f9;
+    }
+    
+    .detail-content {
+        padding: 15px 20px;
+        border-top: 1px dashed #ccc;
+    }
+
+
+    /* CSS pour gérer les retours à la ligne des champs TEXT de la BDD */
+    .pre-wrap {
+        white-space: pre-wrap; 
+        font-size: 0.9em;
+        line-height: 1.4;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        padding-left: 10px;
+        border-left: 3px solid #ccc;
+    }
+    
+    /* Classe pour masquer l'élément (C'est la clé du fonctionnement) */
+    .hidden {
+        display: none !important; /* Utiliser !important pour s'assurer que le style CSS prend le dessus */
+    }
+
+    .detail-title {
+        font-weight: bold;
+        background-color: #074107;
+        color: white; 
+        width: 200px;
+        margin-top: 10px;
+        border-radius: 5px;
+        padding: 5px 5px 5px 20px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+</style>
+
+</html>

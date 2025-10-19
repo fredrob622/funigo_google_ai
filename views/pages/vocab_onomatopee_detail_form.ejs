@@ -55,35 +55,7 @@
             </div>
 
 
-    <% if (results.length > 0) { %>
-        <!-- NOUVEAU : On ajoute le conteneur autour du tableau -->
-        <div class="results-table-container">
-            
-            <!-- NOUVEAU : On ajoute la classe "results-table" au tableau -->
-            <table class="ono-results-table">
-                <thead>
-                    <tr>
-                        <th>katakana</th>
-                        <th>signification</th>
-                        <th>Romanji</th>          
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <% results.forEach(result => { %>
-                        <tr>
-                            <td><span class="jp-char"></span><%= result.katakana %></span></td>
-                            <td><%= result.signification %></td>
-                            <td><%= result.romanji %></td>
-                        </tr>
-                    <% }); %>
-                </tbody>
-            </table>
-        </div>
-    <% } else if (results) { %>
-        <p>Aucun résultat trouvé pour l'onomatopée recherchée.</p>
-    <% } %>
-
+    
     	<% if (results && results.length > 0) { %>
         <%# On crée une variable pour plus de clarté %>
         <% const regleDetails = results[0]; %>
