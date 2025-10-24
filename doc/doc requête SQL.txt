@@ -408,6 +408,12 @@ INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/quiz_202509101800.cs
 FIELDS TERMINATED BY ',' ENCLOSED BY '"'
 LINES TERMINATED BY '\n';
 
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/1997-N4jplt.csv'
+INTO TABLE quiz
+FIELDS TERMINATED BY ';'
+LINES TERMINATED BY '\n'
+(ANNEE,NIVEAU,TEXTE,REP_OK,QUESTION,REP1,REP2,REP3,REP4);
+
 ********************************************************************************
 	Renuméroter l'index
 ********************************************************************************
@@ -648,6 +654,8 @@ mysql> SELECT DISTINCT annee, niveau
 +-------+--------+
 9 rows in set (0.00 sec)
 
+SELECT DISTINCT annee, niveau FROM quiz ORDER BY annee ASC;
+
 mysql>
 
 ********************************************************************************
@@ -762,7 +770,7 @@ CREATE TABLE verbe_trans_intrans (
 	intrans_kanji VARCHAR(100),
     intrans_hiragana VARCHAR(100),
 	intrans_francais VARCHAR(100),
-	inttrans_romanji VARCHAR(100)
+	intrans_romanji VARCHAR(100)
 );
 
 LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/donnees_verbes_jp.csv'
@@ -771,6 +779,40 @@ FIELDS TERMINATED BY ';'
 ENCLOSED BY '"' 
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS
-(trans_kanji, trans_hiragana, trans_francais, trans_romanji, intrans_hiragana, intrans_romanji, intrans_francais, intrans_romanji );
+(trans_kanji, trans_hiragana, trans_francais, trans_romanji, intrans_kanji, intrans_hiragana, intrans_francais, intrans_romanji );
+
+********************************************************************************
+	Création et chargement de la table verbe transitifs intransitifs
+********************************************************************************
 
 
+CREATE TABLE onomatopees_jp (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    type VARCHAR(100),
+    signification VARCHAR(100),
+	katakana VARCHAR(100),
+	romanji VARCHAR(100),
+	detail TEXT,
+    exemple TEXT
+);
+
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/onomatopees.csv'
+INTO TABLE onomatopees_jp 
+FIELDS TERMINATED BY ';' 
+ENCLOSED BY '"' 
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(type,signification,katakana,romanji,detail,exemple );
+
+
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/onomatopees.csv'
+INTO TABLE onomatopees_jp 
+CHARACTER SET utf8
+FIELDS TERMINATED BY ';' 
+ENCLOSED BY '"' 
+LINES TERMINATED BY '\r\n' 
+IGNORE 1 ROWS
+(type,signification,katakana,romanji,detail,exemple );
+
+
+Type	Signification	katakana	romanji	detail	exemple
