@@ -404,11 +404,11 @@ LINES TERMINATED BY '\n'
 AVANT faire la SAUVEGARDE
 
 SELECT * FROM quiz
-INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/quiz_202509101800.csv'
+INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/quiz_202510242330.csv'
 FIELDS TERMINATED BY ',' ENCLOSED BY '"'
 LINES TERMINATED BY '\n';
 
-LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/1997-N4jplt.csv'
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/1997-N3jplt.csv'
 INTO TABLE quiz
 FIELDS TERMINATED BY ';'
 LINES TERMINATED BY '\n'
@@ -816,3 +816,28 @@ IGNORE 1 ROWS
 
 
 Type	Signification	katakana	romanji	detail	exemple
+
+********************************************************************************
+	Création et chargement de la table quiz_ora
+********************************************************************************
+
+CREATE TABLE quiz_ora {
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	ANNEE int,
+	NIVEAU varchar(2),
+	TEXTE text,
+	REP_OK varchar(2),
+	QUESTION varchar(100),
+	REP_1 varchar(2),
+	REP_2 varchar(2),
+	REP_3 varchar(2),
+	REP_4 varchar(2),
+	TRADUCTION text,
+	IMAGE varchar(100)
+};
+
+SELECT ANNEE, NIVEAU, TEXTE, REP_OK, QUESTION, REP1, REP2, REP3, REP4
+      FROM quiz
+      WHERE NIVEAU LIKE ? **** ? ne fonctionne pas dans une commande en ligne
+      ORDER BY RAND()
+      LIMIT 1000;

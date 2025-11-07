@@ -1,0 +1,80 @@
+<%- include('../partials/header', { title: title }) %>
+
+<div class="content content-black"> 
+    
+    <h2><%= title %></h2>
+
+    <form action="/quiz_orale/rech_annee" method="POST" id="quizora-niveau">
+        <div class="form-container-double">
+            <div>
+                <label for="quizora-niveau-select">Par Niveau :</label>
+                <select id="quizora-niveau-select" name="niveau" class="quizora-select">
+                    <option value="">-- Choisissez un Niveau --</option>
+                    <% listeQuizNiveau.forEach(niveau => { %>
+                        <option value="<%= niveau.NIVEAU %>" <%= (searchTerm === niveau.NIVEAU) ? 'selected' : '' %>>
+                            <%= niveau.NIVEAU %>
+                        </option>
+                    <% }); %>
+                </select>
+            </div>   
+        </div>
+
+        <div class="form-container-double">
+            <div>
+                <label for="quizora-annee-select">Par Année :</label>
+                <select id="quizora-annee-select" name="annee" class="quizora-select" disabled>
+                    <option value="">-- Sélectionnez d'abord un niveau --</option>
+                </select>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-submit">Rechercher</button>
+    </form>
+</div>
+
+<script>
+    // Injection des données côté client
+    const quizData = <%- JSON.stringify(listeQuizNiveau) %>;
+</script>
+
+<script src="/js/quiz-orale.js"></script>
+
+<style>
+    .form-container-double {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+    }
+
+    .quizora-select {
+        padding: 5px;
+        font-size: 0.9em;
+        border-radius: 8px;
+        min-width: 150px;
+    }
+
+    label[for="quizora-annee-select"],
+    label[for="quizora-niveau-select"] {
+        display: block;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .btn-submit {
+        padding: 8px 16px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    .btn-submit:hover {
+        background-color: #45a049;
+    }
+</style>
+
+<%- include('../partials/footer') %>

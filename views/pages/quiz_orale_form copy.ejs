@@ -1,0 +1,54 @@
+<%- include('../partials/header', { title: title }) %>
+
+<div class="content content-black"> 
+    
+    <h2><%= title %></h2>
+
+    <form action="/quiz_orale/rech_annee" method="POST" id="quizora-niveau">
+        <div class="form-container-double">
+            <div>
+                <label for="quizora-niveau-select" >Par Niveau :</label>
+                <select id="quizora-niveau-select" name="niveau" class="quizora-select">
+                    <option value="">-- Choisissez un Niveau  --</option>
+                    <% listeQuizNiveau.forEach( niveau => { %>
+                        <option value="<%= niveau.NIVEAU %>" <%= (searchTerm === niveau.NIVEAU) ? 'selected' : '' %>>
+                            <%= niveau.NIVEAU %>
+                        </option>
+                    <% }); %>
+                </select>
+            </div>   
+        </div>
+    </form>
+
+        <form action="/quiz_orale/rech_annee" method="POST" id="quizora-niveau">
+        <div class="form-container-double">
+            <div>
+                <label for="quizora-niveau-select" >Par Niveau :</label>
+                <select id="quizora-niveau-select" name="niveau" class="quizora-select">
+                    <option value="">-- Choisissez un Niveau  --</option>
+                    <% listeQuizNiveau.forEach( niveau => { %>
+                        <option value="<%= niveau.NIVEAU %>" <%= (searchTerm === niveau.NIVEAU) ? 'selected' : '' %>>
+                            <%= niveau.NIVEAU %>
+                        </option>
+                    <% }); %>
+                </select>
+            </div>   
+        </div>
+    </form>
+        
+</div>
+<script src="/js/quiz-orale.js"></script>
+<style>
+ 
+.form-container-double{display: flex; justify-content: center; gap: 5px; margin-bottom: 10px; flex-wrap: wrap; }
+
+.quizora-select { padding: 5px; font-size: 0.9em; border-radius: 8px; min-width: 150px;}
+
+#quizora-annee-select { display: block; margin-bottom: 10px; }
+#quizora-niveau-select { display: block; margin-bottom: 10px; } 
+
+label[for="quizora-annee-select"],
+label[for="quizora-niveau-select"] {display: block; margin-top: 10px; margin-bottom: 10px; }
+
+</style>
+<%- include('../partials/footer') %>
