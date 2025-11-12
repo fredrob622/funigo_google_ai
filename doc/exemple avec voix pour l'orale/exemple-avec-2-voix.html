@@ -25,11 +25,11 @@
   <div id="dialogue-container">
     <div class="replica">
       <label>Réplique 1 (Voix 1) :</label>
-      <textarea id="ligne1">Bonjour, comment vas-tu aujourd'hui ?</textarea>
+      <textarea id="ligne1">男の子とお母さんが話しています。お母さんは何を渡しましたか。</textarea>
     </div>
     <div class="replica">
       <label>Réplique 2 (Voix 2) :</label>
-      <textarea id="ligne2">Je vais bien, merci ! Et toi ?</textarea>
+      <textarea id="ligne2">男の子とお母さんが話しています。お母さんは何を渡しましたか。</textarea>
     </div>
     <div class="replica">
       <label>Réplique 3 (Voix 1) :</label>
@@ -52,7 +52,7 @@
       selectVoix1.innerHTML = '';
       selectVoix2.innerHTML = '';
       for (let i = 0; i < voices.length; i++) {
-        if (voices[i].lang.startsWith('fr')) { // ne proposer que les voix françaises
+        if (voices[i].lang.startsWith('jp')) { // ne proposer que les voix françaises
           const option1 = document.createElement('option');
           option1.value = i;
           option1.text = voices[i].name + (voices[i].default ? ' (par défaut)' : '');

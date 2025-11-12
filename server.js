@@ -1299,31 +1299,89 @@ app.post('/quiz/search', async (req, res) => {
 // Quiz_orale
 // *******************************************************************************************************************************//
 
-app.get('/quiz_orale', (req, res) => {
-    try {
-        res.render('pages/quiz_orale_form', { title: 'Quiz Orale '});
-    } catch (err) {
-        console.error("ERREUR lors du chargement de la page de quiz_oracle_form :", err);
-        res.status(500).send("Erreur serveur.");
+    // app.get('/quiz_orale', (req, res) => {
+    //     try {
+    //         res.render('pages/quiz_orale_form', { title: 'Quiz Orale '});
+    //     } catch (err) {
+    //         console.error("ERREUR lors du chargement de la page de quiz_oracle_form :", err);
+    //         res.status(500).send("Erreur serveur.");
+    //     }
+    // });
+
+app.get('/quiz_orale', async (req, res) => {
+  const { niveau, annee } = req.query;
+ console.log(annee);
+  try {
+    let results = [];
+    if (niveau || annee) {
+      const query = `
+        SELECT ANNEE, NIVEAU, TEXTE, REP_OK, REP1, REP2, REP3, REP4, TRADUCTION, IMAGE
+        FROM quiz_ora
+        WHERE ANNEE LIKE ? AND NIVEAU LIKE ?
+        LIMIT 1000;
+      `;
+      console.log(query);
+      const params = [
+        annee ? annee : '%',
+        niveau ? niveau : '%'
+      ];
+      const [rows] = await dbPool.query(query, params);
+      results = rows;
+      console.log(results);
     }
+   
+    res.render('pages/quiz_orale_form', {
+      title: 'Quiz Orale',
+      results: results
+    });
+
+  } catch (err) {
+    console.error("Erreur lors de la requête quiz_orale :", err);
+    res.status(500).send("Erreur serveur");
+  }
 });
+
 
 // Express et pool MySQL supposés déjà configurés
     app.get('/quiz_orale/:niveau', async (req, res) => {
-    const { niveau } = req.params;
-    
-    console.log(niveau);
-    try {
-        const [rows] = await dbPool.query(
-            'SELECT DISTINCT ANNEE FROM quiz_ora WHERE NIVEAU = ? ORDER BY ANNEE',
-            [niveau]
-        );
+        const { niveau } = req.params;
         
-        res.json(rows.map(row => row.ANNEE));
-        
-    } catch (err) {
-        res.status(500).json({ error: 'Erreur serveur' });
-    }
+        console.log(niveau);
+        try {
+            const [rows] = await dbPool.query(
+                'SELECT DISTINCT ANNEE FROM quiz_ora WHERE NIVEAU = ? ORDER BY ANNEE',
+                [niveau]
+            );
+            
+            res.json(rows.map(row => row.ANNEE));
+            
+        } catch (err) {
+            res.status(500).json({ error: 'Erreur serveur' });
+        }
+    });
+
+    app.get('/quiz_ora_query', async (req, res) => {
+        const { annee, niveau } = req.query;
+
+        try {
+            const query = `
+            SELECT ANNEE, NIVEAU, TEXTE, REP_OK, REP1, REP2, REP3, REP4, TRADUCTION, IMAGE
+            FROM quiz_ora
+            WHERE ANNEE LIKE ? AND NIVEAU LIKE ?
+            LIMIT 1000;
+            `;
+            const params = [
+            annee ? annee : '%',      // Permet de garder la requête générique si non filtré
+            niveau ? niveau : '%'
+            ];
+            console.log("Exécution de la requête :", query);
+            const [results] = await dbPool.query(query, params);
+            res.json(results);
+
+        } catch (err) {
+            console.error("Erreur lors de la requête de recherche avec annee et niveau :", err);
+            res.status(500).json({ error: 'Erreur serveur' });
+        }
     });
 
 

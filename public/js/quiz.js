@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function initQuiz() {
         // Dans ejs <div data-nbquestion="<%= results.length %>"> </div>
         // <!-- data-nbquestion c'est le nombre ligne qui est envoyé à quiz.js-->
-        //   <!-- data-nbquestion: C'est un attribut de données HTML5 (ou "data attribute"). 
+        // <!-- data-nbquestion: C'est un attribut de données HTML5 (ou "data attribute"). 
 
         //   Les attributs data-* sont un moyen standard de stocker des données personnalisées, privées, sur des éléments HTML.
         //   Ces données peuvent ensuite être accédées et manipulées facilement avec JavaScript. Le nom nbquestion ici est 

@@ -1299,75 +1299,57 @@ app.post('/quiz/search', async (req, res) => {
 // Quiz_orale
 // *******************************************************************************************************************************//
 
-// Route pour afficher le formulaire du quiz orale
-app.get('/quiz_orale', async (req, res) => {
+app.get('/quiz_orale', (req, res) => {
     try {
-        // 1. On récupère la liste complète des départements pour les menus déroulants
-
-        const query = 'SELECT DISTINCT NIVEAU FROM quiz_ora ORDER BY NIVEAU ASC;';
-        console.log("--- Liste des quiz oraux recherchés ---");
-        console.log("Exécution de la requête :", query);
-
-        const [listequizniveau] = await dbPool.query(query);
-
-        console.log(`${listequizniveau.length}  niveaux trouvés pour les listes.`);
-        console.log("------------------------------------------");
-        console.log(listequizniveau);
-
-
-		
-	    // 2. On rend la page en lui passant la liste, et des valeurs VIDES pour les résultats
-        res.render('pages/quiz_orale_form', { 
-            title: 'Le Quiz Orale',  
-            listeQuizNiveau: listequizniveau,
-            results: [], // Tableau de résultats vide au premier chargement
-            searchTerm: '' // Terme de recherche vide au premier chargement
-        });
-
+        res.render('pages/quiz_orale_form', { title: 'Quiz Orale '});
     } catch (err) {
-        console.error("ERREUR lors du chargement de la page des Quiz Oraux :", err);
+        console.error("ERREUR lors du chargement de la page de quiz_oracle_form :", err);
         res.status(500).send("Erreur serveur.");
     }
 });
 
-// Route pour traiter la recherche de quiz
-app.post('/quiz_orale/rech_annee', async (req, res) => {
-    const Annee = req.body.annee;
-    const Niveau = req.body.niveau;
+// Express et pool MySQL supposés déjà configurés
+    app.get('/quiz_orale/:niveau', async (req, res) => {
+        const { niveau } = req.params;
+        
+        console.log(niveau);
+        try {
+            const [rows] = await dbPool.query(
+                'SELECT DISTINCT ANNEE FROM quiz_ora WHERE NIVEAU = ? ORDER BY ANNEE',
+                [niveau]
+            );
+            
+            res.json(rows.map(row => row.ANNEE));
+            
+        } catch (err) {
+            res.status(500).json({ error: 'Erreur serveur' });
+        }
+    });
 
-    // 2. On détermine le terme de recherche (le premier qui n'est pas vide)
-    const searchTerm = Annee || Niveau ; // <-- On ajoute la préfecture ici
-   
-    try {
+    app.get('/quiz_ora_query', async (req, res) => {
+        const { annee, niveau } = req.query;
 
-        // 1. Création de la requête pour sélectionner Le niveau et l'année 
-		// ****************************************************************************
-		const query = `
-			SELECT ANNEE, NIVEAU, TEXTE, REP_OK, REP1, REP2, REP3, REP4, TRADUCTION, IMAGE
+        try {
+            const query = `
+            SELECT ANNEE, NIVEAU, TEXTE, REP_OK, REP1, REP2, REP3, REP4, TRADUCTION, IMAGE
             FROM quiz_ora
-            WHERE ANNEE LIKE ? AND NIVEAU LIKE ? 
-            LIMIT 1000;`;
-		
-		console.log("Exécution de la requête SQL (Sélection par niveau et année) :", query.trim().replace(/\s+/g, ' '));
-        console.log("Avec le paramètre de recherche :", Niveau, Annee);
-		
-        const [results] = await dbPool.query(searchQuery, [searchTerm, searchTerm]);
-        console.log(results)
+            WHERE ANNEE LIKE ? AND NIVEAU LIKE ?
+            LIMIT 1000;
+            `;
+            const params = [
+            annee ? annee : '%',      // Permet de garder la requête générique si non filtré
+            niveau ? niveau : '%'
+            ];
+            const [rows] = await dbPool.query(query, params);
+            res.json(rows);
+        } catch (err) {
+            console.error("Erreur lors de la requête:", err);
+            res.status(500).json({ error: 'Erreur serveur' });
+        }
+    });
 
-        console.log("Nombre de résultats trouvés :", results.length);
-        console.log("--------------------------------------");
 
-        res.render('pages/quiz_orale_form', {
-            title: 'Les questions du quiz orale',
-            results: results, // Maintenant 'results' contiendra les données de la vue
-            searchTerm: searchTerm // Très important pour pré-sélectionner les listes !
-        });
-
-    } catch (err) {
-        console.error("ERREUR lors de la recherche du Quiz Orale :", err);
-        res.status(500).send("Erreur serveur lors de la recherche du Quiz.");
-    }
-});
+ 
 
 // ------------------------------------------------------------- Le blog ----------------------------------------------------------//
 // *******************************************************************************************************************************//

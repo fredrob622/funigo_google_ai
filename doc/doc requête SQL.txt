@@ -821,23 +821,85 @@ Type	Signification	katakana	romanji	detail	exemple
 	Création et chargement de la table quiz_ora
 ********************************************************************************
 
-CREATE TABLE quiz_ora {
+CREATE TABLE quiz_ora (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	ANNEE int,
-	NIVEAU varchar(2),
-	TEXTE text,
-	REP_OK varchar(2),
-	QUESTION varchar(100),
-	REP_1 varchar(2),
-	REP_2 varchar(2),
-	REP_3 varchar(2),
-	REP_4 varchar(2),
-	TRADUCTION text,
-	IMAGE varchar(100)
-};
+    ANNEE INT,
+    NIVEAU VARCHAR(2),
+    TEXTE TEXT,
+    REP_OK TEXT,
+    REP1 TEXT,
+    REP2 TEXT,
+    REP3 TEXT,
+    REP4 TEXT,
+	TRADUCTION TEXT,
+	IMAGE VARCHAR(100)
+);
 
-SELECT ANNEE, NIVEAU, TEXTE, REP_OK, QUESTION, REP1, REP2, REP3, REP4
-      FROM quiz
-      WHERE NIVEAU LIKE ? **** ? ne fonctionne pas dans une commande en ligne
-      ORDER BY RAND()
-      LIMIT 1000;
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/quiz_orale3.csv'
+INTO TABLE quiz_ora 
+CHARACTER SET utf8mb4
+FIELDS TERMINATED BY ';' 
+ENCLOSED BY '"' 
+LINES TERMINATED BY '\r\n' 
+IGNORE 1 ROWS
+(ANNEE,NIVEAU,TEXTE,REP_OK,REP1,REP2,REP3,REP4,TRADUCTION,IMAGE);
+
+
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/quiz_orale4.csv'
+INTO TABLE quiz_ora 
+CHARACTER SET utf8mb4
+FIELDS TERMINATED BY ';' 
+ENCLOSED BY '"' 
+LINES TERMINATED BY '\r\n' 
+IGNORE 1 ROWS
+(ANNEE,NIVEAU,TEXTE,REP_OK,REP1,REP2,REP3,REP4,TRADUCTION,IMAGE);
+
+ANNEE,NIVEAU,TEXTE,REP_OK,REP1,REP2,REP3,REP4,TRADUCTION,IMAGE
+
+CREATE VIEW v_quiz_ora  AS
+            SELECT ANNEE, NIVEAU, TEXTE, REP_OK, REP1, REP2, REP3, REP4, TRADUCTION, IMAGE
+            FROM quiz_ora WHERE NIVEAU LIKE '%N3%' LIMIT 1000;
+
+DROP VIEW IF EXISTS `vue_quiz_?3`;
+
+SELECT table_name
+FROM information_schema.views
+WHERE table_schema = `jap`;
+
+ AND table_name LIKE 'vue_quiz_%3';
+ 
+ j'ai une table quiz_ora mysql> desc quiz_ora;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int          | NO   | PRI | NULL    | auto_increment |
+| ANNEE      | int          | YES  |     | NULL    |                |
+| NIVEAU     | varchar(2)   | YES  |     | NULL    |                |
+| TEXTE      | text         | YES  |     | NULL    |                |
+| REP_OK     | text         | YES  |     | NULL    |                |
+| REP1       | text         | YES  |     | NULL    |                |
+| REP2       | text         | YES  |     | NULL    |                |
+| REP3       | text         | YES  |     | NULL    |                |
+| REP4       | text         | YES  |     | NULL    |                |
+| TRADUCTION | text         | YES  |     | NULL    |                |
+| IMAGE      | varchar(100) | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+11 rows in set (0.00 sec) je voudrais créé une table contenant tous les lignes ayant le niveau  N3 puis dans cette table le résultat celles qui contiennent l'année 1991
+
+
+
+extraire 
+
+SELECT * FROM quiz_ora
+INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/quiz_20251111.csv'
+FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+LINES TERMINATED BY '\n';
+
+LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/quiz_20251111.csv'
+INTO TABLE quiz_ora 
+CHARACTER SET utf8mb4
+FIELDS TERMINATED BY ';' 
+ENCLOSED BY '"' 
+LINES TERMINATED BY '\r\n' 
+IGNORE 1 ROWS
+(ANNEE,NIVEAU,TEXTE,REP_OK,REP1,REP2,REP3,REP4,TRADUCTION,IMAGE);
