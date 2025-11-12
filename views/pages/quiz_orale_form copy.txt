@@ -24,11 +24,11 @@
     <% if (results && results.length > 0) { %>
         <div id="quiz-container">
             <div id="score-container">
-                <br>
-                <p>Score: <span id="score">0</span> / <span id="total-questions"><%= results.length %></span>
+
+                <h3>Score: <span id="score">0</span> / <span id="total-questions"><%= results.length %></span>
                 &emsp;Niveau: <span id="niveau"><%= results[0].NIVEAU %></span>
-                &emsp;Année: <span id="annee"><%=  results[0].ANNEE %></span></p>
-                <br>
+                &emsp;Année: <span id="annee"><%=  results[0].ANNEE %></span></h3>
+
             </div>
 
             <% results.forEach(function(question, index) { %>
@@ -38,10 +38,10 @@
                     <% } %>
                     <BR>
                     <div class="answers">
-                        <label><input type="checkbox" name="reponse-<%= index %>" value="<%= question.REP1 %>"> <%= question.REP1 %></label><br>
-                        <label><input type="checkbox" name="reponse-<%= index %>" value="<%= question.REP2 %>"> <%= question.REP2 %></label><br>
-                        <label><input type="checkbox" name="reponse-<%= index %>" value="<%= question.REP3 %>"> <%= question.REP3 %></label><br>
-                        <label><input type="checkbox" name="reponse-<%= index %>" value="<%= question.REP4 %>"> <%= question.REP4 %></label><br>
+                        <label><input type="radio" name="reponse-<%= index %>" value="<%= question.REP1 %>"> <%= question.REP1 %></label><br>
+                        <label><input type="radio" name="reponse-<%= index %>" value="<%= question.REP2 %>"> <%= question.REP2 %></label><br>
+                        <label><input type="radio" name="reponse-<%= index %>" value="<%= question.REP3 %>"> <%= question.REP3 %></label><br>
+                        <label><input type="radio" name="reponse-<%= index %>" value="<%= question.REP4 %>"> <%= question.REP4 %></label><br>
                     </div>   
                     <BR>
                         
@@ -50,16 +50,15 @@
                         <button class="speak-btn btn-standard " title="Écouter le texte">Écouter le texte 🔊</button>
                         <BR><BR>
 
-                        <button id= "showTexteBtn" class="btn-standard" title="Voir le texte">Voir le texte</button>
+                        <button id= "showTexteBtn" class="speak-btn btn-standard" title="Voir le texte">Voir le texte</button>
                         <BR><BR>
 
-                        <button id="showTranslationBtn" class="btn-standard" title="Voir la traduction">Voir la traduction</button>
-
+                        <p id="exerciceText" class="question-text pre-wrap" style="display: none;"><%= question.TEXTE %></p>
+                       
                     </div>
-                    <BR>
-                     <p id="exerciceText" class="question-text pre-wrap" style="display: none;"><%= question.TEXTE %></p>
-                    
-                    <BR>
+                     
+                    <button id="showTranslationBtn" class="speak-btn btn-standard" title="Voir la traduction">Voir la traduction</button>
+                    <BR><BR>
                     <p id="translationText" class="translation-text pre-wrap" style="display: none;"><%= question.TRADUCTION %></p>
 
 
@@ -67,7 +66,7 @@
                 </div>
             <% }); %>
             
-            <div id="quiz-control">
+            <div id="quiz-controls">
                 <button id="continuer-btn" class="btn-standard" >Continuer</button>
                 <button id="arreter-btn" class="btn-standard" style="display: none;">Terminer le Quiz</button>
             </div>
@@ -82,12 +81,13 @@
     .form-container-double { display: flex; justify-content: center; gap: 5px; margin-bottom: 10px; flex-wrap: wrap; }
     #niveau-select, #annee-select { padding: 5px; font-size: 0.9em; border-radius: 8px; min-width: 150px; }
     .btn-standard { padding: 8px 4px; background-color: #074107; color: white; border: none; border-radius: 4px; cursor: pointer; 
-        margin-top: 10px; width: 150px; }
-    .btn-standard:hover { background-color: #074107;  transform: scale(1.1); }
+        margin-top: 10px; width: 120px; }
+    .btn-standard:hover { background-color: #074107; }
+
     .question-container { display: none; }
     .answers { display: flex; gap: 5%;}
     .question-container.active { display: block; }
-    .question-text-container { display: flex;  align-items: center; gap: 10px;  }
+    .question-text-container { display: block;  align-items: center; gap: 10px;  }
     .question-text, .translation-text { padding: 10px;}
     .speak-btn {padding: 8px 16px; background-color: #074107; border: none;  /* Agrandit l'émoji pour qu'il soit plus cliquable */
             cursor: pointer; color: white; transition: transform 0.2s; }
