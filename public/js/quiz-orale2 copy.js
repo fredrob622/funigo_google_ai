@@ -3,31 +3,31 @@
 
     document.addEventListener('DOMContentLoaded', () => {
 
-    //     document.getElementById('showTranslationBtn').addEventListener('click', function() {
-    //     var elem = document.getElementById('translationText');
-    //     if (elem.style.display === "none") {
-    //         elem.style.display = "block";
-    //         this.textContent = "Cacher la traduction";
-    //         this.title = "Cacher la traduction";
-    //     } else {
-    //         elem.style.display = "none";
-    //         this.textContent = "Voir la traduction";
-    //         this.title = "Voir la traduction";
-    //     }
-    // });
+        document.getElementById('showTranslationBtn').addEventListener('click', function() {
+        var elem = document.getElementById('translationText');
+        if (elem.style.display === "none") {
+            elem.style.display = "block";
+            this.textContent = "Cacher la traduction";
+            this.title = "Cacher la traduction";
+        } else {
+            elem.style.display = "none";
+            this.textContent = "Voir la traduction";
+            this.title = "Voir la traduction";
+        }
+    });
 
-    //     document.getElementById('showTexteBtn').addEventListener('click', function() {
-    //     var elem = document.getElementById('exerciceText');
-    //     if (elem.style.display === "none") {
-    //         elem.style.display = "block";
-    //         this.textContent = "Cacher le texte";
-    //         this.title = "Cacher le texte";
-    //     } else {
-    //         elem.style.display = "none";
-    //         this.textContent = "Voir le texte";
-    //         this.title = "Voir le texte";
-    //     }
-    // });
+        document.getElementById('showTexteBtn').addEventListener('click', function() {
+        var elem = document.getElementById('exerciceText');
+        if (elem.style.display === "none") {
+            elem.style.display = "block";
+            this.textContent = "Cacher le texte";
+            this.title = "Cacher le texte";
+        } else {
+            elem.style.display = "none";
+            this.textContent = "Voir le texte";
+            this.title = "Voir le texte";
+        }
+    });
     
     // =================================================================
     // ==         INITIALISATION DE LA SYNTHÈSE VOCALE             ==
@@ -132,92 +132,58 @@
     });
 
 
-    // =================================================================
-    // ==   GESTION CENTRALISÉE DES CLICS (CORRIGÉE ET AMÉLIORÉE)   ==
-    // =================================================================
+    // --- LOGIQUE DE LECTURE DU TEXTE AVEC DÉBOGAGE ---
     quizContainer.addEventListener('click', function(event) {
-        const button = event.target;
-
-        // --- Logique pour "Voir/Cacher le texte" ---
-        if (button.matches('.show-texte-btn')) {
-            const questionContainer = button.closest('.question-container');
-            const elem = questionContainer.querySelector('.question-text');
-            
-            if (elem.style.display === "none") {
-                elem.style.display = "block";
-                button.textContent = "Cacher le texte";
-                button.title = "Cacher le texte";
-            } else {
-                elem.style.display = "none";
-                button.textContent = "Voir le texte";
-                button.title = "Voir le texte";
-            }
-        }
-
-        // --- Logique pour "Voir/Cacher la traduction" ---
-        if (button.matches('.show-translation-btn')) {
-            const questionContainer = button.closest('.question-container');
-            const elem = questionContainer.querySelector('.translation-text');
-
-            if (elem.style.display === "none") {
-                elem.style.display = "block";
-                button.textContent = "Cacher la traduction";
-                button.title = "Cacher la traduction";
-            } else {
-                elem.style.display = "none";
-                button.textContent = "Voir la traduction";
-                button.title = "Voir la traduction";
-            }
-        }
-        
-        // --- Logique de lecture du texte (adaptée pour le JAPONAIS) ---
-        if (button.matches('.speak-btn')) {
-            if (synth && voices.length > 0) {
-                const questionDiv = button.closest('.question-container');
+        if (event.target.matches('.speak-btn')) {
+            if (synth) {
+                const questionDiv = event.target.closest('.question-container');
                 if (!questionDiv) return;
 
                 const textElement = questionDiv.querySelector('.question-text');
                 if (!textElement) return;
-                
+
                 const textToSpeak = textElement.textContent;
-                synth.cancel(); 
+                
+                // On arrête toute lecture précédente.
+                synth.cancel();
 
                 const utterance = new SpeechSynthesisUtterance(textToSpeak);
 
-                // --- DÉBUT DE LA PARTIE CORRIGÉE POUR LE JAPONAIS ---
-                // Recherche une voix japonaise.
-                let selectedVoice = voices.find(voice => voice.lang === 'ja-JP' && voice.name.includes('Google'));
-                if (!selectedVoice) {
-                    selectedVoice = voices.find(voice => voice.lang === 'ja-JP' && voice.name.includes('Microsoft'));
-                }
-                if (!selectedVoice) {
-                    selectedVoice = voices.find(voice => voice.lang === 'ja-JP');
-                }
-                
-                // Si une voix japonaise est trouvée, on l'applique
-                if (selectedVoice) {
-                    utterance.voice = selectedVoice;
+                utterance.onerror = function(e) {
+                    console.error('ERREUR DE L\'UTTÉRANCE :', e);
+                };
+
+                // ===== AJOUTS POUR LE DÉBOGAGE =====
+                console.log("--- Clic sur le bouton Speak ---");
+                console.log("Texte à lire :", textToSpeak);
+
+                const frenchVoice = voices.find(voice => voice.lang === 'ja-JP');
+
+                // Affiche la voix française trouvée (ou undefined si pas trouvée)
+                console.log("Voix ja-JP trouvée :", frenchVoice);
+
+                if (frenchVoice) {
+                    utterance.voice = frenchVoice;
                 } else {
-                    console.warn("Aucune voix japonaise (ja-JP) n'a été trouvée sur ce navigateur.");
+                    utterance.lang = 'ja-JP';
+                    console.warn("Pas de voix ja-JP spécifique, fallback sur utterance.lang.");
                 }
+
+                // Affiche l'objet final avant de le donner au navigateur
+                console.log("Objet Utterance final :", utterance);
+                // =====================================
                 
-                // Paramètres de l'énoncé pour le japonais
-                utterance.lang = 'ja-JP'; // On spécifie la langue du texte
-                utterance.pitch = 1; 
-                utterance.rate = 0.8; // Une vitesse légèrement plus lente est souvent meilleure pour le japonais
-                // --- FIN DE LA PARTIE CORRIGÉE ---
-                
+                // DERNIÈRE TENTATIVE : Lancer la lecture après une micro-pause
+                // Parfois, cancel() et speak() trop rapprochés posent problème.
                 setTimeout(() => {
                     synth.speak(utterance);
-                }, 100);
+                }, 100); // 100 millisecondes de délai
 
             } else {
-                if(voices.length === 0) {
-                     alert("Les voix de synthèse ne sont pas encore chargées. Veuillez patienter un instant et réessayer.");
-                } else {
-                     alert("Désolé, votre navigateur ne supporte pas la lecture de texte.");
-                }
+                alert("Désolé, votre navigateur ne supporte pas la lecture de texte.");
             }
         }
     });
-    });
+
+
+});

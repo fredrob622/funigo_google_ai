@@ -50,18 +50,20 @@
                         <button class="speak-btn btn-standard " title="Écouter le texte">Écouter le texte 🔊</button>
                         <BR><BR>
 
-                        <button id= "showTexteBtn" class="btn-standard" title="Voir le texte">Voir le texte</button>
+                        <!-- <button id= "showTexteBtn" class="btn-standard" title="Voir le texte">Voir le texte</button> -->
+                        <button class="show-texte-btn btn-standard" title="Voir le texte">Voir le texte</button>
                         <BR><BR>
 
-                        <button id="showTranslationBtn" class="btn-standard" title="Voir la traduction">Voir la traduction</button>
+                        <!-- <button id="showTranslationBtn" class="btn-standard" title="Voir la traduction">Voir la traduction</button> -->
+                        <button class="show-translation-btn btn-standard" title="Voir la traduction">Voir la traduction</button>
 
                     </div>
                     <BR>
-                     <p id="exerciceText" class="question-text pre-wrap" style="display: none;"><%= question.TEXTE %></p>
-                    
+                     <!-- <p id="exerciceText" class="question-text pre-wrap" style="display: none;"><%= question.TEXTE %></p> -->
+                    <p class="question-text pre-wrap" style="display: none;"><%= question.TEXTE %></p>
                     <BR>
-                    <p id="translationText" class="translation-text pre-wrap" style="display: none;"><%= question.TRADUCTION %></p>
-
+                    <!-- <p id="translationText" class="translation-text pre-wrap" style="display: none;"><%= question.TRADUCTION %></p> -->
+                    <p class="translation-text pre-wrap" style="display: none;"><%= question.TRADUCTION %></p>    
 
                     <div id="feedback-<%= index %>" class="feedback"></div>
                 </div>
